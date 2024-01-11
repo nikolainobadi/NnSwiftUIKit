@@ -11,8 +11,8 @@ import SwiftUI
 /// This button uses `NnLoadingHandler` and `NnSwiftUIErrorHandler` as environment objects to handle loading state and error state respectively.
 public struct NnAsyncTryButton<Label>: View where Label: View {
     @ViewBuilder var label: () -> Label
-//    @EnvironmentObject var loadingHandler: NnLoadingHandler
-//    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
+    @EnvironmentObject var loadingHandler: NnLoadingHandler
+    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
     var role: NnButtonRole?
     var action: () async throws -> Void
@@ -51,50 +51,17 @@ public extension NnAsyncTryButton where Label == Text {
 
 // MARK: - Private Methods
 private extension NnAsyncTryButton {
-    /// Performs the async action when the button is tapped.
-    /// It begins by triggering the loading state, then attempts the async action.
-    /// If the action throws an error, the error is passed to the errorHandler.
-    /// Whether the action succeeds or fails, the loading state is ended afterward.
     func performAction() {
-//        loadingHandler.startLoading()
-//        
-//        Task {
-//            do {
-//                try await action()
-//            } catch {
-//                errorHandler.handle(error: error)
-//            }
-//            
-//            loadingHandler.stopLoading()
-//        }
-    }
-}
-
-
-// MARK: - Dependencies
-
-public enum NnButtonRole {
-    case cancel, destructive
-    
-    @available(iOS 15.0, *)
-    var buttonRole: ButtonRole {
-        switch self {
-        case .cancel:
-            return .cancel
-        case .destructive:
-            return .destructive
-        }
-    }
-}
-
-@available(iOS 15.0, *)
-extension ButtonRole {
-    var nnButtonRole: NnButtonRole {
-        switch self {
-        case .destructive:
-            return .destructive
-        default:
-            return .cancel
+        loadingHandler.startLoading()
+        
+        Task {
+            do {
+                try await action()
+            } catch {
+                errorHandler.handle(error: error)
+            }
+            
+            loadingHandler.stopLoading()
         }
     }
 }
