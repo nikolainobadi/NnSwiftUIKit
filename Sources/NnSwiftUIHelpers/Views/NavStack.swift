@@ -8,31 +8,49 @@
 import SwiftUI
 
 @available(iOS 16.0, *)
-struct NavStack<Content: View>: View {
-    var path: Binding<NavigationPath>?
+public struct NavStack<Content: View>: View {
+    @Binding var path: NavigationPath
     
     let title: String?
+    let displayMode: NavigationBarItem.TitleDisplayMode
     let content: () -> Content
     
-    var body: some View {
-        if let pathBinding = path {
-            NavigationStack(path: pathBinding) {
-                if let title = title {
-                    content()
-                        .navigationTitle(title)
-                } else {
-                    content()
-                }
-            }
-        } else {
-            NavigationStack {
-                if let title = title {
-                    content()
-                        .navigationTitle(title)
-                } else {
-                    content()
-                }
-            }
+    public init(path: Binding<NavigationPath>? = nil, title: String?, displayMode: NavigationBarItem.TitleDisplayMode = .automatic, @ViewBuilder content: @escaping () -> Content) {
+        self._path = path ?? .constant(.init())
+        self.title = title
+        self.displayMode = displayMode
+        self.content = content
+    }
+    
+    public var body: some View {
+        NavigationStack(path: $path) {
+            content()
+                .withNavTitle(title: title)
+                .navigationBarTitleDisplayMode(displayMode)
+        }
+    }
+}
+
+@available(iOS 16.0, *)
+public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableCollection, Data: RandomAccessCollection, Data: RangeReplaceableCollection, Data.Element: Hashable {
+    @Binding var path: Data
+    
+    let title: String?
+    let displayMode: NavigationBarItem.TitleDisplayMode
+    let content: () -> Content
+    
+    public init(path: Binding<Data>, title: String?, displayMode: NavigationBarItem.TitleDisplayMode = .automatic, @ViewBuilder content: @escaping () -> Content) {
+        self._path = path
+        self.title = title
+        self.displayMode = displayMode
+        self.content = content
+    }
+    
+    public var body: some View {
+        NavigationStack(path: $path) {
+            content()
+                .withNavTitle(title: title)
+                .navigationBarTitleDisplayMode(displayMode)
         }
     }
 }
