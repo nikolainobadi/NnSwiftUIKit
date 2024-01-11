@@ -11,10 +11,17 @@ let package = Package(
     products: [
         .library(
             name: "NnSwiftUIHelpers",
+            type: .dynamic,
             targets: ["NnSwiftUIHelpers"]),
+        .library(
+            name: "NnSwiftUIErrorHandling",
+            type: .dynamic,
+            targets: ["NnSwiftUIErrorHandling"]),
     ],
     targets: [
         .target(
             name: "NnSwiftUIHelpers"),
+        .target(
+            name: "NnSwiftUIErrorHandling"),
     ]
 )
