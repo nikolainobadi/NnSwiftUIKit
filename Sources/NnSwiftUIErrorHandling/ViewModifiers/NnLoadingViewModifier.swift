@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NnSwiftUIHelpers
 
 /// A ViewModifier that adds a loading state overlay to the view it modifies.
 /// It creates and injects an `NnLoadingHandler` environment object into the modified view.
@@ -18,17 +19,16 @@ struct NnLoadingViewModifier: ViewModifier {
             content
                 .environmentObject(loadingHandler)
             
-            if loadingHandler.isLoading {
-                ZStack {
-                    Color.primary
-                        .opacity(0.5)
-                        .ignoresSafeArea()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .accentColor(.white)
-                        .scaleEffect(3)
-                }
+            ZStack {
+                Color.primary
+                    .opacity(0.5)
+                    .ignoresSafeArea()
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .accentColor(.white)
+                    .scaleEffect(3)
             }
+            .onlyShow(when: loadingHandler.isLoading)
         }
     }
 }

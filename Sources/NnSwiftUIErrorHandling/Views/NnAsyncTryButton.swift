@@ -14,8 +14,8 @@ public struct NnAsyncTryButton<Label>: View where Label: View {
     @EnvironmentObject var loadingHandler: NnLoadingHandler
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
-    var role: NnButtonRole?
-    var action: () async throws -> Void
+    let role: NnButtonRole?
+    let action: () async throws -> Void
     
     /// Initializes a new NnAsyncTryButton with a given async action, role, and label.
     public init(action: @escaping () async throws -> Void, role: NnButtonRole? = nil, label: @escaping () -> Label) {

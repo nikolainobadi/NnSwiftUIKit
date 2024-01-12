@@ -13,8 +13,8 @@ public struct NnTryButton<Label>: View where Label: View {
     @ViewBuilder var label: () -> Label
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
-    var role: NnButtonRole?
-    var action: () throws -> Void
+    let role: NnButtonRole?
+    let action: () throws -> Void
     
     public init(action: @escaping () throws -> Void, role: NnButtonRole? = nil, label: @escaping () -> Label) {
         self.action = action

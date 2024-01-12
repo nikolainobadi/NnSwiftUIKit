@@ -20,8 +20,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "NnSwiftUIHelpers"),
+            name: "NnSwiftUIHelpers"
+        ),
         .target(
-            name: "NnSwiftUIErrorHandling"),
+            name: "NnSwiftUIErrorHandling",
+            dependencies: ["NnSwiftUIHelpers"]
+        ),
     ]
 )
