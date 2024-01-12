@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NnSwiftUIHelpers
 
 struct AsyncTaskOnAppearViewModifier: ViewModifier {
     @EnvironmentObject var loadingHandler: NnLoadingHandler

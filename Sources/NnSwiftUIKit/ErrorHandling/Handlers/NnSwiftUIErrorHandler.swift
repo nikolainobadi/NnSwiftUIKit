@@ -7,7 +7,6 @@
 
 import Foundation
 
-/// Class to handle errors and alert displays within SwiftUI.
 public final class NnSwiftUIErrorHandler: ObservableObject {
     @Published var currentAlert: NnErrorAlert?
     

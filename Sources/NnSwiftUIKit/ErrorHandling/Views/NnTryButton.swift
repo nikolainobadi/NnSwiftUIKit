@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-/// A SwiftUI button that handles errors thrown by its action.
-/// The error is handled by the `NnSwiftUIErrorHandler` injected as an environment object.
 public struct NnTryButton<Label>: View where Label: View {
     @ViewBuilder var label: () -> Label
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler

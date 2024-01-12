@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import NnSwiftUIHelpers
 
 struct LoadingViewModifier: ViewModifier {
     @StateObject var loadingHandler = NnLoadingHandler()
