@@ -33,7 +33,6 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
     }
 }
 
-
 public extension View {
     func asyncTask(delay: Double = 0, asyncAction: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTaskOnAppearViewModifier(delay: delay, asyncAction: asyncAction))

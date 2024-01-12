@@ -16,9 +16,9 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onTapGesture {
-                loadingHandler.startLoading()
-                
                 Task {
+                    loadingHandler.startLoading()
+                    
                     do {
                         try await action()
                     } catch {
@@ -30,7 +30,6 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
             }
     }
 }
-
 
 public extension View {
     func asyncTapGesture(action: @escaping () async throws -> Void) -> some View {

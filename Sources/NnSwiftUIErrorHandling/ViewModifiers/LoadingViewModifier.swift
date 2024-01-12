@@ -31,8 +31,6 @@ struct LoadingViewModifier: ViewModifier {
 }
 
 public extension View {
-    /// Function to add the `NnLoadingViewModifier` to any View.
-    /// Use this to inject the `NnLoadingHandler` and add the loading state UI to a view.
     func withNnLoadingView() -> some View {
         modifier(LoadingViewModifier())
     }

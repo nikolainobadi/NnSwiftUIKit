@@ -31,7 +31,6 @@ struct AsyncOpenURLViewModifier: ViewModifier {
     }
 }
 
-
 public extension View {
     func asyncHandleURL(_ asyncAction: @escaping (URL) async throws -> Void) -> some View {
         modifier(AsyncOpenURLViewModifier(asyncAction: asyncAction))

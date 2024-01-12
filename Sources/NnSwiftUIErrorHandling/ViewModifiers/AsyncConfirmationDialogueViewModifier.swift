@@ -26,7 +26,6 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     }
 }
 
-
 @available(iOS 15.0, *)
 public extension View {
     func asyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonText: String, message: String, action: @escaping () async throws -> Void) -> some View {
