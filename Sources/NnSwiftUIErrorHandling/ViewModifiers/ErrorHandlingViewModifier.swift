@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ErrorHandlingViewModifier.swift
 //  
 //
 //  Created by Nikolai Nobadi on 1/11/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NnSwiftUIErrorHandlingViewModifier: ViewModifier {
+struct ErrorHandlingViewModifier: ViewModifier {
     @StateObject var errorHandling = NnSwiftUIErrorHandler()
 
     func body(content: Content) -> some View {
@@ -30,7 +30,7 @@ struct NnSwiftUIErrorHandlingViewModifier: ViewModifier {
 
 public extension View {
     func withNnErrorHandling() -> some View {
-        modifier(NnSwiftUIErrorHandlingViewModifier())
+        modifier(ErrorHandlingViewModifier())
     }
 }
 
