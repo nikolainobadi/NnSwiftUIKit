@@ -11,6 +11,7 @@ let package = Package(
     products: [
         .library(
             name: "NnSwiftUIKit",
+            type: .dynamic,
             targets: ["NnSwiftUIKit"]),
     ],
     targets: [
