@@ -11,6 +11,7 @@ import SwiftUI
 struct NavBarDismissButtonViewModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
     
+    let isActive: Bool
     let dismissType: NavBarDismissType
     let action: (() -> Void)?
     
@@ -39,8 +40,8 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
 
 @available(iOS 15.0, *)
 public extension View {
-    func withNavBarDismissButton(dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(dismissType: dismissType, action: dismiss))
+    func withNavBarDismissButton(isActive: Bool = true, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
+        modifier(NavBarDismissButtonViewModifier(isActive: isActive, dismissType: dismissType, action: dismiss))
     }
 }
 

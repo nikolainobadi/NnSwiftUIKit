@@ -12,6 +12,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
     let delay: Double
+    let hideLoadingIndicator: Bool
     let asyncAction: () async throws -> Void
     
     func body(content: Content) -> some View {
@@ -33,8 +34,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
 }
 
 public extension View {
-    func asyncTask(delay: Double = 0, asyncAction: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncTaskOnAppearViewModifier(delay: delay, asyncAction: asyncAction))
+    func asyncTask(delay: Double = 0, hideLoadingIndicator: Bool = false, asyncAction: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncTaskOnAppearViewModifier(delay: delay, hideLoadingIndicator: hideLoadingIndicator, asyncAction: asyncAction))
     }
 }
-
