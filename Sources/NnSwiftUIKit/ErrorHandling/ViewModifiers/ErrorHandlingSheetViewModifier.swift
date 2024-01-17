@@ -23,7 +23,7 @@ struct ErrorHandlingSheetViewModifier<Sheet: View>: ViewModifier {
 }
 
 public extension View {
-    func sheetWithErrorHandling() -> some View {
-        modifier(ErrorHandlingViewModifier())
+    func sheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
+        modifier(ErrorHandlingSheetViewModifier(isPresented: isPresented, sheet: sheet))
     }
 }
