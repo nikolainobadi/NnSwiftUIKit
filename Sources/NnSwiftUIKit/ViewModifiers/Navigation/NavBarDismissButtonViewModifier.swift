@@ -27,14 +27,18 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        content
-            .withNavBarButton(placement: dismissType == .done ? .topBarTrailing : .topBarLeading, buttonContent: buttonContent, textColor: .white) {
-                if let action = action {
-                    action()
-                } else {
-                    dismiss()
+        if isActive {
+            content
+                .withNavBarButton(placement: dismissType == .done ? .topBarTrailing : .topBarLeading, buttonContent: buttonContent, textColor: .white) {
+                    if let action = action {
+                        action()
+                    } else {
+                        dismiss()
+                    }
                 }
-            }
+        } else {
+            content
+        }
     }
 }
 

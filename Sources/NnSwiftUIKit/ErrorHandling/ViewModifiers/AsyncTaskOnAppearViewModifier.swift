@@ -15,11 +15,21 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
     let hideLoadingIndicator: Bool
     let asyncAction: () async throws -> Void
     
+    private func configureLoading(startLoading: Bool) {
+        if hideLoadingIndicator { return }
+        
+        if startLoading {
+            loadingHandler.startLoading()
+        } else {
+            loadingHandler.stopLoading()
+        }
+    }
+    
     func body(content: Content) -> some View {
         content
             .delayedOnAppear(seconds: delay) {
                 Task {
-                    loadingHandler.startLoading()
+                    configureLoading(startLoading: true)
                     
                     do {
                         try await asyncAction()
@@ -27,7 +37,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
                         errorHandler.handle(error: error)
                     }
                     
-                    loadingHandler.stopLoading()
+                    configureLoading(startLoading: false)
                 }
             }
     }

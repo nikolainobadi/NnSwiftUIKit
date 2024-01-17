@@ -11,11 +11,19 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
     @EnvironmentObject var loadingHandler: NnLoadingHandler
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
+    let asRowItem: NnAsyncTapRowItem?
     let action: () async throws -> Void
     
     func body(content: Content) -> some View {
-        content
-            .onTapGesture {
+        Group {
+            if let asRowItem = asRowItem {
+                content
+                    .asRowItem(withChevron: asRowItem == .withChevron)
+            } else {
+                content
+            }
+        }
+        .onTapGesture {
                 Task {
                     loadingHandler.startLoading()
                     
@@ -32,7 +40,13 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
 }
 
 public extension View {
-    func asyncTapGesture(action: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncTryTapGestureViewModifier(action: action))
+    func asyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
     }
+}
+
+
+// MARK: - Dependencies
+public enum NnAsyncTapRowItem {
+    case noChevron, withChevron
 }
