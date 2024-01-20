@@ -1,5 +1,5 @@
 //
-//  ErrorHandlingSheetViewModifier.swift
+//  SheetErrorHandlingViewModifier.swift
 //
 //
 //  Created by Nikolai Nobadi on 1/11/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ErrorHandlingSheetViewModifier<Sheet: View>: ViewModifier {
+struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
     @Binding var isPresented: Bool
     
     let sheet: () -> Sheet
@@ -24,6 +24,6 @@ struct ErrorHandlingSheetViewModifier<Sheet: View>: ViewModifier {
 
 public extension View {
     func sheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
-        modifier(ErrorHandlingSheetViewModifier(isPresented: isPresented, sheet: sheet))
+        modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, sheet: sheet))
     }
 }
