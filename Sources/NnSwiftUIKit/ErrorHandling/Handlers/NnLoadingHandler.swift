@@ -9,12 +9,24 @@ import Foundation
 
 public final class NnLoadingHandler: ObservableObject {
     @Published var isLoading: Bool = false
-    
-    public func startLoading() {
-        isLoading = true
+}
+
+public extension NnLoadingHandler {
+    func startLoading(isDisabled: Bool = false) {
+        configureLoading(isLoading: true, isDisabled: isDisabled)
     }
 
-    public func stopLoading() {
-        isLoading = false
+    func stopLoading(isDisabled: Bool = false) {
+        configureLoading(isLoading: false, isDisabled: isDisabled)
+    }
+}
+
+
+// MARK: - Private Methods
+private extension NnLoadingHandler {
+    func configureLoading(isLoading: Bool, isDisabled: Bool) {
+        guard !isDisabled else { return }
+        
+        self.isLoading = isLoading
     }
 }

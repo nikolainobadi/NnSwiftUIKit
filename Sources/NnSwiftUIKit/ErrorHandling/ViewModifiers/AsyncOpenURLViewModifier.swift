@@ -11,13 +11,14 @@ struct AsyncOpenURLViewModifier: ViewModifier {
     @EnvironmentObject var loadingHandler: NnLoadingHandler
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
+    let hideLoadingIndicator: Bool
     let asyncAction: (URL) async throws -> Void
     
     func body(content: Content) -> some View {
         content
             .onOpenURL { url in
                 Task {
-                    loadingHandler.startLoading()
+                    loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
                     
                     do {
                         try await asyncAction(url)
@@ -25,14 +26,14 @@ struct AsyncOpenURLViewModifier: ViewModifier {
                         errorHandler.handle(error: error)
                     }
                     
-                    loadingHandler.stopLoading()
+                    loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
                 }
             }
     }
 }
 
 public extension View {
-    func asyncHandleURL(_ asyncAction: @escaping (URL) async throws -> Void) -> some View {
-        modifier(AsyncOpenURLViewModifier(asyncAction: asyncAction))
+    func asyncHandleURL(hideLoadingIndicator: Bool = false, asyncAction: @escaping (URL) async throws -> Void) -> some View {
+        modifier(AsyncOpenURLViewModifier(hideLoadingIndicator: hideLoadingIndicator, asyncAction: asyncAction))
     }
 }

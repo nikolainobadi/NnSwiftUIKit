@@ -7,23 +7,28 @@
 
 import SwiftUI
 
-struct ItemSheetErrorHandlingViewModifier<Item: Identifiable & Hashable, Sheet: View>: ViewModifier {
+struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: ViewModifier {
     @Binding var item: Item?
     
+    let isDisabled: Bool
     let sheet: (Item) -> Sheet
     
     func body(content: Content) -> some View {
-        content
-            .sheet(item: $item) { itemToShow in
-                sheet(itemToShow)
-                    .withNnLoadingView()
-                    .withNnErrorHandling()
-            }
+        if isDisabled {
+            content
+        } else {
+            content
+                .sheet(item: $item) { itemToShow in
+                    sheet(itemToShow)
+                        .withNnLoadingView()
+                        .withNnErrorHandling()
+                }
+        }
     }
 }
 
 public extension View {
-    func sheetWithErrorHandling<Item: Identifiable & Hashable, Sheet: View>(item: Binding<Item?>, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
-        modifier(ItemSheetErrorHandlingViewModifier(item: item, sheet: sheet))
+    func sheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
+        modifier(ItemSheetErrorHandlingViewModifier(item: item, isDisabled: isDisabled, sheet: sheet))
     }
 }
