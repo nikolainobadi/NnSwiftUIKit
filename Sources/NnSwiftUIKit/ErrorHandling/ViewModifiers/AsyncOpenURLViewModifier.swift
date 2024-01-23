@@ -26,7 +26,7 @@ struct AsyncOpenURLViewModifier: ViewModifier {
                         errorHandler.handle(error: error)
                     }
                     
-                    loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
+                    loadingHandler.stopLoading(isDisabled: hideLoadingIndicator)
                 }
             }
     }
