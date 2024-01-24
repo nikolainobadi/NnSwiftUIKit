@@ -25,7 +25,7 @@ struct RowItemViewModifier: ViewModifier {
 }
 
 public extension View {
-    func asRowItem(withChevron: Bool = false) -> some View {
+    func nnAsRowItem(withChevron: Bool = false) -> some View {
         modifier(RowItemViewModifier(withChevron: withChevron))
     }
 }

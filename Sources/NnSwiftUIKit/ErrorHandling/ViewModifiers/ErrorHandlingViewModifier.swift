@@ -29,7 +29,7 @@ struct ErrorHandlingViewModifier: ViewModifier {
 }
 
 public extension View {
-    func withNnErrorHandling() -> some View {
+    func nnWithNnErrorHandling() -> some View {
         modifier(ErrorHandlingViewModifier())
     }
 }

@@ -17,13 +17,13 @@ struct ConditionalBorderOverlayViewModifier: ViewModifier {
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(color)
-                    .onlyShow(when: showOverlay)
+                    .nnOnlyShow(when: showOverlay)
             )
     }
 }
 
 public extension View {
-    func withBorderOverlay(_ showOverlay: Bool, color: Color = .red, cornerRadius: CGFloat = 10) -> some View {
+    func nnWithBorderOverlay(_ showOverlay: Bool, color: Color = .red, cornerRadius: CGFloat = 10) -> some View {
         modifier(ConditionalBorderOverlayViewModifier(color: color, showOverlay: showOverlay, cornerRadius: cornerRadius))
     }
 }

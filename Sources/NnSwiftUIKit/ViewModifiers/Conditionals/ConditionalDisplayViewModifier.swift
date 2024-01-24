@@ -18,7 +18,7 @@ struct ConditionalDisplayViewModifier: ViewModifier {
 }
 
 public extension View {
-    func onlyShow(when conditional: Bool) -> some View {
+    func nnOnlyShow(when conditional: Bool) -> some View {
         modifier(ConditionalDisplayViewModifier(conditional: conditional))
     }
 }

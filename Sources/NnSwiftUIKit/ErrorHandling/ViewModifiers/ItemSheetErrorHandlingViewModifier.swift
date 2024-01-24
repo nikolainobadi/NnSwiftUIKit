@@ -20,15 +20,15 @@ struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: View
             content
                 .sheet(item: $item) { itemToShow in
                     sheet(itemToShow)
-                        .withNnLoadingView()
-                        .withNnErrorHandling()
+                        .nnWithNnLoadingView()
+                        .nnWithNnErrorHandling()
                 }
         }
     }
 }
 
 public extension View {
-    func sheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
+    func nnSheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
         modifier(ItemSheetErrorHandlingViewModifier(item: item, isDisabled: isDisabled, sheet: sheet))
     }
 }

@@ -16,14 +16,14 @@ struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
         content
             .sheet(isPresented: $isPresented) {
                 sheet()
-                    .withNnLoadingView()
-                    .withNnErrorHandling()
+                    .nnWithNnLoadingView()
+                    .nnWithNnErrorHandling()
             }
     }
 }
 
 public extension View {
-    func sheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
+    func nnSheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
         modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, sheet: sheet))
     }
 }

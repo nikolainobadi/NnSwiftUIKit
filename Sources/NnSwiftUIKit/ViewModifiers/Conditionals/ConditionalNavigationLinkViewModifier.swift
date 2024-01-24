@@ -25,7 +25,7 @@ struct ConditionalNavigationLinkViewModifier<D: Hashable>: ViewModifier {
 
 @available(iOS 16.0, *)
 public extension View {
-    func asNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
+    func nnAsNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
         modifier(ConditionalNavigationLinkViewModifier(data: data, isActive: isActive))
     }
 }

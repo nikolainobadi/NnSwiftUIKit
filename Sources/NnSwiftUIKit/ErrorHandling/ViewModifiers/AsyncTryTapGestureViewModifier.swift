@@ -18,7 +18,7 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
         Group {
             if let asRowItem = asRowItem {
                 content
-                    .asRowItem(withChevron: asRowItem == .withChevron)
+                    .nnAsRowItem(withChevron: asRowItem == .withChevron)
             } else {
                 content
             }
@@ -40,7 +40,7 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
 }
 
 public extension View {
-    func asyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
+    func nnAsyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
     }
 }

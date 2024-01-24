@@ -25,7 +25,7 @@ public struct NavStack<Content: View>: View {
     public var body: some View {
         NavigationStack(path: $path) {
             content()
-                .withNavTitle(title: title)
+                .nnWithNavTitle(title: title)
                 .navigationBarTitleDisplayMode(displayMode)
         }
     }
@@ -49,7 +49,7 @@ public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableC
     public var body: some View {
         NavigationStack(path: $path) {
             content()
-                .withNavTitle(title: title)
+                .nnWithNavTitle(title: title)
                 .navigationBarTitleDisplayMode(displayMode)
         }
     }

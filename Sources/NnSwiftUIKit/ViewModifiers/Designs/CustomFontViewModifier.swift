@@ -41,23 +41,23 @@ private extension View {
     func makeFontSize(_ style: Font.TextStyle) -> CGFloat {
         switch style {
         case .largeTitle:
-            return getHeightPercent(7)
+            return nnGetHeightPercent(7)
         case .title:
-            return getHeightPercent(6)
+            return nnGetHeightPercent(6)
         case .title2:
-            return getHeightPercent(4.8)
+            return nnGetHeightPercent(4.8)
         case .title3:
-            return getHeightPercent(4)
+            return nnGetHeightPercent(4)
         case .headline:
-            return getHeightPercent(3.5)
+            return nnGetHeightPercent(3.5)
         case .subheadline:
-            return getHeightPercent(3)
+            return nnGetHeightPercent(3)
         case .body:
-            return getHeightPercent(2.5)
+            return nnGetHeightPercent(2.5)
         case .caption:
-            return getHeightPercent(2)
+            return nnGetHeightPercent(2)
         case .caption2:
-            return getHeightPercent(1.8)
+            return nnGetHeightPercent(1.8)
         default:
             return 8
         }

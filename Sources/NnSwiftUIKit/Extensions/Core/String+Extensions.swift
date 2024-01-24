@@ -6,7 +6,7 @@
 //
 
 public extension String {
-    func removingExtraWhitespace() -> String {
+    func nnRemovingExtraWhitespace() -> String {
         return self.split(separator: " ")
             .filter { !$0.isEmpty }
             .joined(separator: " ")

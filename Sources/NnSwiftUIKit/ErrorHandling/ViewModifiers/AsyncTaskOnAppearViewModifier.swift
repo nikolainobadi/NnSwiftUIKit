@@ -17,7 +17,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .delayedOnAppear(seconds: delay) {
+            .nnDelayedOnAppear(seconds: delay) {
                 Task {
                     loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
                     
@@ -34,7 +34,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
 }
 
 public extension View {
-    func asyncTask(delay: Double = 0, hideLoadingIndicator: Bool = false, asyncAction: @escaping () async throws -> Void) -> some View {
+    func nnAsyncTask(delay: Double = 0, hideLoadingIndicator: Bool = false, asyncAction: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTaskOnAppearViewModifier(delay: delay, hideLoadingIndicator: hideLoadingIndicator, asyncAction: asyncAction))
     }
 }

@@ -24,13 +24,13 @@ struct LoadingViewModifier: ViewModifier {
                     .accentColor(.white)
                     .scaleEffect(3)
             }
-            .onlyShow(when: loadingHandler.isLoading)
+            .nnOnlyShow(when: loadingHandler.isLoading)
         }
     }
 }
 
 public extension View {
-    func withNnLoadingView() -> some View {
+    func nnWithNnLoadingView() -> some View {
         modifier(LoadingViewModifier())
     }
 }
