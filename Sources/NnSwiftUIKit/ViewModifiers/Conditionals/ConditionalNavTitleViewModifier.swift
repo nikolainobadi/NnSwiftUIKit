@@ -19,9 +19,3 @@ struct ConditionalNavTitleViewModifier: ViewModifier {
         }
     }
 }
-
-public extension View {
-    func nnWithNavTitle(title: String?) -> some View {
-        modifier(ConditionalNavTitleViewModifier(title: title))
-    }
-}

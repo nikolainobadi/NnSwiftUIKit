@@ -30,12 +30,3 @@ struct DeleteRowViewModifier: ViewModifier {
         }
     }
 }
-
-@available(iOS 15.0, *)
-public extension View {
-    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, delete: @escaping () async throws -> Void) -> some View {
-        modifier(DeleteRowViewModifier(message: message, isActive: isActive, delete: delete))
-    }
-}
-
-

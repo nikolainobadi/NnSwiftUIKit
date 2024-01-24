@@ -34,9 +34,3 @@ struct AsyncOnChangeOfOptionalViewModifier<Item: Equatable>: ViewModifier {
             }
     }
 }
-
-public extension View {
-    func nnAsyncOnChange<Item: Equatable>(of item: Item?, hideLoadingIndicator: Bool = false, action: @escaping (Item) async throws -> Void) -> some View {
-        modifier(AsyncOnChangeOfOptionalViewModifier(item: item, hideLoadingIndicator: hideLoadingIndicator, action: action))
-    }
-}

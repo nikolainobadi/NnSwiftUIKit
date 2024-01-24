@@ -42,13 +42,6 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     }
 }
 
-@available(iOS 15.0, *)
-public extension View {
-    func withNavBarDismissButton(isActive: Bool = true, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(isActive: isActive, dismissType: dismissType, action: dismiss))
-    }
-}
-
 
 // MARK: - Dependencies
 public enum NavBarDismissType {

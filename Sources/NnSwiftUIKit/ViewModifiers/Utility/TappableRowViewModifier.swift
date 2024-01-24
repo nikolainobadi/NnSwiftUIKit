@@ -26,9 +26,3 @@ struct TappableRowViewModifier: ViewModifier {
         .onTapGesture(perform: onTapGesture)
     }
 }
-
-public extension View {
-    func nnTappable(withChevron: Bool = false, onTapGesture: @escaping () -> Void) -> some View {
-        modifier(TappableRowViewModifier(withChevron: withChevron, onTapGesture: onTapGesture))
-    }
-}

@@ -21,19 +21,9 @@ struct CustomFontViewModifier: ViewModifier {
     }
 }
 
-public extension View {
-    func setCustomFont(_ style: Font.TextStyle, fontName: String, isSmooth: Bool = false, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
-        modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
-    }
-    
-    func setCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
-        modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
-    }
-}
 
-
-// MARK: - Private
-private extension View {
+// MARK: - Helpers
+internal extension View {
     func makeFont(_ style: Font.TextStyle, fontName: String) -> Font {
         return Font.custom(fontName, size: makeFontSize(style))
     }

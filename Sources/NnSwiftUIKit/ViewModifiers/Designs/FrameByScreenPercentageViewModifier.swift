@@ -17,9 +17,3 @@ struct FrameByScreenPercentageViewModifier: ViewModifier {
             .frame(maxWidth: width, maxHeight: height, alignment: alignment)
     }
 }
-
-public extension View {
-    func nnFramePercent(widthPercent: CGFloat, heighPercent: CGFloat, alignment: Alignment = .center) -> some View {
-        modifier(FrameByScreenPercentageViewModifier(width: nnGetWidthPercent(widthPercent), height: nnGetHeightPercent(heighPercent), alignment: alignment))
-    }
-}

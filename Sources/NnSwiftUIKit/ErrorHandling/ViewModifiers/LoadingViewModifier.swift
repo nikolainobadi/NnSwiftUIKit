@@ -28,9 +28,3 @@ struct LoadingViewModifier: ViewModifier {
         }
     }
 }
-
-public extension View {
-    func nnWithNnLoadingView() -> some View {
-        modifier(LoadingViewModifier())
-    }
-}

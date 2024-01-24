@@ -23,9 +23,3 @@ struct RowItemViewModifier: ViewModifier {
         .contentShape(Rectangle())
     }
 }
-
-public extension View {
-    func nnAsRowItem(withChevron: Bool = false) -> some View {
-        modifier(RowItemViewModifier(withChevron: withChevron))
-    }
-}

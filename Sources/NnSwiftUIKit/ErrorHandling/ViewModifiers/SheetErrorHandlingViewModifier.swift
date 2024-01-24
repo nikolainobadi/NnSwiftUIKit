@@ -21,9 +21,3 @@ struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
             }
     }
 }
-
-public extension View {
-    func nnSheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
-        modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, sheet: sheet))
-    }
-}

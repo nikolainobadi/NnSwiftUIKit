@@ -21,9 +21,3 @@ struct ConditionalBorderOverlayViewModifier: ViewModifier {
             )
     }
 }
-
-public extension View {
-    func nnWithBorderOverlay(_ showOverlay: Bool, color: Color = .red, cornerRadius: CGFloat = 10) -> some View {
-        modifier(ConditionalBorderOverlayViewModifier(color: color, showOverlay: showOverlay, cornerRadius: cornerRadius))
-    }
-}

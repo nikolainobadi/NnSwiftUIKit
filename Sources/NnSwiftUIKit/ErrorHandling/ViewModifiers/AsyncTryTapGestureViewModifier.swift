@@ -39,12 +39,6 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
     }
 }
 
-public extension View {
-    func nnAsyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
-    }
-}
-
 
 // MARK: - Dependencies
 public enum NnAsyncTapRowItem {
