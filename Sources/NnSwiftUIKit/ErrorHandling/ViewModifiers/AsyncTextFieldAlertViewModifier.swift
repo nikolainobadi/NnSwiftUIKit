@@ -32,17 +32,6 @@ struct AsyncTextFieldAlertViewModifier: ViewModifier {
     }
 }
 
-@available(iOS 15.0, *)
-public extension View {
-    func asyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", actionButtonText: String = "Save", saveItem: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, actionButtonText: actionButtonText, saveItem: saveItem))
-    }
-    
-    func asyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, saveItem: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, actionButtonText: info.actionButtonText, saveItem: saveItem))
-    }
-}
-
 
 @available(iOS 15.0, *)
 public struct AsyncTextFieldAlertInfo {

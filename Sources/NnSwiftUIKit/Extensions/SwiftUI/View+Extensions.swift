@@ -51,8 +51,6 @@ public extension View {
     func nnAsyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
     }
-    
-    
 }
 
 // MARK: - iOS 15+ Error Handling
@@ -64,6 +62,14 @@ public extension View {
     
     func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, delete: @escaping () async throws -> Void) -> some View {
         modifier(DeleteRowViewModifier(message: message, isActive: isActive, delete: delete))
+    }
+    
+    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", actionButtonText: String = "Save", saveItem: @escaping (String) async throws -> Void) -> some View {
+        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, actionButtonText: actionButtonText, saveItem: saveItem))
+    }
+    
+    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, saveItem: @escaping (String) async throws -> Void) -> some View {
+        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, actionButtonText: info.actionButtonText, saveItem: saveItem))
     }
 }
 
@@ -99,11 +105,11 @@ public extension View {
         modifier(RowItemViewModifier(withChevron: withChevron))
     }
     
-    func setCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+    func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
         modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
     }
     
-    func setCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+    func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
         modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
     }
     
