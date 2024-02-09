@@ -51,6 +51,8 @@ public extension View {
     func nnAsyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
     }
+    
+    
 }
 
 // MARK: - iOS 15+ Error Handling
@@ -97,7 +99,7 @@ public extension View {
         modifier(RowItemViewModifier(withChevron: withChevron))
     }
     
-    func setCustomFont(_ style: Font.TextStyle, fontName: String, isSmooth: Bool = false, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+    func setCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
         modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
     }
     
@@ -122,8 +124,8 @@ public extension View {
 // MARK: - iOS 15+ Navigation
 @available(iOS 15.0, *)
 public extension View {
-    func nnWithNavBarDismissButton(isActive: Bool = true, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(isActive: isActive, dismissType: dismissType, action: dismiss))
+    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
+        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, action: dismiss))
     }
 }
 

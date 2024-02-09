@@ -12,6 +12,8 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
     
     let isActive: Bool
+    let placement: ToolbarItemPlacement?
+    let textColor: Color
     let dismissType: NavBarDismissType
     let action: (() -> Void)?
     
@@ -29,7 +31,7 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         if isActive {
             content
-                .nnWithNavBarButton(placement: dismissType == .done ? .topBarTrailing : .topBarLeading, buttonContent: buttonContent, textColor: .white) {
+                .nnWithNavBarButton(placement: placement ?? ((dismissType == .done) ? .topBarTrailing : .topBarLeading), buttonContent: buttonContent, textColor: textColor) {
                     if let action = action {
                         action()
                     } else {
