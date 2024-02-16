@@ -60,8 +60,8 @@ public extension View {
         modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonText: buttonText, message: message, action: action))
     }
     
-    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, delete: @escaping () async throws -> Void) -> some View {
-        modifier(DeleteRowViewModifier(message: message, isActive: isActive, delete: delete))
+    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, buttonImage: String = "trash", deleteText: String = "Delete", delete: @escaping () async throws -> Void) -> some View {
+        modifier(DeleteRowViewModifier(message: message, isActive: isActive, buttonImage: buttonImage, deleteText: deleteText, delete: delete))
     }
     
     func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", actionButtonText: String = "Save", saveItem: @escaping (String) async throws -> Void) -> some View {

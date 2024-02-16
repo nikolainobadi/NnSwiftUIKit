@@ -13,6 +13,8 @@ struct DeleteRowViewModifier: ViewModifier {
     
     let message: String
     let isActive: Bool
+    let buttonImage: String
+    let deleteText: String
     let delete: () async throws -> Void
     
     public func body(content: Content) -> some View {
@@ -20,11 +22,11 @@ struct DeleteRowViewModifier: ViewModifier {
             content
                 .swipeActions {
                     Button(action: { showingConfirmation = true }) {
-                        Image(systemName: "trash")
+                        Image(systemName: buttonImage)
                     }
                     .tint(.red)
                 }
-                .nnAsyncConfirmation(showingConfirmation: $showingConfirmation, role: .destructive, buttonText: "Delete", message: message, action: delete)
+                .nnAsyncConfirmation(showingConfirmation: $showingConfirmation, role: .destructive, buttonText: deleteText, message: message, action: delete)
         } else {
             content
         }
