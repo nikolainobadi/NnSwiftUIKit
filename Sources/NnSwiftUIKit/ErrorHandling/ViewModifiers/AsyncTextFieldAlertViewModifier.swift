@@ -25,6 +25,9 @@ struct AsyncTextFieldAlertViewModifier: ViewModifier {
                     .keyboardType(.alphabet)
                 NnAsyncTryButton(actionButtonText, role: .destructive, action: {
                     try await saveItem(text)
+                    await MainActor.run {
+                        text = ""
+                    }
                 })
             }, message: {
                 Text(message)
