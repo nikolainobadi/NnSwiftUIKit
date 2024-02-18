@@ -18,7 +18,7 @@ To install NnSwiftUIKit, add it to the dependencies of your package in your `Pac
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/YourGitHub/NnSwiftUIKit.git", from: "1.0.0")
+        .package(url: "https://github.com/YourGitHub/NnSwiftUIKit.git", from: "0.8.0")
     ],
     ...
     targets: [
@@ -53,11 +53,10 @@ Use `NnAsyncTryButton` to handle asynchronous actions with loading and error han
 ```swift
 NnAsyncTryButton(action: {
     // Perform async action
+    // will require loading & errorHandling view modifers (see 'Custom View Modifiers' in next section)
 }, label: {
     Text("Tap Me")
 })
-.environmentObject(NnLoadingHandler())
-.environmentObject(NnSwiftUIErrorHandler())
 ```
 
 ### Custom View Modifiers
@@ -69,10 +68,6 @@ MyView()
 .nnWithNnLoadingView()
 .nnWithNnErrorHandling()
 ```
-
-## Contributing
-
-We welcome contributions! Please open an issue or submit a pull request for improvements.
 
 ## License
 
