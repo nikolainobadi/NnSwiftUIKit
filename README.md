@@ -18,7 +18,7 @@ To install NnSwiftUIKit, add it to the dependencies of your package in your `Pac
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/YourGitHub/NnSwiftUIKit.git", from: "0.8.0")
+        .package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "0.8.0")
     ],
     ...
     targets: [
