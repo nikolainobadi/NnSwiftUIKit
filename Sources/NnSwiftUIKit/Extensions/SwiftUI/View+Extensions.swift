@@ -146,3 +146,16 @@ public extension View {
         modifier(TappableRowViewModifier(withChevron: withChevron, onTapGesture: onTapGesture))
     }
 }
+
+
+// MARK: - Showcase
+@available(iOS 16.4, *)
+public extension View {
+    func nnCanShowcaseViews(showHighlights: Bool, onFinished: @escaping () -> Void) -> some View {
+        modifier(ShowcaseParentViewModifier(showHighlights: showHighlights, onFinished: onFinished))
+    }
+    
+    func nnShowcased(_ title: String, order: Int, cornerRadius: CGFloat, style: RoundedCornerStyle = .continuous, scale: CGFloat = 1) -> some View {
+        modifier(ShowcasedViewModifier(title: title, orderNumber: order, cornerRadius: cornerRadius, style: style, scale: scale))
+    }
+}
