@@ -12,6 +12,7 @@ struct NavBarButtonViewModifier: ViewModifier {
     let buttonContent: NavBarButtonContent
     let font: Font
     let textColor: Color
+    let isActive: Bool
     let action: () -> Void
     
     func body(content: Content) -> some View {
@@ -30,6 +31,7 @@ struct NavBarButtonViewModifier: ViewModifier {
                                 .foregroundColor(textColor)
                         }
                     }
+                    .nnOnlyShow(when: isActive)
                 }
             }
     }
