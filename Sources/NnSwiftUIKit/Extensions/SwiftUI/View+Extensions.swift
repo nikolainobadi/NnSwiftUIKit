@@ -64,12 +64,12 @@ public extension View {
         modifier(DeleteRowViewModifier(message: message, isActive: isActive, buttonImage: buttonImage, deleteText: deleteText, delete: delete))
     }
     
-    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", actionButtonText: String = "Save", saveItem: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, actionButtonText: actionButtonText, saveItem: saveItem))
+    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", keyboardType: UIKeyboardType = .alphabet, actionButtonText: String = "Save", saveAction: @escaping (String) async throws -> Void) -> some View {
+        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, keyboardType: keyboardType, actionButtonText: actionButtonText, saveAction: saveAction))
     }
     
-    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, saveItem: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, actionButtonText: info.actionButtonText, saveItem: saveItem))
+    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, keyboardType: UIKeyboardType = .alphabet, saveAction: @escaping (String) async throws -> Void) -> some View {
+        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, keyboardType: keyboardType, actionButtonText: info.actionButtonText, saveAction: saveAction))
     }
 }
 

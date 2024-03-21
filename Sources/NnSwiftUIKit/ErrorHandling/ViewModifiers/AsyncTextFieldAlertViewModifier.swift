@@ -15,16 +15,17 @@ struct AsyncTextFieldAlertViewModifier: ViewModifier {
     let title: String
     let prompt: String
     let message: String
+    let keyboardType: UIKeyboardType
     let actionButtonText: String
-    let saveItem: (String) async throws -> Void
+    let saveAction: (String) async throws -> Void
     
     func body(content: Content) -> some View {
         content
             .alert(title, isPresented: $isPresented, actions: {
                 TextField(prompt, text: $text)
-                    .keyboardType(.alphabet)
+                    .keyboardType(keyboardType)
                 NnAsyncTryButton(actionButtonText, role: .destructive, action: {
-                    try await saveItem(text)
+                    try await saveAction(text)
                     await MainActor.run {
                         text = ""
                     }
