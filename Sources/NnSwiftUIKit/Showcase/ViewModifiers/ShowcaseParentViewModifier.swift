@@ -56,6 +56,7 @@ private extension ShowcaseParentViewModifier {
         if currentHighlight >= highlightOrder.count - 1 {
             withAnimation(.easeInOut(duration: 0.25)) {
                 showView = false
+                currentHighlight = 0
             }
             
             onFinished()
