@@ -101,8 +101,8 @@ public extension View {
 
 // MARK: - Designs
 public extension View {
-    func nnAsRowItem(withChevron: Bool = false) -> some View {
-        modifier(RowItemViewModifier(withChevron: withChevron))
+    func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading) -> some View {
+        modifier(RowItemViewModifier(withChevron: withChevron, alignment: alignment))
     }
     
     func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
@@ -142,8 +142,8 @@ public extension View {
         modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
     }
     
-    func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, onTapGesture: @escaping () -> Void) -> some View {
-        modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, onTapGesture: onTapGesture))
+    func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, alignment: Alignment = .leading, onTapGesture: @escaping () -> Void) -> some View {
+        modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, alignment: alignment, onTapGesture: onTapGesture))
     }
 }
 

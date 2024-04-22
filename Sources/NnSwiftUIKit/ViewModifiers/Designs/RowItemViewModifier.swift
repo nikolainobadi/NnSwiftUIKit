@@ -9,11 +9,12 @@ import SwiftUI
 
 struct RowItemViewModifier: ViewModifier {
     let withChevron: Bool
+    let alignment: Alignment
     
     func body(content: Content) -> some View {
         HStack {
             content
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: alignment)
             
             if withChevron {
                 Spacer()

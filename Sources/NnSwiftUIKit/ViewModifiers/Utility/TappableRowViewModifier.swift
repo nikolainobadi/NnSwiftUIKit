@@ -10,16 +10,17 @@ import SwiftUI
 struct TappableRowViewModifier: ViewModifier {
     let tapIsActive: Bool
     let withChevron: Bool
+    let alignment: Alignment
     let onTapGesture: () -> Void
     
     func body(content: Content) -> some View {
         if tapIsActive {
             content
-                .nnAsRowItem(withChevron: withChevron)
+                .nnAsRowItem(withChevron: withChevron, alignment: alignment)
                 .onTapGesture(perform: onTapGesture)
         } else {
             content
-                .nnAsRowItem(withChevron: withChevron)
+                .nnAsRowItem(withChevron: withChevron, alignment: alignment)
         }
     }
 }
