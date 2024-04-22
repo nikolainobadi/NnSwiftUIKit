@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct TappableRowViewModifier: ViewModifier {
+    let tapIsActive: Bool
     let withChevron: Bool
     let onTapGesture: () -> Void
     
     func body(content: Content) -> some View {
-        HStack {
+        if tapIsActive {
             content
-                .frame(maxWidth: .infinity)
-            
-            if withChevron {
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.secondary)
-            }
+                .nnAsRowItem(withChevron: withChevron)
+                .onTapGesture(perform: onTapGesture)
+        } else {
+            content
+                .nnAsRowItem(withChevron: withChevron)
         }
-        .contentShape(Rectangle())
-        .onTapGesture(perform: onTapGesture)
     }
 }

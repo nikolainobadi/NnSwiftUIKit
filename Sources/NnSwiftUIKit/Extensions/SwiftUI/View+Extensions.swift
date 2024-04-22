@@ -142,8 +142,8 @@ public extension View {
         modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
     }
     
-    func nnTappable(withChevron: Bool = false, onTapGesture: @escaping () -> Void) -> some View {
-        modifier(TappableRowViewModifier(withChevron: withChevron, onTapGesture: onTapGesture))
+    func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, onTapGesture: @escaping () -> Void) -> some View {
+        modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, onTapGesture: onTapGesture))
     }
 }
 
