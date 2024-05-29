@@ -22,7 +22,7 @@ struct DeleteRowViewModifier: ViewModifier {
             content
                 .swipeActions {
                     Button(action: { showingConfirmation = true }) {
-                        Image(systemName: buttonImage)
+                        Label("Delete", systemImage: buttonImage)
                     }
                     .tint(.red)
                 }
