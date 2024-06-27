@@ -145,6 +145,10 @@ public extension View {
     func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, alignment: Alignment = .leading, onTapGesture: @escaping () -> Void) -> some View {
         modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, alignment: alignment, onTapGesture: onTapGesture))
     }
+    
+    func nnSetAccessibiltyId(_ id: String?) -> some View {
+        modifier(AccessibilityIdViewModifier(accessibilityId: id))
+    }
 }
 
 
