@@ -162,4 +162,8 @@ public extension View {
     func nnShowcased(_ title: String, order: Int, cornerRadius: CGFloat, style: RoundedCornerStyle = .continuous, scale: CGFloat = 1) -> some View {
         modifier(ShowcasedViewModifier(title: title, orderNumber: order, cornerRadius: cornerRadius, style: style, scale: scale))
     }
+    
+    func nnShowingAlert(_ title: String, message: String, buttonText: String = "Okay", isPresented: Binding<Bool>, finished: (() -> Void)? = nil) -> some View {
+        modifier(ShowingAlertViewModifier(presented: isPresented, title: title, message: message, buttonText: buttonText, finished: finished))
+    }
 }
