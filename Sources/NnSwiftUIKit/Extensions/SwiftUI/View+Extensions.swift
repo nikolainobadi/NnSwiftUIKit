@@ -116,6 +116,18 @@ public extension View {
     func nnFramePercent(widthPercent: CGFloat, heighPercent: CGFloat, alignment: Alignment = .center) -> some View {
         modifier(FrameByScreenPercentageViewModifier(width: nnGetWidthPercent(widthPercent), height: nnGetHeightPercent(heighPercent), alignment: alignment))
     }
+    
+    func nnTextLinearGradient(gradientType: NnGradientType) -> some View {
+        modifier(LinearGradientTextColorViewModifier(gradientType: gradientType))
+    }
+    
+    func nnLinearGradientBackground(_ gradientType: NnGradientType, opacity: CGFloat = 1) -> some View {
+        modifier(GradientBackgroundViewModifier(gradientType: gradientType, opacity: opacity))
+    }
+    
+    func nnRoundedButtonLinearGradientBackround(_ gradientType: NnGradientType, cornerRadius: CGFloat = 10, shadowColor: Color = .primary, shadowRadius: CGFloat = 4) -> some View {
+        modifier(ButtonGradientBackgroundViewModifier(gradientType: gradientType, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius))
+    }
 }
 
 
