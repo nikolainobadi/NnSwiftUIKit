@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct GradientBackgroundViewModifier: ViewModifier {
-    let gradientType: NnGradientType
+    let gradient: LinearGradient
     let opacity: CGFloat
     
     func body(content: Content) -> some View {
         content
-            .background(gradientType.linearGradient.ignoresSafeArea().opacity(opacity))
+            .background(gradient.ignoresSafeArea().opacity(opacity))
     }
 }

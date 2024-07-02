@@ -117,16 +117,16 @@ public extension View {
         modifier(FrameByScreenPercentageViewModifier(width: nnGetWidthPercent(widthPercent), height: nnGetHeightPercent(heighPercent), alignment: alignment))
     }
     
-    func nnTextLinearGradient(gradientType: NnGradientType) -> some View {
-        modifier(LinearGradientTextColorViewModifier(gradientType: gradientType))
+    func nnTextLinearGradient(_ gradient: LinearGradient) -> some View {
+        modifier(LinearGradientTextColorViewModifier(gradient: gradient))
     }
     
-    func nnLinearGradientBackground(_ gradientType: NnGradientType, opacity: CGFloat = 1) -> some View {
-        modifier(GradientBackgroundViewModifier(gradientType: gradientType, opacity: opacity))
+    func nnLinearGradientBackground(_ gradient: LinearGradient, opacity: CGFloat = 1) -> some View {
+        modifier(GradientBackgroundViewModifier(gradient: gradient, opacity: opacity))
     }
     
-    func nnRoundedButtonLinearGradientBackround(_ gradientType: NnGradientType, cornerRadius: CGFloat = 10, shadowColor: Color = .primary, shadowRadius: CGFloat = 4) -> some View {
-        modifier(ButtonGradientBackgroundViewModifier(gradientType: gradientType, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius))
+    func nnRoundedButtonLinearGradientBackround(_ gradient: LinearGradient, cornerRadius: CGFloat = 10, shadowColor: Color = .primary, shadowRadius: CGFloat = 4) -> some View {
+        modifier(ButtonGradientBackgroundViewModifier(gradient: gradient, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius))
     }
 }
 

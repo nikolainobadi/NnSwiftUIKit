@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct LinearGradientTextColorViewModifier: ViewModifier {
-    let gradientType: NnGradientType
+    let gradient: LinearGradient
     
     func body(content: Content) -> some View {
         content
             .overlay(
-                gradientType.linearGradient
-                    .mask(content)
+                gradient.mask(content)
             )
     }
 }
-
-
-// MARK: - Dependencies
-

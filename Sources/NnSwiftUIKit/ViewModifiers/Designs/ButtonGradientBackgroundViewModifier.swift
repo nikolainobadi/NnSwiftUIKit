@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ButtonGradientBackgroundViewModifier: ViewModifier {
-    let gradientType: NnGradientType
+    let gradient: LinearGradient
     let cornerRadius: CGFloat
     let shadowColor: Color
     let shadowRadius: CGFloat
     
     func body(content: Content) -> some View {
         content
-            .nnLinearGradientBackground(gradientType)
+            .nnLinearGradientBackground(gradient)
             .cornerRadius(cornerRadius)
             .shadow(color: shadowColor, radius: shadowRadius)
     }
