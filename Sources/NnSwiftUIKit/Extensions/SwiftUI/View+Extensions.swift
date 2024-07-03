@@ -161,6 +161,10 @@ public extension View {
     func nnSetAccessibiltyId(_ id: String?) -> some View {
         modifier(AccessibilityIdViewModifier(accessibilityId: id))
     }
+    
+    func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
+        self.modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
+    }
 }
 
 
