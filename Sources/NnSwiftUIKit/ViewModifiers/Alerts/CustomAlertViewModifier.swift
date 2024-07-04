@@ -24,7 +24,7 @@ struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
                 alertView()
                 NnAsyncTryButton(buttonText, role: .destructive, action: action)
                 
-                Button(cancelText, action: cancelAction)
+                Button(cancelText, role: .cancel, action: cancelAction)
             }
     }
 }
