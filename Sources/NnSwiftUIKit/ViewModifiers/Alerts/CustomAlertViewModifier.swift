@@ -21,6 +21,7 @@ struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(message, isPresented: $isPresented) {
+                alertView()
                 NnAsyncTryButton(buttonText, role: .destructive, action: action)
                 
                 Button(cancelText, action: cancelAction)
