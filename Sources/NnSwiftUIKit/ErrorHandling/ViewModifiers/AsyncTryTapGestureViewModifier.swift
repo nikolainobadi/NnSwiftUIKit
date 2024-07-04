@@ -24,18 +24,18 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
             }
         }
         .onTapGesture {
-                Task {
-                    loadingHandler.startLoading()
-                    
-                    do {
-                        try await action()
-                    } catch {
-                        errorHandler.handle(error: error)
-                    }
-                    
-                    loadingHandler.stopLoading()
+            Task {
+                loadingHandler.startLoading()
+                
+                do {
+                    try await action()
+                } catch {
+                    errorHandler.handle(error: error)
                 }
+                
+                loadingHandler.stopLoading()
             }
+        }
     }
 }
 

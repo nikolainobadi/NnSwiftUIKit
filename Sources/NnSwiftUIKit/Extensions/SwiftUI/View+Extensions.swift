@@ -71,6 +71,10 @@ public extension View {
     func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, keyboardType: UIKeyboardType = .alphabet, saveAction: @escaping (String) async throws -> Void) -> some View {
         modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, keyboardType: keyboardType, actionButtonText: info.actionButtonText, saveAction: saveAction))
     }
+    
+    func nnAsyncOnSubmit(submitLabel: SubmitLabel = .done, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncTryOnSubmitViewModifier(submitLabel: submitLabel, action: action))
+    }
 }
 
 
