@@ -172,6 +172,21 @@ public extension View {
 }
 
 
+// MARK: - Alerts
+@available(iOS 15.0, *)
+public extension View {
+    func nnAsyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonText: String = "Save", cancelText: String = "Cancel", action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
+        modifier(CustomAlertViewModifier(isPresented: isPresented, message: message, buttonText: buttonText, cancelText: cancelText, action: action, cancelAction: cancelAction, alertView: alertView))
+    }
+    func nnFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldPrompt: String, buttonText: String = "Save", cancelText: String = "Cancel", action: @escaping (String) async throws -> Void) -> some View {
+        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldPrompt: fieldPrompt, buttonText: buttonText, cancelText: cancelText, action: action))
+    }
+    
+    func nnDoubleFieldAlert(_ message: String, isPresented: Binding<Bool>, firstFieldPrompt: String, secondFieldPrompt: String, buttonText: String = "Save", cancelText: String = "Cancel", action: @escaping (String, String) async throws -> Void) -> some View {
+        modifier(DoubleFieldAlertViewModifier(isPresented: isPresented, message: message, firstFieldPrompt: firstFieldPrompt, secondFieldPrompt: secondFieldPrompt, buttonText: buttonText, cancelText: cancelText, action: action))
+    }
+}
+
 // MARK: - Showcase
 @available(iOS 16.4, *)
 public extension View {
