@@ -105,8 +105,8 @@ public extension View {
 
 // MARK: - Designs
 public extension View {
-    func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading) -> some View {
-        modifier(RowItemViewModifier(withChevron: withChevron, alignment: alignment))
+    func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
+        modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, alignment: alignment))
     }
     
     func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
@@ -162,8 +162,8 @@ public extension View {
         modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
     }
     
-    func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, alignment: Alignment = .leading, onTapGesture: @escaping () -> Void) -> some View {
-        modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, alignment: alignment, onTapGesture: onTapGesture))
+    func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, tint: Color = .primary, alignment: Alignment = .leading, onTapGesture: @escaping () -> Void) -> some View {
+        modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, tint: tint, alignment: alignment, onTapGesture: onTapGesture))
     }
     
     func nnSetAccessibiltyId(_ id: String?) -> some View {

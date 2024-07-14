@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RowItemViewModifier: ViewModifier {
     let withChevron: Bool
+    let tint: Color
     let alignment: Alignment
     
     func body(content: Content) -> some View {
@@ -19,6 +20,7 @@ struct RowItemViewModifier: ViewModifier {
             if withChevron {
                 Spacer()
                 Image(systemName: "chevron.right")
+                    .foregroundColor(tint)
             }
         }
         .contentShape(Rectangle())
