@@ -149,6 +149,10 @@ public extension View {
     func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
         modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, action: dismiss))
     }
+    
+    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, buttonText: String? = nil, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil) -> some View {
+        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, buttonText: buttonText, placement: placement, dismissType: dismissType))
+    }
 }
 
 
@@ -168,6 +172,20 @@ public extension View {
     
     func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
         self.modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
+    }
+    
+    @available(iOS 15.0, *)
+    func nnWithSwipeAction(_ title: String, imageName: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
+        modifier(
+            CustomSwipeActionViewModifier(
+                title: title,
+                image: imageName ?? "",
+                edge: edge ?? .trailing,
+                tint: tint,
+                isActive: isActive,
+                action: action
+            )
+        )
     }
 }
 
