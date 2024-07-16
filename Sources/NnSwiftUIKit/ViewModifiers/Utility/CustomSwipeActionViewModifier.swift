@@ -21,8 +21,13 @@ struct CustomSwipeActionViewModifier: ViewModifier {
         if isActive {
             content
                 .swipeActions(edge: edge) {
+                    
                     Button(action: action) {
-                        Label(title, systemImage: image)
+                        if image.isEmpty {
+                            Text(title)
+                        } else {
+                            Label(title, systemImage: image)
+                        }
                     }
                     .tint(tint)
                 }
