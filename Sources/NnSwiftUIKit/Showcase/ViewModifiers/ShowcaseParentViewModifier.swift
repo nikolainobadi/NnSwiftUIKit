@@ -1,10 +1,11 @@
 //
-//  File.swift
-//  
+//  ShowcaseParentViewModifier.swift
+//
 //
 //  Created by Nikolai Nobadi on 2/27/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 @available(iOS 16.4, *)
@@ -115,3 +116,4 @@ struct HighlightedView: View {
             .offset(x: highlightRect.minX - 10, y: highlightRect.minY - 10)
     }
 }
+#endif

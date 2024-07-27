@@ -1,10 +1,11 @@
 //
-//  File.swift
-//  
+//  DiscardChangesViewModifier.swift
+//
 //
 //  Created by Nikolai Nobadi on 7/14/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 @available(iOS 15.0, *)
@@ -48,3 +49,4 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
             }
     }
 }
+#endif

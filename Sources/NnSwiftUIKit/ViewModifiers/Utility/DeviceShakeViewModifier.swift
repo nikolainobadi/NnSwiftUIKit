@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 7/3/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 struct DeviceShakeViewModifier: ViewModifier {
@@ -37,4 +38,4 @@ extension UIWindow {
         }
      }
 }
-
+#endif

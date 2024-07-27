@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 1/10/24.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 @MainActor
@@ -19,3 +20,4 @@ public extension UIAlertController {
         }
     }
 }
+#endif

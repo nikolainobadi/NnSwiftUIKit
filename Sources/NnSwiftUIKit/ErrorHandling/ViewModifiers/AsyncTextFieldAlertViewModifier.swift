@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 2/9/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 @available(iOS 15.0, *)
@@ -51,3 +52,4 @@ public struct AsyncTextFieldAlertInfo {
         self.actionButtonText = actionButtonText
     }
 }
+#endif

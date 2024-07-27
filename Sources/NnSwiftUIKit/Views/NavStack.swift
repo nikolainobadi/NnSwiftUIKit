@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 1/10/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 @available(iOS 16.0, *)
@@ -54,3 +55,4 @@ public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableC
         }
     }
 }
+#endif

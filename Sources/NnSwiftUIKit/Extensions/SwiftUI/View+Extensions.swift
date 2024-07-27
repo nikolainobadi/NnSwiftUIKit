@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-public extension View {
-    var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
-    var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
-    
-    /// Percent required in parameter is direct representation. Example: 1% of width = getWidthPercent(1). 10% of width = getWidthPercent(10)
-    func nnGetWidthPercent(_ percent: CGFloat) -> CGFloat { screenWidth * (percent * 0.01) }
-    
-    /// Percent required in parameter is direct representation. Example: 1% of height = getHeightPercent(1). 10% of height = getHeightPercent(10)
-    func nnGetHeightPercent(_ percent: CGFloat) -> CGFloat { screenHeight * (percent * 0.01) }
-}
-
 // MARK: - Error Handling
 public extension View {
     func nnWithNnLoadingView() -> some View {
@@ -64,14 +53,6 @@ public extension View {
         modifier(DeleteRowViewModifier(message: message, isActive: isActive, buttonImage: buttonImage, deleteText: deleteText, delete: delete))
     }
     
-    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", keyboardType: UIKeyboardType = .alphabet, actionButtonText: String = "Save", saveAction: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, keyboardType: keyboardType, actionButtonText: actionButtonText, saveAction: saveAction))
-    }
-    
-    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, keyboardType: UIKeyboardType = .alphabet, saveAction: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, keyboardType: keyboardType, actionButtonText: info.actionButtonText, saveAction: saveAction))
-    }
-    
     func nnAsyncOnSubmit(submitLabel: SubmitLabel = .done, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTryOnSubmitViewModifier(submitLabel: submitLabel, action: action))
     }
@@ -109,18 +90,6 @@ public extension View {
         modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, alignment: alignment))
     }
     
-    func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
-        modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
-    }
-    
-    func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
-        modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
-    }
-    
-    func nnFramePercent(widthPercent: CGFloat, heighPercent: CGFloat, alignment: Alignment = .center) -> some View {
-        modifier(FrameByScreenPercentageViewModifier(width: nnGetWidthPercent(widthPercent), height: nnGetHeightPercent(heighPercent), alignment: alignment))
-    }
-    
     func nnTextLinearGradient(_ gradient: LinearGradient) -> some View {
         modifier(LinearGradientTextColorViewModifier(gradient: gradient))
     }
@@ -131,27 +100,6 @@ public extension View {
     
     func nnRoundedButtonLinearGradientBackround(_ gradient: LinearGradient, cornerRadius: CGFloat = 10, shadowColor: Color = .primary, shadowRadius: CGFloat = 4) -> some View {
         modifier(ButtonGradientBackgroundViewModifier(gradient: gradient, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius))
-    }
-}
-
-
-// MARK: - Navigation
-public extension View {
-    func nnWithNavBarButton(placement: ToolbarItemPlacement = .navigationBarTrailing, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, action: @escaping () -> Void) -> some View {
-        modifier(NavBarButtonViewModifier(placement: placement, buttonContent: buttonContent, font: font, textColor: textColor, isActive: isActive, action: action))
-    }
-}
-
-
-// MARK: - iOS 15+ Navigation
-@available(iOS 15.0, *)
-public extension View {
-    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, action: dismiss))
-    }
-    
-    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, buttonText: String? = nil, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil) -> some View {
-        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, buttonText: buttonText, placement: placement, dismissType: dismissType))
     }
 }
 
@@ -168,10 +116,6 @@ public extension View {
     
     func nnSetAccessibiltyId(_ id: String?) -> some View {
         modifier(AccessibilityIdViewModifier(accessibilityId: id))
-    }
-    
-    func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
-        self.modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
     }
     
     @available(iOS 15.0, *)
@@ -208,6 +152,67 @@ public extension View {
 // MARK: - Showcase
 @available(iOS 16.4, *)
 public extension View {
+    func nnShowingAlert(_ title: String, message: String, buttonText: String = "Okay", isPresented: Binding<Bool>, finished: (() -> Void)? = nil) -> some View {
+        modifier(ShowingAlertViewModifier(presented: isPresented, title: title, message: message, buttonText: buttonText, finished: finished))
+    }
+}
+
+
+#if canImport(UIKit)
+public extension View {
+    var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
+    var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
+    
+    /// Percent required in parameter is direct representation. Example: 1% of width = getWidthPercent(1). 10% of width = getWidthPercent(10)
+    func nnGetWidthPercent(_ percent: CGFloat) -> CGFloat { screenWidth * (percent * 0.01) }
+    
+    /// Percent required in parameter is direct representation. Example: 1% of height = getHeightPercent(1). 10% of height = getHeightPercent(10)
+    func nnGetHeightPercent(_ percent: CGFloat) -> CGFloat { screenHeight * (percent * 0.01) }
+}
+
+public extension View {
+    func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
+        self.modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
+    }
+    
+    func nnFramePercent(widthPercent: CGFloat, heighPercent: CGFloat, alignment: Alignment = .center) -> some View {
+        modifier(FrameByScreenPercentageViewModifier(width: nnGetWidthPercent(widthPercent), height: nnGetHeightPercent(heighPercent), alignment: alignment))
+    }
+    
+    func nnWithNavBarButton(placement: ToolbarItemPlacement = .navigationBarTrailing, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, action: @escaping () -> Void) -> some View {
+        modifier(NavBarButtonViewModifier(placement: placement, buttonContent: buttonContent, font: font, textColor: textColor, isActive: isActive, action: action))
+    }
+    
+    func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+        modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
+    }
+    
+    func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+        modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
+    }
+}
+
+@available(iOS 15.0, *)
+public extension View {
+    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
+        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, action: dismiss))
+    }
+    
+    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, buttonText: String? = nil, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil) -> some View {
+        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, buttonText: buttonText, placement: placement, dismissType: dismissType))
+    }
+    
+    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", keyboardType: UIKeyboardType = .alphabet, actionButtonText: String = "Save", saveAction: @escaping (String) async throws -> Void) -> some View {
+        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, keyboardType: keyboardType, actionButtonText: actionButtonText, saveAction: saveAction))
+    }
+    
+    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, keyboardType: UIKeyboardType = .alphabet, saveAction: @escaping (String) async throws -> Void) -> some View {
+        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, keyboardType: keyboardType, actionButtonText: info.actionButtonText, saveAction: saveAction))
+    }
+}
+
+@available(iOS 16.4, *)
+public extension View {
     func nnCanShowcaseViews(showHighlights: Bool, onFinished: @escaping () -> Void) -> some View {
         modifier(ShowcaseParentViewModifier(showHighlights: showHighlights, onFinished: onFinished))
     }
@@ -215,8 +220,5 @@ public extension View {
     func nnShowcased(_ title: String, order: Int, cornerRadius: CGFloat, style: RoundedCornerStyle = .continuous, scale: CGFloat = 1) -> some View {
         modifier(ShowcasedViewModifier(title: title, orderNumber: order, cornerRadius: cornerRadius, style: style, scale: scale))
     }
-    
-    func nnShowingAlert(_ title: String, message: String, buttonText: String = "Okay", isPresented: Binding<Bool>, finished: (() -> Void)? = nil) -> some View {
-        modifier(ShowingAlertViewModifier(presented: isPresented, title: title, message: message, buttonText: buttonText, finished: finished))
-    }
 }
+#endif

@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 1/11/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 @available(iOS 15.0, *)
@@ -45,3 +46,4 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
 public enum NavBarDismissType {
     case xmark, cancel, done
 }
+#endif
