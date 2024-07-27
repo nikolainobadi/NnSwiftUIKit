@@ -5,7 +5,6 @@
 //  Created by Nikolai Nobadi on 1/10/24.
 //
 
-#if canImport(UIKit)
 import SwiftUI
 
 @available(iOS 16.0, *)
@@ -13,8 +12,10 @@ public struct NavStack<Content: View>: View {
     @Binding var path: NavigationPath
     
     let title: String?
-    let displayMode: NavigationBarItem.TitleDisplayMode
     let content: () -> Content
+    
+    #if canImport(UIKit)
+    let displayMode: NavigationBarItem.TitleDisplayMode
     
     public init(path: Binding<NavigationPath>? = nil, title: String?, displayMode: NavigationBarItem.TitleDisplayMode = .automatic, @ViewBuilder content: @escaping () -> Content) {
         self._path = path ?? .constant(.init())
@@ -22,12 +23,21 @@ public struct NavStack<Content: View>: View {
         self.displayMode = displayMode
         self.content = content
     }
+    #else
+    public init(path: Binding<NavigationPath>? = nil, title: String?, @ViewBuilder content: @escaping () -> Content) {
+        self._path = path ?? .constant(.init())
+        self.title = title
+        self.content = content
+    }
+    #endif
     
     public var body: some View {
         NavigationStack(path: $path) {
             content()
                 .nnWithNavTitle(title: title)
+            #if canImport(UIKit)
                 .navigationBarTitleDisplayMode(displayMode)
+            #endif
         }
     }
 }
@@ -37,8 +47,10 @@ public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableC
     @Binding var path: Data
     
     let title: String?
-    let displayMode: NavigationBarItem.TitleDisplayMode
     let content: () -> Content
+    
+    #if canImport(UIKit)
+    let displayMode: NavigationBarItem.TitleDisplayMode
     
     public init(path: Binding<Data>, title: String?, displayMode: NavigationBarItem.TitleDisplayMode = .automatic, @ViewBuilder content: @escaping () -> Content) {
         self._path = path
@@ -46,13 +58,21 @@ public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableC
         self.displayMode = displayMode
         self.content = content
     }
+    #else
+    public init(path: Binding<Data>, title: String?, @ViewBuilder content: @escaping () -> Content) {
+        self._path = path
+        self.title = title
+        self.content = content
+    }
+    #endif
     
     public var body: some View {
         NavigationStack(path: $path) {
             content()
                 .nnWithNavTitle(title: title)
+            #if canImport(UIKit)
                 .navigationBarTitleDisplayMode(displayMode)
+            #endif
         }
     }
 }
-#endif
