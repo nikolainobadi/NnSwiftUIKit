@@ -5,7 +5,7 @@
 //  Created by Nikolai Nobadi on 1/10/24.
 //
 
-#if canImport(UIKit)
+
 import SwiftUI
 
 struct CustomFontViewModifier: ViewModifier {
@@ -54,4 +54,3 @@ internal extension View {
         }
     }
 }
-#endif

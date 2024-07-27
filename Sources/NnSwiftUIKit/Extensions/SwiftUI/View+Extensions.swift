@@ -7,6 +7,34 @@
 
 import SwiftUI
 
+public extension View {
+    var screenWidth: CGFloat {
+        #if canImport(UIKit)
+        return UIScreen.main.bounds.size.width
+        #elseif canImport(AppKit)
+        return NSScreen.main?.frame.size.width ?? 0
+        #endif
+    }
+    
+    var screenHeight: CGFloat {
+        #if canImport(UIKit)
+        return UIScreen.main.bounds.size.height
+        #elseif canImport(AppKit)
+        return NSScreen.main?.frame.size.height ?? 0
+        #endif
+    }
+    
+    /// Percent required in parameter is direct representation. Example: 1% of width = getWidthPercent(1). 10% of width = getWidthPercent(10)
+    func nnGetWidthPercent(_ percent: CGFloat) -> CGFloat {
+        return screenWidth * (percent * 0.01)
+    }
+    
+    /// Percent required in parameter is direct representation. Example: 1% of height = getHeightPercent(1). 10% of height = getHeightPercent(10)
+    func nnGetHeightPercent(_ percent: CGFloat) -> CGFloat {
+        return screenHeight * (percent * 0.01)
+    }
+}
+
 // MARK: - Error Handling
 public extension View {
     func nnWithNnLoadingView() -> some View {
@@ -86,6 +114,14 @@ public extension View {
 
 // MARK: - Designs
 public extension View {
+    func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+        modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
+    }
+    
+    func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+        modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
+    }
+    
     func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
         modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, alignment: alignment))
     }
@@ -160,17 +196,6 @@ public extension View {
 
 #if canImport(UIKit)
 public extension View {
-    var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
-    var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
-    
-    /// Percent required in parameter is direct representation. Example: 1% of width = getWidthPercent(1). 10% of width = getWidthPercent(10)
-    func nnGetWidthPercent(_ percent: CGFloat) -> CGFloat { screenWidth * (percent * 0.01) }
-    
-    /// Percent required in parameter is direct representation. Example: 1% of height = getHeightPercent(1). 10% of height = getHeightPercent(10)
-    func nnGetHeightPercent(_ percent: CGFloat) -> CGFloat { screenHeight * (percent * 0.01) }
-}
-
-public extension View {
     func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
         self.modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
     }
@@ -181,14 +206,6 @@ public extension View {
     
     func nnWithNavBarButton(placement: ToolbarItemPlacement = .navigationBarTrailing, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, action: @escaping () -> Void) -> some View {
         modifier(NavBarButtonViewModifier(placement: placement, buttonContent: buttonContent, font: font, textColor: textColor, isActive: isActive, action: action))
-    }
-    
-    func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
-        modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
-    }
-    
-    func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
-        modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
     }
 }
 
