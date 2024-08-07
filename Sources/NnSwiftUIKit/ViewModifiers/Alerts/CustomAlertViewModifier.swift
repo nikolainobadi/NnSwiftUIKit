@@ -12,8 +12,8 @@ struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
     @Binding var isPresented: Bool
     
     let message: String
-    let buttonText: String
-    let cancelText: String
+    let buttonInfo: AccessibleItem
+    let cancelInfo: AccessibleItem
     let action: () async throws -> Void
     let cancelAction: () -> Void
     let alertView: () -> AlertView
@@ -22,9 +22,11 @@ struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
         content
             .alert(message, isPresented: $isPresented) {
                 alertView()
-                NnAsyncTryButton(buttonText, role: .destructive, action: action)
+                NnAsyncTryButton(buttonInfo.prompt, role: .destructive, action: action)
+                    .nnSetAccessibiltyId(buttonInfo.accessibilityId)
                 
-                Button(cancelText, role: .cancel, action: cancelAction)
+                Button(cancelInfo.prompt, role: .cancel, action: cancelAction)
+                    .nnSetAccessibiltyId(cancelInfo.accessibilityId)
             }
     }
 }

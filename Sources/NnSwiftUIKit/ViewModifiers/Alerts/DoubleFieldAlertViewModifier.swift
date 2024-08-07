@@ -14,10 +14,10 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
     @State private var secondFieldText = ""
     
     let message: String
-    let firstFieldPrompt: String
-    let secondFieldPrompt: String
-    let buttonText: String
-    let cancelText: String
+    let firstFieldInfo: AccessibleItem
+    let secondFieldInfo: AccessibleItem
+    let buttonInfo: AccessibleItem?
+    let cancelInfo: AccessibleItem?
     let action: (String, String) async throws -> Void
     
     private func save() async throws {
@@ -26,9 +26,9 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .nnAsyncAlert(message, isPresented: $isPresented, action: save) {
-                EmptyOnDisappearField(firstFieldPrompt, text: $firstFieldText)
-                EmptyOnDisappearField(secondFieldPrompt, text: $secondFieldText)
+            .nnAsyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
+                EmptyOnDisappearField(firstFieldInfo.prompt, text: $firstFieldText, accessibilityId: firstFieldInfo.accessibilityId)
+                EmptyOnDisappearField(secondFieldInfo.prompt, text: $secondFieldText, accessibilityId: secondFieldInfo.accessibilityId)
             }
     }
 }
