@@ -73,12 +73,12 @@ public extension View {
 // MARK: - iOS 15+ Error Handling
 @available(iOS 15.0, *)
 public extension View {
-    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonText: String, message: String, action: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonText: buttonText, message: message, action: action))
+    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItem, message: String, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonInfo: buttonInfo, message: message, action: action))
     }
     
-    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, buttonImage: String = "trash", deleteText: String = "Delete", delete: @escaping () async throws -> Void) -> some View {
-        modifier(DeleteRowViewModifier(message: message, isActive: isActive, buttonImage: buttonImage, deleteText: deleteText, delete: delete))
+    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, alertButtonInfo: AccessibleItem? = nil, delete: @escaping () async throws -> Void) -> some View {
+        modifier(DeleteRowViewModifier(message: message, isActive: isActive, alertButtonInfo: alertButtonInfo ?? .init(prompt: "Delete"), delete: delete))
     }
     
     func nnAsyncOnSubmit(submitLabel: SubmitLabel = .done, action: @escaping () async throws -> Void) -> some View {

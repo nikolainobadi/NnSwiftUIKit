@@ -12,14 +12,15 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     @Binding var showingConfirmation: Bool
     
     let role: ButtonRole?
-    let buttonText: String
+    let buttonInfo: AccessibleItem
     let message: String
     let action: () async throws -> Void
     
     func body(content: Content) -> some View {
         content
             .confirmationDialog("", isPresented: $showingConfirmation) {
-                NnAsyncTryButton(buttonText, role: role?.nnButtonRole, action: action)
+                NnAsyncTryButton(buttonInfo.prompt, role: role?.nnButtonRole, action: action)
+                    .nnSetAccessibiltyId(buttonInfo.accessibilityId)
             } message: {
                 Text(message)
             }
