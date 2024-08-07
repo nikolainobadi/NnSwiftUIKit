@@ -25,7 +25,8 @@ struct FieldAlertViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .nnAsyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
-                EmptyOnDisappearField(fieldInfo.prompt, text: $fieldText, accessibilityId: fieldInfo.accessibilityId)
+                EmptyOnDisappearField(fieldInfo.prompt, text: $fieldText)
+                    .nnSetAccessibiltyId(fieldInfo.accessibilityId)
             }
     }
 }

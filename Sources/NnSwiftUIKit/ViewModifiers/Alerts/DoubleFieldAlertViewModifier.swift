@@ -27,8 +27,10 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .nnAsyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
-                EmptyOnDisappearField(firstFieldInfo.prompt, text: $firstFieldText, accessibilityId: firstFieldInfo.accessibilityId)
-                EmptyOnDisappearField(secondFieldInfo.prompt, text: $secondFieldText, accessibilityId: secondFieldInfo.accessibilityId)
+                EmptyOnDisappearField(firstFieldInfo.prompt, text: $firstFieldText)
+                    .nnSetAccessibiltyId(firstFieldInfo.accessibilityId)
+                EmptyOnDisappearField(secondFieldInfo.prompt, text: $secondFieldText)
+                    .nnSetAccessibiltyId(secondFieldInfo.accessibilityId)
             }
     }
 }
