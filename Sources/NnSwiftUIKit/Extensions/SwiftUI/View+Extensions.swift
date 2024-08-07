@@ -155,17 +155,8 @@ public extension View {
     }
     
     @available(iOS 15.0, *)
-    func nnWithSwipeAction(_ title: String, imageName: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
-        modifier(
-            CustomSwipeActionViewModifier(
-                title: title,
-                image: imageName ?? "",
-                edge: edge ?? .trailing,
-                tint: tint,
-                isActive: isActive,
-                action: action
-            )
-        )
+    func nnWithSwipeAction(info: AccessibleItem, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
+        modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
     }
 }
 

@@ -9,8 +9,8 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct CustomSwipeActionViewModifier: ViewModifier {
-    let title: String
-    let image: String
+    let info: AccessibleItem
+    let systemImage: String?
     let edge: HorizontalEdge
     let tint: Color
     let isActive: Bool
@@ -21,15 +21,16 @@ struct CustomSwipeActionViewModifier: ViewModifier {
         if isActive {
             content
                 .swipeActions(edge: edge) {
-                    
                     Button(action: action) {
-                        if image.isEmpty {
-                            Text(title)
+                        if let systemImage {
+                            Label(info.prompt, systemImage: systemImage)
                         } else {
-                            Label(title, systemImage: image)
+                            Text(info.prompt)
+                            
                         }
                     }
                     .tint(tint)
+                    .nnSetAccessibiltyId(info.accessibilityId)
                 }
         } else {
             content
