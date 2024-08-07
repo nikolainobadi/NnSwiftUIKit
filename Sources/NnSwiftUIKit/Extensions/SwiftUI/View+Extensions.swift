@@ -216,27 +216,19 @@ public extension View {
         modifier(FrameByScreenPercentageViewModifier(width: nnGetWidthPercent(widthPercent), height: nnGetHeightPercent(heighPercent), alignment: alignment))
     }
     
-    func nnWithNavBarButton(placement: ToolbarItemPlacement = .navigationBarTrailing, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, action: @escaping () -> Void) -> some View {
-        modifier(NavBarButtonViewModifier(placement: placement, buttonContent: buttonContent, font: font, textColor: textColor, isActive: isActive, action: action))
+    func nnWithNavBarButton(placement: ToolbarItemPlacement = .navigationBarTrailing, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () -> Void) -> some View {
+        modifier(NavBarButtonViewModifier(placement: placement, buttonContent: buttonContent, accessibilityId: accessibilityId, font: font, textColor: textColor, isActive: isActive, action: action))
     }
 }
 
 @available(iOS 15.0, *)
 public extension View {
-    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, action: dismiss))
+    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, accessibilityId: String? = nil, dismiss: (() -> Void)? = nil) -> some View {
+        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, accessibilityId: accessibilityId, action: dismiss))
     }
     
-    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, buttonText: String? = nil, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil) -> some View {
-        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, buttonText: buttonText, placement: placement, dismissType: dismissType))
-    }
-    
-    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, title: String = "", prompt: String = "Enter name...", message: String = "Enter the name for your item", keyboardType: UIKeyboardType = .alphabet, actionButtonText: String = "Save", saveAction: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: title, prompt: prompt, message: message, keyboardType: keyboardType, actionButtonText: actionButtonText, saveAction: saveAction))
-    }
-    
-    func nnAsyncTextFieldAlert(isPresented: Binding<Bool>, info: AsyncTextFieldAlertInfo, keyboardType: UIKeyboardType = .alphabet, saveAction: @escaping (String) async throws -> Void) -> some View {
-        modifier(AsyncTextFieldAlertViewModifier(isPresented: isPresented, title: info.title, prompt: info.prompt, message: info.message, keyboardType: keyboardType, actionButtonText: info.actionButtonText, saveAction: saveAction))
+    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItem? = nil) -> some View {
+        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, placement: placement, dismissType: dismissType, accessibilityId: accessibilityId, dismissButtonInfo: dismissButtonInfo))
     }
 }
 

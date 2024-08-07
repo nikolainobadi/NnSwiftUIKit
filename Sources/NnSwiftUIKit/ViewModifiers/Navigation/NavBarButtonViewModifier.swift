@@ -10,6 +10,7 @@ import SwiftUI
 struct NavBarButtonViewModifier: ViewModifier {
     let placement: ToolbarItemPlacement
     let buttonContent: NavBarButtonContent
+    let accessibilityId: String?
     let font: Font
     let textColor: Color
     let isActive: Bool
@@ -31,6 +32,7 @@ struct NavBarButtonViewModifier: ViewModifier {
                                 .foregroundColor(textColor)
                         }
                     }
+                    .nnSetAccessibiltyId(accessibilityId)
                     .nnOnlyShow(when: isActive)
                 }
             }
