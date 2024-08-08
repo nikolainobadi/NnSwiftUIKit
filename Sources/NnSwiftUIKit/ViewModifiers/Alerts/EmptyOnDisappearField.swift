@@ -19,6 +19,11 @@ struct EmptyOnDisappearField: View {
     
     var body: some View {
         TextField(prompt, text: $text)
+            .autocorrectionDisabled()
+        #if canImport(UIKit)
+//            .textInputAutocapitalization(.none)
+            .autocapitalization(.none)
+        #endif
             .onDisappear {
                 text = ""
             }
