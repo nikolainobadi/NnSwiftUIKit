@@ -12,8 +12,8 @@ struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
     @Binding var isPresented: Bool
     
     let message: String
-    let buttonInfo: AccessibleItem
-    let cancelInfo: AccessibleItem
+    let buttonInfo: AccessibleItemInfo
+    let cancelInfo: AccessibleItemInfo
     let action: () async throws -> Void
     let cancelAction: () -> Void
     let alertView: () -> AlertView

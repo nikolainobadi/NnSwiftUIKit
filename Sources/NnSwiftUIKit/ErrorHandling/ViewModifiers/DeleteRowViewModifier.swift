@@ -13,7 +13,7 @@ struct DeleteRowViewModifier: ViewModifier {
     
     let message: String
     let isActive: Bool
-    let alertButtonInfo: AccessibleItem
+    let alertButtonInfo: AccessibleItemInfo
     let delete: () async throws -> Void
     
     public func body(content: Content) -> some View {

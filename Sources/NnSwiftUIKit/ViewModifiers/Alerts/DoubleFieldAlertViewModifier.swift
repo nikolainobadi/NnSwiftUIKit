@@ -14,10 +14,10 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
     @State private var secondFieldText = ""
     
     let message: String
-    let firstFieldInfo: AccessibleItem
-    let secondFieldInfo: AccessibleItem
-    let buttonInfo: AccessibleItem?
-    let cancelInfo: AccessibleItem?
+    let firstFieldInfo: AccessibleItemInfo
+    let secondFieldInfo: AccessibleItemInfo
+    let buttonInfo: AccessibleItemInfo?
+    let cancelInfo: AccessibleItemInfo?
     let action: (String, String) async throws -> Void
     
     private func save() async throws {

@@ -13,9 +13,9 @@ struct FieldAlertViewModifier: ViewModifier {
     @State private var fieldText = ""
     
     let message: String
-    let fieldInfo: AccessibleItem
-    let buttonInfo: AccessibleItem?
-    let cancelInfo: AccessibleItem?
+    let fieldInfo: AccessibleItemInfo
+    let buttonInfo: AccessibleItemInfo?
+    let cancelInfo: AccessibleItemInfo?
     let action: (String) async throws -> Void
     
     private func save() async throws {

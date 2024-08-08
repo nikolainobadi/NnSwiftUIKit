@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct CustomSwipeActionViewModifier: ViewModifier {
-    let info: AccessibleItem
+    let info: AccessibleItemInfo
     let systemImage: String?
     let edge: HorizontalEdge
     let tint: Color

@@ -1,11 +1,11 @@
 //
-//  AccessibleItem.swift
+//  AccessibleItemInfo.swift
 //
 //
 //  Created by Nikolai Nobadi on 8/7/24.
 //
 
-public struct AccessibleItem {
+public struct AccessibleItemInfo {
     public let prompt: String
     public let accessibilityId: String?
     

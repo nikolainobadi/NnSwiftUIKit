@@ -20,9 +20,9 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
     let placement: ToolbarItemPlacement
     let dismissType: NavBarDismissType
     let accessibilityId: String?
-    let dismissButtonInfo: AccessibleItem
+    let dismissButtonInfo: AccessibleItemInfo
     
-    init(_ title: String?, itemToModify: Item, message: String?, placement: ToolbarItemPlacement?, dismissType: NavBarDismissType?, accessibilityId: String?, dismissButtonInfo: AccessibleItem?) {
+    init(_ title: String?, itemToModify: Item, message: String?, placement: ToolbarItemPlacement?, dismissType: NavBarDismissType?, accessibilityId: String?, dismissButtonInfo: AccessibleItemInfo?) {
         self.title = title ?? "Changes Detected"
         self.message = message ?? "You've made changes to this item. Would you like to discard the changes?"
         self.itemToModify = itemToModify

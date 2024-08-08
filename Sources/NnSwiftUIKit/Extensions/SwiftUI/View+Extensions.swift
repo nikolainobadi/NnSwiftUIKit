@@ -73,11 +73,11 @@ public extension View {
 // MARK: - iOS 15+ Error Handling
 @available(iOS 15.0, *)
 public extension View {
-    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItem, message: String, action: @escaping () async throws -> Void) -> some View {
+    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItemInfo, message: String, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonInfo: buttonInfo, message: message, action: action))
     }
     
-    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, alertButtonInfo: AccessibleItem? = nil, delete: @escaping () async throws -> Void) -> some View {
+    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, alertButtonInfo: AccessibleItemInfo? = nil, delete: @escaping () async throws -> Void) -> some View {
         modifier(DeleteRowViewModifier(message: message, isActive: isActive, alertButtonInfo: alertButtonInfo ?? .init(prompt: "Delete"), delete: delete))
     }
     
@@ -155,7 +155,7 @@ public extension View {
     }
     
     @available(iOS 15.0, *)
-    func nnWithSwipeAction(info: AccessibleItem, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
+    func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
         modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
     }
 }
@@ -164,7 +164,7 @@ public extension View {
 // MARK: - Alerts
 @available(iOS 15.0, *)
 public extension View {
-    func nnAsyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItem? = nil, cancelInfo: AccessibleItem? = nil, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
+    func nnAsyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
         modifier(
             CustomAlertViewModifier(
                 isPresented: isPresented,
@@ -178,11 +178,11 @@ public extension View {
         )
     }
     
-    func nnFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItem, buttonInfo: AccessibleItem? = nil, cancelInfo: AccessibleItem? = nil, action: @escaping (String) async throws -> Void) -> some View {
+    func nnFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String) async throws -> Void) -> some View {
         modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
     }
     
-    func nnDoubleFieldAlert(_ message: String, isPresented: Binding<Bool>, firstFieldInfo: AccessibleItem, secondFieldInfo: AccessibleItem, buttonInfo: AccessibleItem? = nil, cancelInfo: AccessibleItem? = nil, action: @escaping (String, String) async throws -> Void) -> some View {
+    func nnDoubleFieldAlert(_ message: String, isPresented: Binding<Bool>, firstFieldInfo: AccessibleItemInfo, secondFieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String, String) async throws -> Void) -> some View {
         modifier(
             DoubleFieldAlertViewModifier(
                 isPresented: isPresented,
@@ -227,7 +227,7 @@ public extension View {
         modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, accessibilityId: accessibilityId, action: dismiss))
     }
     
-    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItem? = nil) -> some View {
+    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
         modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, placement: placement, dismissType: dismissType, accessibilityId: accessibilityId, dismissButtonInfo: dismissButtonInfo))
     }
 }

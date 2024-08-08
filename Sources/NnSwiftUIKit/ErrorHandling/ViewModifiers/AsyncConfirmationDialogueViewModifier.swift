@@ -12,7 +12,7 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     @Binding var showingConfirmation: Bool
     
     let role: ButtonRole?
-    let buttonInfo: AccessibleItem
+    let buttonInfo: AccessibleItemInfo
     let message: String
     let action: () async throws -> Void
     
