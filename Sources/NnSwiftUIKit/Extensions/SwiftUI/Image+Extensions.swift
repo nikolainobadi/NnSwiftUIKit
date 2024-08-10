@@ -7,12 +7,16 @@
 
 import SwiftUI
 
+/// Extension for Image to provide additional utility methods.
 public extension Image {
+    /// An enum representing different types of images (system or media).
     enum ImageType {
         case system(String)
         case media(String, Bundle?)
     }
     
+    /// Initializes an Image using the specified ImageType.
+    /// - Parameter imageType: The type of image to initialize (system or media).
     init(imageType: ImageType) {
         switch imageType {
         case .system(let imageName):
@@ -22,3 +26,4 @@ public extension Image {
         }
     }
 }
+
