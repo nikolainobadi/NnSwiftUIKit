@@ -42,7 +42,7 @@ To integrate `NnSwiftUIKit` into your project, add it to your dependencies in yo
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "0.8.0")
+        .package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "1.0.0")
     ],
     ...
     targets: [
@@ -60,9 +60,11 @@ Note: As this is a dynamic library, it will embedded in the Xcode project
 ## Usage
 NnSwiftUIKit provides a robust toolkit for enhancing your SwiftUI apps. Below are examples of how to leverage some of its key components.
 
-### Error Handling
 
-Implement `NnDisplayableError` in your custom error types to take full advantage of NnSwiftUIKit's error handling capabilities:
+### Error Handling
+Easily handle error presentation with `NnAsyncTryButton`, `NnDisplayableError`, and the custom view modifers.
+
+Implement `NnDisplayableError` in your custom error types:
 
 ```swift
 struct MyError: NnDisplayableError {
@@ -71,21 +73,29 @@ struct MyError: NnDisplayableError {
 }
 ```
 
-Then, use `NnSwiftUIErrorHandler` to manage error states across your app's views:
+Then, use the loading/errorHandling view modifiers to manage error states across your app's views:
 
 ```swift
-@StateObject private var errorHandler = NnSwiftUIErrorHandler()
-
-MyView()
-    .environmentObject(errorHandler)
-    .nnWithNnErrorHandling()
+struct YourApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .nnWithNnLoadingView()
+                .nnWithNnErrorHandling()
+        }
+    }
+}
 ```
 
-### Asynchronous Buttons
-
-Use `NnAsyncTryButton` to perform actions that require async operations:
+Finally, use `NnTryButton` for throw methods or `NnAsyncTryButton` to perform asynchronous throwing methods, and any thrown errors will be displayed with their corresonding messages declared in the `NnDisplayableError` conformance:
 
 ```swift
+NnTryButton(action: {
+    // Perform sync action
+}, label: {
+    Text("Tap Me")
+})
+
 NnAsyncTryButton(action: {
     // Perform async action
     // Example: try await someAsyncFunction()
@@ -94,30 +104,7 @@ NnAsyncTryButton(action: {
 })
 ```
 
-For synchronous actions, use `NnTryButton`:
-
-```swift
-NnTryButton(action: {
-    // Perform sync action
-}, label: {
-    Text("Tap Me")
-})
-```
-
-### Loading States
-
-Manage loading states across your views with `NnLoadingHandler`:
-
-```swift
-@StateObject private var loadingHandler = NnLoadingHandler()
-
-MyView()
-    .environmentObject(loadingHandler)
-    .nnWithNnLoadingView()
-```
-
 ### Custom Alerts
-
 Create alerts with fields or confirmations using provided view modifiers:
 
 #### Double Field Alert
@@ -125,15 +112,15 @@ Create alerts with fields or confirmations using provided view modifiers:
 @State private var isAlertPresented = false
 
 MyView()
-    .modifier(DoubleFieldAlertViewModifier(
+    .nnDoubleFieldAlert(
+        "Enter your credentials",
         isPresented: $isAlertPresented,
-        message: "Enter your credentials",
         firstFieldInfo: .init(prompt: "Username"),
         secondFieldInfo: .init(prompt: "Password"),
         action: { username, password in
             // Handle inputs
         }
-    ))
+    )
 ```
 
 #### Confirmation Alert
@@ -141,7 +128,7 @@ MyView()
 @State private var isConfirmPresented = false
 
 MyView()
-    .modifier(AsyncConfirmationDialogueViewModifier(
+    .nnAsyncConfirmation(
         showingConfirmation: $isConfirmPresented,
         role: .destructive,
         buttonInfo: AccessibleItemInfo(prompt: "Delete"),
@@ -149,34 +136,33 @@ MyView()
         action: {
             // Handle deletion
         }
-    ))
+    )
 ```
 
 ### Custom View Modifiers
-
 #### Apply Gradient Background
 ```swift
 MyView()
-    .modifier(GradientBackgroundViewModifier(
+    .nnLinearGradientBackground(
         gradient: LinearGradient(colors: [.blue, .purple], startPoint: .top, endPoint: .bottom),
         opacity: 0.8
-    ))
+    )
 ```
 
 #### Custom Font Application
 ```swift
 MyView()
-    .modifier(CustomFontViewModifier(
-        font: .custom("YourFontName", size: 18),
+    .nnSetCustomFont(
+        .body,
+        fontName: "Helvetiva"
         textColor: .primary,
-        autoSize: true
-    ))
+    )
 ```
 
 #### Device Shake Gesture
 ```swift
 MyView()
-    .modifier(DeviceShakeViewModifier(
+    .nnOnShake(
         isActive: true,
         action: {
             print("Device shaken!")

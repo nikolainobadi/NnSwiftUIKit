@@ -156,8 +156,6 @@ public extension View {
         modifier(AccessibilityIdViewModifier(accessibilityId: id))
     }
     
-    
-    
     @available(iOS 15.0, *)
     func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
         modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
@@ -204,6 +202,7 @@ public extension View {
         )
     }
 }
+
 
 // MARK: - Showcase
 @available(iOS 16.4, *)
