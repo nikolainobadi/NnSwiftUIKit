@@ -154,13 +154,7 @@ public extension View {
         modifier(AccessibilityIdViewModifier(accessibilityId: id))
     }
     
-    func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
-        #if canImport(UIKit)
-        modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
-        #else
-        self
-        #endif
-    }
+    
     
     @available(iOS 15.0, *)
     func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
@@ -221,7 +215,11 @@ public extension View {
 #if canImport(UIKit)
 public extension View {
     func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
-        self.modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
+        modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
+    }
+    
+    func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
+        modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
     }
     
     func nnFramePercent(widthPercent: CGFloat, heighPercent: CGFloat, alignment: Alignment = .center) -> some View {
