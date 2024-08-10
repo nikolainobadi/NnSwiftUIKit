@@ -35,6 +35,7 @@ public extension View {
     }
 }
 
+
 // MARK: - Error Handling
 public extension View {
     func nnWithNnLoadingView() -> some View {
@@ -69,6 +70,7 @@ public extension View {
         modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
     }
 }
+
 
 // MARK: - iOS 15+ Error Handling
 @available(iOS 15.0, *)
@@ -211,14 +213,13 @@ public extension View {
     }
 }
 
-
 #if canImport(UIKit)
 public extension View {
     func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
         modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
     }
     
-    func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
+    func nnHandlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
         modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
     }
     

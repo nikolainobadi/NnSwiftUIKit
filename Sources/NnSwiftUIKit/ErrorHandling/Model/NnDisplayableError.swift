@@ -16,3 +16,9 @@ public protocol NnDisplayableError: Error {
     var message: String { get }
 }
 
+
+public extension NnDisplayableError {
+    var title: String {
+        return "Error"
+    }
+}
