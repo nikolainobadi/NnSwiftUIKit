@@ -154,6 +154,14 @@ public extension View {
         modifier(AccessibilityIdViewModifier(accessibilityId: id))
     }
     
+    func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
+        #if canImport(UIKit)
+        modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
+        #else
+        self
+        #endif
+    }
+    
     @available(iOS 15.0, *)
     func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
         modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
