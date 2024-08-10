@@ -4,9 +4,12 @@
 //
 //  Created by Nikolai Nobadi on 1/11/24.
 //
-
-#if canImport(UIKit)
 import SwiftUI
+
+public enum NavBarDismissType {
+    case xmark, cancel, done
+}
+
 
 @available(iOS 15.0, *)
 struct NavBarDismissButtonViewModifier: ViewModifier {
@@ -32,7 +35,7 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .nnWithNavBarButton(placement: placement ?? ((dismissType == .done) ? .topBarTrailing : .topBarLeading), buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
+            .nnWithNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
                 if let action = action {
                     action()
                 } else {
@@ -43,8 +46,13 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
 }
 
 
-// MARK: - Dependencies
-public enum NavBarDismissType {
-    case xmark, cancel, done
+// MARK: - Extension Dependencies
+extension NavBarDismissType {
+    var defaultPlacement: ToolbarItemPlacement? {
+        #if canImport(UIKit)
+        return self == .done ? .topBarTrailing : .topBarLeading
+        #else
+        return .automatic
+        #endif
+    }
 }
-#endif
