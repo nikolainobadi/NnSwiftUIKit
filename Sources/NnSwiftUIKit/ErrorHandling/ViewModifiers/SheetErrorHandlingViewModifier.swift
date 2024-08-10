@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+/// A view modifier that presents a sheet with error handling functionality.
 struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
+    /// A binding that controls whether the sheet is presented.
     @Binding var isPresented: Bool
     
+    /// The content of the sheet.
     let sheet: () -> Sheet
     
+    /// Modifies the content view to include a sheet with error handling.
     func body(content: Content) -> some View {
         content
             .sheet(isPresented: $isPresented) {
@@ -21,3 +25,4 @@ struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
             }
     }
 }
+
