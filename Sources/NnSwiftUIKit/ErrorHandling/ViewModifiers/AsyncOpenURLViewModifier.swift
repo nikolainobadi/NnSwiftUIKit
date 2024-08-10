@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+/// A view modifier that handles asynchronous actions triggered by opening a URL.
 struct AsyncOpenURLViewModifier: ViewModifier {
+    /// An environment object for managing loading states.
     @EnvironmentObject var loadingHandler: NnLoadingHandler
+    
+    /// An environment object for managing error states.
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
+    /// Determines whether the loading indicator should be hidden.
     let hideLoadingIndicator: Bool
+    
+    /// The asynchronous action to perform when a URL is opened.
     let asyncAction: (URL) async throws -> Void
     
     func body(content: Content) -> some View {

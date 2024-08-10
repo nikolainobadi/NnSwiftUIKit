@@ -7,7 +7,12 @@
 
 import Foundation
 
+/// A protocol that defines the properties of a displayable error.
 public protocol NnDisplayableError: Error {
+    /// The title of the error.
     var title: String { get }
+    
+    /// The message describing the error.
     var message: String { get }
 }
+

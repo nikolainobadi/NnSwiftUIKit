@@ -7,16 +7,23 @@
 
 import Foundation
 
+/// A class that manages error handling in a SwiftUI view by presenting an alert.
 public final class NnSwiftUIErrorHandler: ObservableObject {
+    /// The current error alert being displayed.
     @Published var currentAlert: NnErrorAlert?
     
+    /// Handles an error by creating and displaying an appropriate error alert.
     public func handle(error: Error) {
-        currentAlert = makeErrorAlert(from: error)
+        Task { @MainActor in
+            currentAlert = makeErrorAlert(from: error)
+        }
     }
 }
 
 // MARK: - Private Methods
+
 private extension NnSwiftUIErrorHandler {
+    /// Creates an NnErrorAlert from the provided error.
     func makeErrorAlert(from error: Error) -> NnErrorAlert {
         var errorAlert = NnErrorAlert()
         
