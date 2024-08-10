@@ -7,12 +7,21 @@
 
 import SwiftUI
 
+/// A view modifier that configures a SwiftUI view as a rounded button with a linear gradient background, corner radius, shadow color, and shadow radius.
 struct ButtonGradientBackgroundViewModifier: ViewModifier {
+    /// The linear gradient to be applied as the button background.
     let gradient: LinearGradient
+    
+    /// The corner radius for the button.
     let cornerRadius: CGFloat
+    
+    /// The color of the button's shadow.
     let shadowColor: Color
+    
+    /// The radius of the button's shadow.
     let shadowRadius: CGFloat
     
+    /// Modifies the content view to configure it as a rounded button with a gradient background and shadow.
     func body(content: Content) -> some View {
         content
             .nnLinearGradientBackground(gradient)
