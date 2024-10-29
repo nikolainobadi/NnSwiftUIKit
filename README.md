@@ -42,7 +42,7 @@ To integrate `NnSwiftUIKit` into your project, add it to your dependencies in yo
 let package = Package(
     ...
     dependencies: [
-        .package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "1.0.0")
+        .package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "2.0.0")
     ],
     ...
     targets: [
