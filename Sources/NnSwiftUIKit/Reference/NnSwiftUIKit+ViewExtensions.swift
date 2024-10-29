@@ -283,3 +283,13 @@
 //        self.init(action: action, role: role, label: { Text(title) })
 //    }
 //}
+//
+//public extension Array where Element: Identifiable {
+//    mutating func toggleItem(_ item: Element) {
+//        nnToggleItem(item)
+//    }
+//    
+//    mutating func addOrUpdate(_ item: Element) {
+//        nnAddOrUpdate(item)
+//    }
+//}
