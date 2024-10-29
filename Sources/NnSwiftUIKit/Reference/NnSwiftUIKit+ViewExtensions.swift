@@ -1,6 +1,6 @@
 /// Use this file to easily 'wrap' the methods from `NnSwiftUIKit`in your app to avoid having to depend on this package throughout your app.
-
-
+//
+//
 //import SwiftUI
 //import NnSwiftUIKit
 //
@@ -99,6 +99,14 @@
 //    
 //    func withNavTitle(title: String?) -> some View {
 //        nnWithNavTitle(title: title)
+//    }
+//    
+//    func showingConditionalView<V: View>(isShowing: Bool, @ViewBuilder conditionalView: @escaping () -> V) -> some View {
+//        nnShowingConditionalView(isShowing: isShowing, conditionalView: conditionalView)
+//    }
+//    
+//    func showingViewWithOptional<I, V: View>(_ optional: I?, @ViewBuilder conditionalView: @escaping (I) -> V) -> some View {
+//        nnShowingViewWithOptional(optional, conditionalView: conditionalView)
 //    }
 //}
 //
@@ -228,9 +236,9 @@
 //    }
 //}
 //#endif
-
+//
 //public protocol DisplayableError: NnDisplayableError {}
-
+//
 //public struct AsyncTryButton<Label>: View where Label: View {
 //    @ViewBuilder var label: () -> Label
 //    
@@ -256,7 +264,7 @@
 //        self.init(action: action, role: role, label: { Text(titleKey) })
 //    }
 //}
-
+//
 //public struct TryButton<Label>: View where Label: View {
 //    @ViewBuilder var label: () -> Label
 //    

@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that displays an asynchronous alert with a single text field in a SwiftUI view.
-@available(iOS 15.0, *)
 struct FieldAlertViewModifier: ViewModifier {
     /// A binding that controls whether the alert is presented.
     @Binding var isPresented: Bool
@@ -43,5 +42,11 @@ struct FieldAlertViewModifier: ViewModifier {
                 EmptyOnDisappearField(fieldInfo.prompt, text: $fieldText)
                     .nnSetAccessibiltyId(fieldInfo.accessibilityId)
             }
+    }
+}
+
+public extension View {
+    func nnFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String) async throws -> Void) -> some View {
+        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
     }
 }

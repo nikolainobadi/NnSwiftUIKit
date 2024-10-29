@@ -30,8 +30,17 @@ struct CustomFontViewModifier: ViewModifier {
     }
 }
 
-// MARK: - Helpers
+public extension View {
+    func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+        modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
+    }
+    
+    func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
+        modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
+    }
+}
 
+// MARK: - Helpers
 internal extension View {
     /// Creates a custom font with a specific style and font name.
     /// - Parameters:

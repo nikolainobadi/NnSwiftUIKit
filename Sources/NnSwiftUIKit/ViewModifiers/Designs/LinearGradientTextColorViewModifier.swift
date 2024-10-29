@@ -21,3 +21,8 @@ struct LinearGradientTextColorViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    func nnTextLinearGradient(_ gradient: LinearGradient) -> some View {
+        modifier(LinearGradientTextColorViewModifier(gradient: gradient))
+    }
+}

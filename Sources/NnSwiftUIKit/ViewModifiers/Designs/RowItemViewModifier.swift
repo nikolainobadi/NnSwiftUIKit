@@ -33,3 +33,9 @@ struct RowItemViewModifier: ViewModifier {
         .contentShape(Rectangle())
     }
 }
+
+public extension View {
+    func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
+        modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, alignment: alignment))
+    }
+}

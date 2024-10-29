@@ -19,3 +19,9 @@ struct ConditionalDisplayViewModifier: ViewModifier {
         }
     }
 }
+
+public extension View {
+    func nnOnlyShow(when conditional: Bool) -> some View {
+        modifier(ConditionalDisplayViewModifier(conditional: conditional))
+    }
+}

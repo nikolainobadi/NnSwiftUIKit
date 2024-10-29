@@ -54,6 +54,12 @@ struct NavBarButtonViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    func nnWithNavBarButton(placement: ToolbarItemPlacement? = nil, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () -> Void) -> some View {
+        modifier(NavBarButtonViewModifier(placement: placement ?? .automatic, buttonContent: buttonContent, accessibilityId: accessibilityId, font: font, textColor: textColor, isActive: isActive, action: action))
+    }
+}
+
 // MARK: - Dependencies
 /// An enum representing the content of a navigation bar button (either text or image).
 public enum NavBarButtonContent {

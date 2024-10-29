@@ -27,3 +27,9 @@ struct DelayedOnAppearViewModifier: ViewModifier {
             }
     }
 }
+
+public extension View {
+    func nnDelayedOnAppear(seconds: Double, perform action: @escaping () -> Void) -> some View {
+        modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
+    }
+}

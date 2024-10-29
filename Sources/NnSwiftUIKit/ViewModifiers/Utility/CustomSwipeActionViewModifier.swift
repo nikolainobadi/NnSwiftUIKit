@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that adds a custom swipe action to a SwiftUI view with customizable appearance and behavior.
-@available(iOS 15.0, *)
 struct CustomSwipeActionViewModifier: ViewModifier {
     /// Information related to the swipe action's accessibility.
     let info: AccessibleItemInfo
@@ -46,5 +45,11 @@ struct CustomSwipeActionViewModifier: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+public extension View {
+    func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
+        modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
     }
 }

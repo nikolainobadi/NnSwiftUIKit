@@ -9,7 +9,6 @@
 import SwiftUI
 
 /// A view modifier that adds a navigation bar dismiss button with a confirmation dialog for discarding changes in a SwiftUI view.
-@available(iOS 15.0, *)
 struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
     /// The original item before any modifications.
     @State private var originalItem: Item
@@ -71,6 +70,12 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
             } message: {
                 Text(message)
             }
+    }
+}
+
+public extension View {
+    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
+        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, placement: placement, dismissType: dismissType, accessibilityId: accessibilityId, dismissButtonInfo: dismissButtonInfo))
     }
 }
 #endif

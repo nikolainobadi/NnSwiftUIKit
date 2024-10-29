@@ -8,8 +8,7 @@
 import SwiftUI
 
 /// A view modifier that displays a custom asynchronous alert in a SwiftUI view.
-@available(iOS 15.0, *)
-struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
+struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
     /// A binding that controls whether the alert is presented.
     @Binding var isPresented: Bool
     
@@ -42,5 +41,21 @@ struct CustomAlertViewModifier<AlertView: View>: ViewModifier {
                 Button(cancelInfo.prompt, role: .cancel, action: cancelAction)
                     .nnSetAccessibiltyId(cancelInfo.accessibilityId)
             }
+    }
+}
+
+public extension View {
+    func nnAsyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
+        modifier(
+            AsyncAlertViewModifier(
+                isPresented: isPresented,
+                message: message,
+                buttonInfo: buttonInfo ?? .init(prompt: "Save", accessibilityId: nil),
+                cancelInfo: cancelInfo ?? .init(prompt: "Cancel", accessibilityId: nil),
+                action: action,
+                cancelAction: cancelAction,
+                alertView: alertView
+            )
+        )
     }
 }

@@ -22,3 +22,8 @@ struct GradientBackgroundViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    func nnLinearGradientBackground(_ gradient: LinearGradient, opacity: CGFloat = 1) -> some View {
+        modifier(GradientBackgroundViewModifier(gradient: gradient, opacity: opacity))
+    }
+}

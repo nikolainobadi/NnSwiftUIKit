@@ -5,10 +5,10 @@
 //  Created by Nikolai Nobadi on 2/27/24.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 
 /// A view modifier that applies a reverse mask to a SwiftUI view.
-@available(iOS 15.0, *)
 struct ReverseMaskViewModifier<ReverseContent: View>: ViewModifier {
     /// The alignment of the reverse content within the mask.
     let alignment: Alignment
@@ -29,14 +29,14 @@ struct ReverseMaskViewModifier<ReverseContent: View>: ViewModifier {
     }
 }
 
-@available(iOS 15.0, *)
-extension View {
+public extension View {
     /// Applies a reverse mask to the view with specified alignment and reverse content.
     /// - Parameters:
     ///   - alignment: The alignment of the reverse content within the mask. Default is `.topLeading`.
     ///   - content: A view builder that provides the reverse content.
     /// - Returns: A view with the reverse mask applied.
-    func reverse<ReverseContent: View>(alignment: Alignment = .topLeading, @ViewBuilder content: @escaping () -> ReverseContent) -> some View {
+    func nnReverse<ReverseContent: View>(alignment: Alignment = .topLeading, @ViewBuilder content: @escaping () -> ReverseContent) -> some View {
         modifier(ReverseMaskViewModifier(alignment: alignment, reverseConent: content))
     }
 }
+#endif

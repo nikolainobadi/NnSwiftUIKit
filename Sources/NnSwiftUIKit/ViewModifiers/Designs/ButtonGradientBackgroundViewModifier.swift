@@ -29,3 +29,9 @@ struct ButtonGradientBackgroundViewModifier: ViewModifier {
             .shadow(color: shadowColor, radius: shadowRadius)
     }
 }
+
+public extension View {
+    func nnRoundedButtonLinearGradientBackround(_ gradient: LinearGradient, cornerRadius: CGFloat = 10, shadowColor: Color = .primary, shadowRadius: CGFloat = 4) -> some View {
+        modifier(ButtonGradientBackgroundViewModifier(gradient: gradient, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius))
+    }
+}

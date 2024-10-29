@@ -36,3 +36,9 @@ struct TappableRowViewModifier: ViewModifier {
         }
     }
 }
+
+public extension View {
+    func nnTappable(tapIsActive: Bool = true, withChevron: Bool = false, tint: Color = .primary, alignment: Alignment = .leading, onTapGesture: @escaping () -> Void) -> some View {
+        modifier(TappableRowViewModifier(tapIsActive: tapIsActive, withChevron: withChevron, tint: tint, alignment: alignment, onTapGesture: onTapGesture))
+    }
+}

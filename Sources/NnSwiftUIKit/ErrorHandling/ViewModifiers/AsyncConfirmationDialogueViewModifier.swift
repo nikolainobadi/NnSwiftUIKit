@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that displays an asynchronous confirmation dialog in SwiftUI with error handling.
-@available(iOS 15.0, *)
 struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     /// A binding that controls whether the confirmation dialog is showing.
     @Binding var showingConfirmation: Bool
@@ -37,3 +36,8 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItemInfo, message: String, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonInfo: buttonInfo, message: message, action: action))
+    }
+}

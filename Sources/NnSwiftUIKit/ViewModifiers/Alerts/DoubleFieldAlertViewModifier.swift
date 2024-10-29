@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that displays an asynchronous alert with two text fields in a SwiftUI view.
-@available(iOS 15.0, *)
 struct DoubleFieldAlertViewModifier: ViewModifier {
     /// A binding that controls whether the alert is presented.
     @Binding var isPresented: Bool
@@ -51,5 +50,21 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
                 EmptyOnDisappearField(secondFieldInfo.prompt, text: $secondFieldText)
                     .nnSetAccessibiltyId(secondFieldInfo.accessibilityId)
             }
+    }
+}
+
+public extension View {
+    func nnDoubleFieldAlert(_ message: String, isPresented: Binding<Bool>, firstFieldInfo: AccessibleItemInfo, secondFieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String, String) async throws -> Void) -> some View {
+        modifier(
+            DoubleFieldAlertViewModifier(
+                isPresented: isPresented,
+                message: message,
+                firstFieldInfo: firstFieldInfo,
+                secondFieldInfo: secondFieldInfo,
+                buttonInfo: buttonInfo,
+                cancelInfo: cancelInfo,
+                action: action
+            )
+        )
     }
 }

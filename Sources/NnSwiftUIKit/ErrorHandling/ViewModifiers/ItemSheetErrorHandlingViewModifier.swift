@@ -33,3 +33,8 @@ struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: View
     }
 }
 
+public extension View {
+    func nnSheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
+        modifier(ItemSheetErrorHandlingViewModifier(item: item, isDisabled: isDisabled, sheet: sheet))
+    }
+}

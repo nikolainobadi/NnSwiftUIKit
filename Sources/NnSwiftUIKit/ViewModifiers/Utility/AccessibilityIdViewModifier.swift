@@ -22,3 +22,9 @@ struct AccessibilityIdViewModifier: ViewModifier {
         }
     }
 }
+
+public extension View {
+    func nnSetAccessibiltyId(_ id: String?) -> some View {
+        modifier(AccessibilityIdViewModifier(accessibilityId: id))
+    }
+}

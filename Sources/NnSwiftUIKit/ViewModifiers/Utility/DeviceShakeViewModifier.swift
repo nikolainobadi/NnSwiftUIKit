@@ -30,8 +30,13 @@ struct DeviceShakeViewModifier: ViewModifier {
     }
 }
 
-// MARK: - Extension Dependencies
+public extension View {
+    func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
+        modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
+    }
+}
 
+// MARK: - Extension Dependencies
 extension UIDevice {
     /// A notification that is posted when the device is shaken.
     static let deviceDidShakeNotification = Notification.Name(rawValue: "deviceDidShakeNotification")
