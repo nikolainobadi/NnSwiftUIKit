@@ -1,6 +1,6 @@
 /// Use this file to easily 'wrap' the methods from `NnSwiftUIKit`in your app to avoid having to depend on this package throughout your app.
-
-
+//
+//
 //import SwiftUI
 //import NnSwiftUIKit
 //
@@ -34,7 +34,7 @@
 //public extension View {
 //    func withErrorHandling() -> some View {
 //        nnWithNnLoadingView()
-//            .nnWithNnErrorHandling()()
+//            .nnWithNnErrorHandling()
 //    }
 //    func withNnLoadingView() -> some View {
 //        nnWithNnLoadingView()
@@ -100,6 +100,14 @@
 //    func withNavTitle(title: String?) -> some View {
 //        nnWithNavTitle(title: title)
 //    }
+//    
+//    func showingConditionalView<V: View>(isShowing: Bool, @ViewBuilder conditionalView: @escaping () -> V) -> some View {
+//        nnShowingConditionalView(isShowing: isShowing, conditionalView: conditionalView)
+//    }
+//    
+//    func showingViewWithOptional<I, V: View>(_ optional: I?, @ViewBuilder conditionalView: @escaping (I) -> V) -> some View {
+//        nnShowingViewWithOptional(optional, conditionalView: conditionalView)
+//    }
 //}
 //
 //
@@ -123,7 +131,7 @@
 //    }
 //    
 //    func asRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
-//        nnAsRowItem(withChevron: withChevron, alignment: alignment, tint: Color)
+//        nnAsRowItem(withChevron: withChevron, alignment: alignment, tint: tint)
 //    }
 //    
 //    func textLinearGradient(_ gradient: LinearGradient) -> some View {
@@ -228,9 +236,9 @@
 //    }
 //}
 //#endif
-
+//
 //public protocol DisplayableError: NnDisplayableError {}
-
+//
 //public struct AsyncTryButton<Label>: View where Label: View {
 //    @ViewBuilder var label: () -> Label
 //    
@@ -256,7 +264,7 @@
 //        self.init(action: action, role: role, label: { Text(titleKey) })
 //    }
 //}
-
+//
 //public struct TryButton<Label>: View where Label: View {
 //    @ViewBuilder var label: () -> Label
 //    
@@ -281,5 +289,22 @@
 //    }
 //    init<S>(_ title: S, role: NnButtonRole? = nil, action: @escaping () throws -> Void) where S: StringProtocol {
 //        self.init(action: action, role: role, label: { Text(title) })
+//    }
+//}
+//
+//public extension Array where Element: Identifiable {
+//    mutating func toggleItem(_ item: Element) {
+//        nnToggleItem(item)
+//    }
+//    
+//    mutating func addOrUpdate(_ item: Element) {
+//        nnAddOrUpdate(item)
+//    }
+//}
+//
+//@available(iOS 17.0, *)
+//public extension View {
+//    func trackingItemChanges<I: Equatable>(item: I, itemDidChange: Binding<Bool>) -> some View {
+//        modifier(ItemChangedViewModifer(item: item, itemDidChange: itemDidChange))
 //    }
 //}

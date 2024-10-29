@@ -23,3 +23,11 @@ struct ConditionalNavTitleViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    /// Conditionally sets a navigation title if a title is provided.
+    /// - Parameter title: An optional string to use as the navigation title.
+    /// - Returns: A modified view with a navigation title if the title is non-nil.
+    func nnWithNavTitle(title: String?) -> some View {
+        modifier(ConditionalNavTitleViewModifier(title: title))
+    }
+}

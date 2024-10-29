@@ -28,3 +28,15 @@ struct ConditionalBorderOverlayViewModifier: ViewModifier {
             )
     }
 }
+
+public extension View {
+    /// Adds a border overlay with specified color and radius, conditionally based on a boolean value.
+    /// - Parameters:
+    ///   - showOverlay: A Boolean value indicating whether to show the overlay.
+    ///   - color: The color of the border, defaulting to red.
+    ///   - cornerRadius: The corner radius of the border, defaulting to 10.
+    /// - Returns: A modified view with a conditional border overlay.
+    func nnWithBorderOverlay(_ showOverlay: Bool, color: Color = .red, cornerRadius: CGFloat = 10) -> some View {
+        modifier(ConditionalBorderOverlayViewModifier(color: color, showOverlay: showOverlay, cornerRadius: cornerRadius))
+    }
+}

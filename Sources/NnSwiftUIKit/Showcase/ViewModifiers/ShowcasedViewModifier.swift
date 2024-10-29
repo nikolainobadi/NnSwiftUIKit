@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+#if canImport(UIKit)
 /// A view modifier that adds a showcase highlight effect to a SwiftUI view.
+@available(iOS 16.4, *)
 struct ShowcasedViewModifier: ViewModifier {
     /// The title associated with the highlighted view.
     let title: String
@@ -33,3 +35,10 @@ struct ShowcasedViewModifier: ViewModifier {
     }
 }
 
+@available(iOS 16.4, *)
+public extension View {
+    func nnShowcased(_ title: String, order: Int, cornerRadius: CGFloat, style: RoundedCornerStyle = .continuous, scale: CGFloat = 1) -> some View {
+        modifier(ShowcasedViewModifier(title: title, orderNumber: order, cornerRadius: cornerRadius, style: style, scale: scale))
+    }
+}
+#endif

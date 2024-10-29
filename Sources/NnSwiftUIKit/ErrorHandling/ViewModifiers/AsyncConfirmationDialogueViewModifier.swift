@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that displays an asynchronous confirmation dialog in SwiftUI with error handling.
-@available(iOS 15.0, *)
 struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     /// A binding that controls whether the confirmation dialog is showing.
     @Binding var showingConfirmation: Bool
@@ -29,7 +28,7 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .confirmationDialog("", isPresented: $showingConfirmation) {
-                NnAsyncTryButton(buttonInfo.prompt, role: role?.nnButtonRole, action: action)
+                NnAsyncTryButton(buttonInfo.prompt, role: role, action: action)
                     .nnSetAccessibiltyId(buttonInfo.accessibilityId)
             } message: {
                 Text(message)
@@ -37,3 +36,16 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    /// Displays an asynchronous confirmation dialog with error handling.
+    /// - Parameters:
+    ///   - showingConfirmation: A binding controlling the visibility of the confirmation dialog.
+    ///   - role: The role of the dialog button, such as destructive or cancel.
+    ///   - buttonInfo: Accessibility information for the dialog's button.
+    ///   - message: The confirmation message to display.
+    ///   - action: The asynchronous action to perform upon confirmation.
+    /// - Returns: A modified view with an asynchronous confirmation dialog.
+    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItemInfo, message: String, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonInfo: buttonInfo, message: message, action: action))
+    }
+}

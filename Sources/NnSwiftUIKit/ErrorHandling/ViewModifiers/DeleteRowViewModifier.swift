@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that adds a swipe-to-delete action to a SwiftUI view with confirmation and error handling.
-@available(iOS 15.0, *)
 struct DeleteRowViewModifier: ViewModifier {
     /// Indicates whether the confirmation dialog should be shown.
     @State private var showingConfirmation = false
@@ -39,5 +38,18 @@ struct DeleteRowViewModifier: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+public extension View {
+    /// Adds a swipe-to-delete action with confirmation and error handling.
+    /// - Parameters:
+    ///   - message: The confirmation message to display in the dialog.
+    ///   - isActive: A Boolean value indicating whether the delete action is active.
+    ///   - alertButtonInfo: Accessibility information for the alert button.
+    ///   - delete: The asynchronous action to perform upon deletion confirmation.
+    /// - Returns: A modified view with swipe-to-delete functionality.
+    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, alertButtonInfo: AccessibleItemInfo? = nil, delete: @escaping () async throws -> Void) -> some View {
+        modifier(DeleteRowViewModifier(message: message, isActive: isActive, alertButtonInfo: alertButtonInfo ?? .init(prompt: "Delete"), delete: delete))
     }
 }

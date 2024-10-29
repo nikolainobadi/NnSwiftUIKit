@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A view modifier that conditionally adds a navigation link to a SwiftUI view for iOS 16+.
-@available(iOS 16.0, *)
 struct ConditionalNavigationLinkViewModifier<D: Hashable>: ViewModifier {
     /// The data used for the navigation link.
     let data: D
@@ -25,5 +24,16 @@ struct ConditionalNavigationLinkViewModifier<D: Hashable>: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+public extension View {
+    /// Conditionally adds a navigation link to the view for navigation, available in iOS 16+.
+    /// - Parameters:
+    ///   - data: The data used for the navigation destination.
+    ///   - isActive: A Boolean value indicating whether the navigation link is active, defaulting to true.
+    /// - Returns: A modified view that displays a navigation link when `isActive` is true.
+    func nnAsNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
+        modifier(ConditionalNavigationLinkViewModifier(data: data, isActive: isActive))
     }
 }

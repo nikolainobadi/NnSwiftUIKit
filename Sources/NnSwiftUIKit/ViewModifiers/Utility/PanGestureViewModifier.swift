@@ -8,15 +8,10 @@
 #if canImport(UIKit)
 import SwiftUI
 
-/// A view modifier that handles vertical pan gestures in a SwiftUI view, triggering actions based on swipe direction.
-public enum PanGestureSwipDirection {
-    case up, down
-}
-
 /// A view modifier that triggers actions based on the direction of a vertical pan gesture in a SwiftUI view.
 struct PanGestureViewModifier: ViewModifier {
     /// A closure that handles the swipe direction detected from the pan gesture.
-    let handleSwipeDirection: (PanGestureSwipDirection) -> Void
+    let handleSwipeDirection: (PanGestureSwipeDirection) -> Void
     
     /// Handles the pan gesture and determines the swipe direction.
     /// - Parameter gesture: The pan gesture recognizer.
@@ -43,8 +38,23 @@ struct PanGestureViewModifier: ViewModifier {
     }
 }
 
-// MARK: - Custom Gesture
+public extension View {
+    /// Triggers actions based on the direction of a vertical pan gesture.
+    /// - Parameter handleSwipeDirection: A closure handling the detected swipe direction.
+    /// - Returns: A modified view that detects and responds to vertical pan gestures.
+    func nnHandlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipeDirection) -> Void) -> some View {
+        modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
+    }
+}
 
+
+/// A view modifier that handles vertical pan gestures in a SwiftUI view, triggering actions based on swipe direction.
+public enum PanGestureSwipeDirection {
+    case up, down
+}
+
+
+// MARK: - Custom Gesture
 fileprivate struct CustomGesture: UIViewRepresentable {
     /// A unique identifier for the gesture.
     private let gestureId = UUID().uuidString

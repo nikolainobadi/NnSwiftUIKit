@@ -15,15 +15,23 @@ struct DelayedOnAppearViewModifier: ViewModifier {
     /// The action to perform after the delay.
     let action: () -> Void
     
-    /// Modifies the content view to perform an action after a delay when it appears.
     func body(content: Content) -> some View {
         content
             .onAppear {
-                // Using Task to handle the delay and action
                 Task {
                     try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000)) // Convert seconds to nanoseconds
                     action()
                 }
             }
+    }
+}
+public extension View {
+    /// Performs an action after a specified delay when the view appears.
+    /// - Parameters:
+    ///   - seconds: The delay in seconds before performing the action.
+    ///   - action: The action to perform after the delay.
+    /// - Returns: A modified view that performs an action after a delay upon appearing.
+    func nnDelayedOnAppear(seconds: Double, perform action: @escaping () -> Void) -> some View {
+        modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
     }
 }

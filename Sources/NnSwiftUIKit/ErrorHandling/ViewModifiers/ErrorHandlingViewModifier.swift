@@ -29,3 +29,11 @@ struct ErrorHandlingViewModifier: ViewModifier {
             )
     }
 }
+
+public extension View {
+    /// Adds error handling functionality to the view, using `NnSwiftUIErrorHandler` for error management.
+    /// - Returns: A modified view with error handling support.
+    func nnWithNnErrorHandling() -> some View {
+        modifier(ErrorHandlingViewModifier())
+    }
+}

@@ -47,6 +47,18 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    /// Adds a tap gesture that performs an asynchronous action with error handling.
+    /// - Parameters:
+    ///   - asRowItem: Specifies if the view should be displayed as a row item with an optional chevron.
+    ///   - action: The asynchronous action to perform on tap.
+    /// - Returns: A modified view that handles asynchronous tap gestures.
+    func nnAsyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
+    }
+}
+
+
 
 // MARK: - Dependencies
 /// Enum for specifying whether a row item should display a chevron or not.

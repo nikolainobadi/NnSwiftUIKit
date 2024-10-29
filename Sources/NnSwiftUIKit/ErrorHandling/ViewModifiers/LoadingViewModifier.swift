@@ -32,3 +32,11 @@ struct LoadingViewModifier: ViewModifier {
         }
     }
 }
+
+public extension View {
+    /// Adds a loading overlay to the view when the `isLoading` state is true.
+    /// - Returns: A modified view with a loading overlay.
+    func nnWithNnLoadingView() -> some View {
+        modifier(LoadingViewModifier())
+    }
+}

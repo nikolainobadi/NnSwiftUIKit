@@ -45,3 +45,14 @@ struct AsyncOnChangeOfOptionalViewModifier<Item: Equatable>: ViewModifier {
     }
 }
 
+public extension View {
+    /// Performs an asynchronous action when an optional value changes, with error handling.
+    /// - Parameters:
+    ///   - item: The optional item to observe for changes.
+    ///   - hideLoadingIndicator: A Boolean indicating whether to hide the loading indicator during the action.
+    ///   - action: The asynchronous action to perform when the item changes.
+    /// - Returns: A modified view that handles asynchronous actions on item changes.
+    func nnAsyncOnChange<Item: Equatable>(of item: Item?, hideLoadingIndicator: Bool = false, action: @escaping (Item) async throws -> Void) -> some View {
+        modifier(AsyncOnChangeOfOptionalViewModifier(item: item, hideLoadingIndicator: hideLoadingIndicator, action: action))
+    }
+}

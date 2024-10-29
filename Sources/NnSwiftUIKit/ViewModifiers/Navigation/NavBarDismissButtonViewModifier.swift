@@ -6,14 +6,7 @@
 //
 import SwiftUI
 
-/// An enum representing the type of dismiss button (e.g., "xmark", "cancel", "done").
-public enum NavBarDismissType {
-    case xmark, cancel, done
-}
-
-
 /// A view modifier that adds a dismiss button to the navigation bar with customizable appearance and behavior.
-@available(iOS 15.0, *)
 struct NavBarDismissButtonViewModifier: ViewModifier {
     /// The dismiss action provided by the SwiftUI environment.
     @Environment(\.dismiss) private var dismiss
@@ -61,6 +54,25 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    /// Adds a dismiss button to the navigation bar with customizable appearance and behavior.
+    /// - Parameters:
+    ///   - isActive: A Boolean indicating whether the dismiss button is active, defaulting to true.
+    ///   - placement: The placement of the dismiss button in the navigation bar.
+    ///   - textColor: The color of the dismiss button text or image, defaulting to white.
+    ///   - dismissType: The type of dismiss button (e.g., "xmark", "cancel", "done").
+    ///   - accessibilityId: The accessibility identifier for the dismiss button.
+    ///   - dismiss: An optional action to perform when the dismiss button is tapped.
+    /// - Returns: A modified view with a dismiss button in the navigation bar.
+    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, accessibilityId: String? = nil, dismiss: (() -> Void)? = nil) -> some View {
+        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, accessibilityId: accessibilityId, action: dismiss))
+    }
+}
+
+/// An enum representing the type of dismiss button (e.g., "xmark", "cancel", "done").
+public enum NavBarDismissType {
+    case xmark, cancel, done
+}
 
 // MARK: - Extension Dependencies
 extension NavBarDismissType {

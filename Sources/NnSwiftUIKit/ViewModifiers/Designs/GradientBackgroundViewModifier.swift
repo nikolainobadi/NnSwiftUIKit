@@ -22,3 +22,13 @@ struct GradientBackgroundViewModifier: ViewModifier {
     }
 }
 
+public extension View {
+    /// Applies a linear gradient background with specified opacity to the view.
+    /// - Parameters:
+    ///   - gradient: The linear gradient to use as the background.
+    ///   - opacity: The opacity level for the gradient, defaulting to 1.
+    /// - Returns: A modified view with a gradient background.
+    func nnLinearGradientBackground(_ gradient: LinearGradient, opacity: CGFloat = 1) -> some View {
+        modifier(GradientBackgroundViewModifier(gradient: gradient, opacity: opacity))
+    }
+}
