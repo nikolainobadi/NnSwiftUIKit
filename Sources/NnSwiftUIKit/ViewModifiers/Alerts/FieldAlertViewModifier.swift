@@ -46,6 +46,15 @@ struct FieldAlertViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Displays an asynchronous alert with a single text field.
+    /// - Parameters:
+    ///   - message: The message displayed in the alert.
+    ///   - isPresented: A binding controlling the alert’s presentation.
+    ///   - fieldInfo: Accessibility information for the text field.
+    ///   - buttonInfo: Accessibility information for the action button.
+    ///   - cancelInfo: Accessibility information for the cancel button.
+    ///   - action: The asynchronous action to perform using the input from the text field.
+    /// - Returns: A modified view with an alert containing a single text field.
     func nnFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String) async throws -> Void) -> some View {
         modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
     }

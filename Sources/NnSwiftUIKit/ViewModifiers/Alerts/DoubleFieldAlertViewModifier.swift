@@ -54,6 +54,16 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Displays an asynchronous alert with two text fields.
+    /// - Parameters:
+    ///   - message: The message displayed in the alert.
+    ///   - isPresented: A binding controlling whether the alert is shown.
+    ///   - firstFieldInfo: Accessibility information for the first text field.
+    ///   - secondFieldInfo: Accessibility information for the second text field.
+    ///   - buttonInfo: Accessibility information for the action button.
+    ///   - cancelInfo: Accessibility information for the cancel button.
+    ///   - action: The asynchronous action to perform using the text from both fields.
+    /// - Returns: A modified view with an alert containing two text fields.
     func nnDoubleFieldAlert(_ message: String, isPresented: Binding<Bool>, firstFieldInfo: AccessibleItemInfo, secondFieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String, String) async throws -> Void) -> some View {
         modifier(
             DoubleFieldAlertViewModifier(
