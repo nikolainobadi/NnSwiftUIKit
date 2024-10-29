@@ -31,6 +31,13 @@ struct ButtonGradientBackgroundViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Configures the view as a rounded button with a gradient background and shadow.
+    /// - Parameters:
+    ///   - gradient: The linear gradient to use as the button background.
+    ///   - cornerRadius: The corner radius of the button, defaulting to 10.
+    ///   - shadowColor: The color of the shadow, defaulting to primary.
+    ///   - shadowRadius: The radius of the shadow, defaulting to 4.
+    /// - Returns: A modified view styled as a rounded button with gradient and shadow.
     func nnRoundedButtonLinearGradientBackround(_ gradient: LinearGradient, cornerRadius: CGFloat = 10, shadowColor: Color = .primary, shadowRadius: CGFloat = 4) -> some View {
         modifier(ButtonGradientBackgroundViewModifier(gradient: gradient, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius))
     }

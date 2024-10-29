@@ -31,14 +31,31 @@ struct CustomFontViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Applies a custom font with optional text color, auto-sizing, and minimum scale factor.
+    /// - Parameters:
+    ///   - style: The text style for the font.
+    ///   - fontName: The name of the custom font.
+    ///   - textColor: The color of the text, defaulting to primary.
+    ///   - autoSize: A Boolean indicating whether the text should auto-size to fit the container.
+    ///   - minimumScaleFactor: The minimum scale factor when auto-sizing is enabled, defaulting to 0.5.
+    /// - Returns: A modified view with the specified custom font and attributes.
     func nnSetCustomFont(_ style: Font.TextStyle, fontName: String, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
         modifier(CustomFontViewModifier(font: makeFont(style, fontName: fontName), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
     }
     
+    /// Applies a custom font with specified font name and size.
+    /// - Parameters:
+    ///   - fontName: The name of the custom font.
+    ///   - size: The font size.
+    ///   - textColor: The color of the text, defaulting to primary.
+    ///   - autoSize: A Boolean indicating whether the text should auto-size to fit the container.
+    ///   - minimumScaleFactor: The minimum scale factor when auto-sizing is enabled, defaulting to 0.5.
+    /// - Returns: A modified view with the specified font size and attributes.
     func nnSetCustomFont(fontName: String, size: CGFloat, textColor: Color = .primary, autoSize: Bool = false, minimumScaleFactor: CGFloat = 0.5) -> some View {
         modifier(CustomFontViewModifier(font: Font.custom(fontName, size: size), textColor: textColor, autoSize: autoSize, minimumScaleFactor: minimumScaleFactor))
     }
 }
+
 
 // MARK: - Helpers
 internal extension View {

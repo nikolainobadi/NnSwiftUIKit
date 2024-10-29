@@ -22,6 +22,9 @@ struct LinearGradientTextColorViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Applies a linear gradient to the text color of the view.
+    /// - Parameter gradient: The linear gradient to apply to the text color.
+    /// - Returns: A modified view with gradient text coloring.
     func nnTextLinearGradient(_ gradient: LinearGradient) -> some View {
         modifier(LinearGradientTextColorViewModifier(gradient: gradient))
     }
