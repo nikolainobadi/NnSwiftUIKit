@@ -74,6 +74,16 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
 }
 
 public extension View {
+    /// Adds a navigation bar dismiss button with a confirmation dialog for discarding changes.
+    /// - Parameters:
+    ///   - title: The title of the confirmation dialog.
+    ///   - message: The message displayed in the confirmation dialog.
+    ///   - itemToModify: The item being modified, which is compared to its original state.
+    ///   - placement: The placement of the dismiss button in the navigation bar.
+    ///   - dismissType: The type of dismiss button (e.g., "xmark", "cancel", "done").
+    ///   - accessibilityId: The accessibility identifier for the dismiss button.
+    ///   - dismissButtonInfo: Accessibility information for the dismiss button.
+    /// - Returns: A modified view with a dismiss button that prompts a confirmation dialog if there are changes.
     func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
         modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, placement: placement, dismissType: dismissType, accessibilityId: accessibilityId, dismissButtonInfo: dismissButtonInfo))
     }

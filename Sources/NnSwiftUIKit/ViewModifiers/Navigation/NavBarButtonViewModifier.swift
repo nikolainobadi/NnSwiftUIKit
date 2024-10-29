@@ -55,10 +55,21 @@ struct NavBarButtonViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Adds a navigation bar button with customizable appearance and behavior.
+    /// - Parameters:
+    ///   - placement: The placement of the button within the navigation bar.
+    ///   - buttonContent: The content of the button, either text or image.
+    ///   - font: The font of the button text or image, defaulting to title2.
+    ///   - textColor: The color of the button text or image, defaulting to primary.
+    ///   - isActive: A Boolean indicating whether the button is active, defaulting to true.
+    ///   - accessibilityId: The accessibility identifier for the button.
+    ///   - action: The action to perform when the button is tapped.
+    /// - Returns: A modified view with the navigation bar button.
     func nnWithNavBarButton(placement: ToolbarItemPlacement? = nil, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () -> Void) -> some View {
         modifier(NavBarButtonViewModifier(placement: placement ?? .automatic, buttonContent: buttonContent, accessibilityId: accessibilityId, font: font, textColor: textColor, isActive: isActive, action: action))
     }
 }
+
 
 // MARK: - Dependencies
 /// An enum representing the content of a navigation bar button (either text or image).
