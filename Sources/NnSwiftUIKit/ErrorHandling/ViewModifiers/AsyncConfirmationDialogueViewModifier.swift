@@ -28,7 +28,7 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .confirmationDialog("", isPresented: $showingConfirmation) {
-                NnAsyncTryButton(buttonInfo.prompt, role: role?.nnButtonRole, action: action)
+                NnAsyncTryButton(buttonInfo.prompt, role: role, action: action)
                     .nnSetAccessibiltyId(buttonInfo.accessibilityId)
             } message: {
                 Text(message)
