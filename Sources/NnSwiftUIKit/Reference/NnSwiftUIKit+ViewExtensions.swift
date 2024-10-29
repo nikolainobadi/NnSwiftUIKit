@@ -34,7 +34,7 @@
 //public extension View {
 //    func withErrorHandling() -> some View {
 //        nnWithNnLoadingView()
-//            .nnWithNnErrorHandling()()
+//            .nnWithNnErrorHandling()
 //    }
 //    func withNnLoadingView() -> some View {
 //        nnWithNnLoadingView()
@@ -123,7 +123,7 @@
 //    }
 //    
 //    func asRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
-//        nnAsRowItem(withChevron: withChevron, alignment: alignment, tint: Color)
+//        nnAsRowItem(withChevron: withChevron, alignment: alignment, tint: tint)
 //    }
 //    
 //    func textLinearGradient(_ gradient: LinearGradient) -> some View {

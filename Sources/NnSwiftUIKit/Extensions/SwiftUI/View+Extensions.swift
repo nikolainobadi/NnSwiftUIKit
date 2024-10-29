@@ -218,7 +218,7 @@ public extension View {
         modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
     }
     
-    func nnHandlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
+    func nnHandlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipeDirection) -> Void) -> some View {
         modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
     }
     
