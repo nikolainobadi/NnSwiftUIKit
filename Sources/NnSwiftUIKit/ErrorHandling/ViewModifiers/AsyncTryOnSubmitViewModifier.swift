@@ -42,6 +42,11 @@ struct AsyncTryOnSubmitViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Adds asynchronous error-handling to the onSubmit action in a SwiftUI view.
+    /// - Parameters:
+    ///   - submitLabel: The label to display for the submit button.
+    ///   - action: The asynchronous action to perform when the submit button is pressed.
+    /// - Returns: A modified view with error-handling for submit actions.
     func nnAsyncOnSubmit(submitLabel: SubmitLabel = .done, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTryOnSubmitViewModifier(submitLabel: submitLabel, action: action))
     }

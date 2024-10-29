@@ -40,6 +40,11 @@ struct AsyncOpenURLViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Attaches an asynchronous handler that is triggered when a URL is opened.
+    /// - Parameters:
+    ///   - hideLoadingIndicator: A Boolean value indicating whether to hide the loading indicator.
+    ///   - asyncAction: The asynchronous action to perform when the URL is opened.
+    /// - Returns: A modified view that handles URL opens asynchronously.
     func nnAsyncHandleURL(hideLoadingIndicator: Bool = false, asyncAction: @escaping (URL) async throws -> Void) -> some View {
         modifier(AsyncOpenURLViewModifier(hideLoadingIndicator: hideLoadingIndicator, asyncAction: asyncAction))
     }

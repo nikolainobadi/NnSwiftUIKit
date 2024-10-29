@@ -27,6 +27,11 @@ struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
 }
 
 public extension View {
+    /// Presents a sheet with error handling functionality.
+    /// - Parameters:
+    ///   - isPresented: A binding controlling the presentation of the sheet.
+    ///   - sheet: A closure returning the content of the sheet.
+    /// - Returns: A modified view with an error-handling sheet.
     func nnSheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
         modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, sheet: sheet))
     }

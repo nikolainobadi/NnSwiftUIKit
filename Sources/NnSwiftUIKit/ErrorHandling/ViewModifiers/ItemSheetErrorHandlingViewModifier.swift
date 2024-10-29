@@ -34,6 +34,12 @@ struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: View
 }
 
 public extension View {
+    /// Presents a sheet for a specific item with error handling functionality.
+    /// - Parameters:
+    ///   - item: A binding to the item presented in the sheet.
+    ///   - isDisabled: A Boolean indicating whether the sheet presentation is disabled.
+    ///   - sheet: A closure returning the sheet content for a specific item.
+    /// - Returns: A modified view with an item-specific error-handling sheet.
     func nnSheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
         modifier(ItemSheetErrorHandlingViewModifier(item: item, isDisabled: isDisabled, sheet: sheet))
     }
