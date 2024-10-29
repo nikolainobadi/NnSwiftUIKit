@@ -49,6 +49,15 @@ struct CustomSwipeActionViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Adds a custom swipe action to the view with configurable appearance and behavior.
+    /// - Parameters:
+    ///   - info: Accessibility information for the swipe action.
+    ///   - systemImage: The system image to use for the swipe action button.
+    ///   - tint: The tint color for the swipe action button.
+    ///   - edge: The edge on which the swipe action is applied, defaulting to trailing.
+    ///   - isActive: A Boolean indicating whether the swipe action is active.
+    ///   - action: The action to perform when the swipe action is triggered.
+    /// - Returns: A modified view with the specified swipe action.
     func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
         modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
     }

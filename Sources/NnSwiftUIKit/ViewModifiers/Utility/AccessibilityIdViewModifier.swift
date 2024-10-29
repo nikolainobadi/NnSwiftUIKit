@@ -24,6 +24,9 @@ struct AccessibilityIdViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Sets an accessibility identifier for the view.
+    /// - Parameter id: The accessibility identifier to set.
+    /// - Returns: A modified view with the specified accessibility identifier.
     func nnSetAccessibiltyId(_ id: String?) -> some View {
         modifier(AccessibilityIdViewModifier(accessibilityId: id))
     }

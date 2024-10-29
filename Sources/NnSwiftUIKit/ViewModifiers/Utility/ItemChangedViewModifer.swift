@@ -30,6 +30,11 @@ struct ItemChangedViewModifer<Item: Equatable>: ViewModifier {
 
 @available(iOS 17.0, *)
 public extension View {
+    /// Tracks changes to a specific item and updates a binding when the item changes.
+    /// - Parameters:
+    ///   - item: The item to observe for changes.
+    ///   - itemDidChange: A binding that indicates whether the item has changed.
+    /// - Returns: A modified view that tracks changes to the specified item.
     func nnTrackingItemChanges<I: Equatable>(item: I, itemDidChange: Binding<Bool>) -> some View {
         modifier(ItemChangedViewModifer(item: item, itemDidChange: itemDidChange))
     }
