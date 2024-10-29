@@ -301,3 +301,10 @@
 //        nnAddOrUpdate(item)
 //    }
 //}
+//
+//@available(iOS 17.0, *)
+//public extension View {
+//    func trackingItemChanges<I: Equatable>(item: I, itemDidChange: Binding<Bool>) -> some View {
+//        modifier(ItemChangedViewModifer(item: item, itemDidChange: itemDidChange))
+//    }
+//}
