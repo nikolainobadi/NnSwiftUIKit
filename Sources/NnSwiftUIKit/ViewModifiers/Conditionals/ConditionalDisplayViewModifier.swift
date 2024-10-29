@@ -21,6 +21,9 @@ struct ConditionalDisplayViewModifier: ViewModifier {
 }
 
 public extension View {
+    /// Conditionally displays the view based on a boolean value.
+    /// - Parameter conditional: A Boolean value indicating whether the view should be displayed.
+    /// - Returns: The original view if `conditional` is true, or an empty view if false.
     func nnOnlyShow(when conditional: Bool) -> some View {
         modifier(ConditionalDisplayViewModifier(conditional: conditional))
     }
