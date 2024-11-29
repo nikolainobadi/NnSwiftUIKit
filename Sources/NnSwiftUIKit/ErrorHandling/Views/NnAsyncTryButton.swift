@@ -25,7 +25,7 @@ public struct NnAsyncTryButton<Label>: View where Label: View {
     let action: () async throws -> Void
     
     /// Initializes an NnAsyncTryButton with an action, role, and label.
-    public init(action: @escaping () async throws -> Void, role: ButtonRole? = nil, label: @escaping () -> Label) {
+    public init(action: @escaping () async throws -> Void, role: ButtonRole? = nil, @ViewBuilder label: @escaping () -> Label) {
         self.action = action
         self.label = label
         self.role = role
