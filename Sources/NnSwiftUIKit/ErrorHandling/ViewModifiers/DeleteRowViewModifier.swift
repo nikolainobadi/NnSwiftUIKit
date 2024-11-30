@@ -34,7 +34,7 @@ struct DeleteRowViewModifier: ViewModifier {
                     }
                     .tint(.red)
                 }
-                .nnAsyncConfirmation(showingConfirmation: $showingConfirmation, role: .destructive, buttonInfo: alertButtonInfo, message: message, action: delete)
+                .asyncConfirmation(showingConfirmation: $showingConfirmation, role: .destructive, buttonInfo: alertButtonInfo, message: message, action: delete)
         } else {
             content
         }
@@ -49,7 +49,7 @@ public extension View {
     ///   - alertButtonInfo: Accessibility information for the alert button.
     ///   - delete: The asynchronous action to perform upon deletion confirmation.
     /// - Returns: A modified view with swipe-to-delete functionality.
-    func nnWithSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, alertButtonInfo: AccessibleItemInfo? = nil, delete: @escaping () async throws -> Void) -> some View {
+    func withSwipeDelete(message: String = "Are you sure you want to delete this item?", isActive: Bool = true, alertButtonInfo: AccessibleItemInfo? = nil, delete: @escaping () async throws -> Void) -> some View {
         modifier(DeleteRowViewModifier(message: message, isActive: isActive, alertButtonInfo: alertButtonInfo ?? .init(prompt: "Delete"), delete: delete))
     }
 }

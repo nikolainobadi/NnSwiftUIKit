@@ -20,8 +20,8 @@ struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
         content
             .sheet(isPresented: $isPresented) {
                 sheet()
-                    .nnWithNnLoadingView()
-                    .nnWithNnErrorHandling()
+                    .withNnLoadingView()
+                    .withNnErrorHandling()
             }
     }
 }
@@ -32,7 +32,7 @@ public extension View {
     ///   - isPresented: A binding controlling the presentation of the sheet.
     ///   - sheet: A closure returning the content of the sheet.
     /// - Returns: A modified view with an error-handling sheet.
-    func nnSheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
+    func sheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
         modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, sheet: sheet))
     }
 }

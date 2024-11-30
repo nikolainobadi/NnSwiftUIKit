@@ -41,7 +41,7 @@ public extension View {
     ///   - alignment: The alignment of the content within the row item, defaulting to leading.
     ///   - tint: The tint color for the chevron, defaulting to primary color.
     /// - Returns: A modified view configured as a row item.
-    func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
+    func asRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
         modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, alignment: alignment))
     }
 }

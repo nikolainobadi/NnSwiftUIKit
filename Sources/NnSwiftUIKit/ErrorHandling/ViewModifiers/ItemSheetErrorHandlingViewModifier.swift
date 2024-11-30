@@ -26,8 +26,8 @@ struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: View
             content
                 .sheet(item: $item) { itemToShow in
                     sheet(itemToShow)
-                        .nnWithNnLoadingView()
-                        .nnWithNnErrorHandling()
+                        .withNnLoadingView()
+                        .withNnErrorHandling()
                 }
         }
     }
@@ -40,7 +40,7 @@ public extension View {
     ///   - isDisabled: A Boolean indicating whether the sheet presentation is disabled.
     ///   - sheet: A closure returning the sheet content for a specific item.
     /// - Returns: A modified view with an item-specific error-handling sheet.
-    func nnSheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
+    func sheetWithErrorHandling<Item: Identifiable, Sheet: View>(item: Binding<Item?>, isDisabled: Bool = false, @ViewBuilder sheet: @escaping (Item) -> Sheet) -> some View {
         modifier(ItemSheetErrorHandlingViewModifier(item: item, isDisabled: isDisabled, sheet: sheet))
     }
 }

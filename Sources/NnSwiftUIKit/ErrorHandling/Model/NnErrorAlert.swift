@@ -21,4 +21,3 @@ struct NnErrorAlert: Identifiable {
     /// An optional action that is triggered when the alert is dismissed.
     var dismissAction: (() -> Void)?
 }
-

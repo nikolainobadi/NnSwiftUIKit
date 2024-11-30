@@ -66,7 +66,7 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
                 Button(dismissButtonInfo.prompt, role: .destructive) {
                     dismiss()
                 }
-                .nnSetAccessibiltyId(dismissButtonInfo.accessibilityId)
+                .setAccessibiltyId(dismissButtonInfo.accessibilityId)
             } message: {
                 Text(message)
             }
@@ -84,7 +84,7 @@ public extension View {
     ///   - accessibilityId: The accessibility identifier for the dismiss button.
     ///   - dismissButtonInfo: Accessibility information for the dismiss button.
     /// - Returns: A modified view with a dismiss button that prompts a confirmation dialog if there are changes.
-    func nnWithDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
+    func withDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
         modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, placement: placement, dismissType: dismissType, accessibilityId: accessibilityId, dismissButtonInfo: dismissButtonInfo))
     }
 }

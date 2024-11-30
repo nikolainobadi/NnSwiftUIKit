@@ -38,9 +38,9 @@ struct FieldAlertViewModifier: ViewModifier {
     /// Modifies the content view to add an alert with a text field.
     func body(content: Content) -> some View {
         content
-            .nnAsyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
+            .asyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
                 EmptyOnDisappearField(fieldInfo.prompt, text: $fieldText)
-                    .nnSetAccessibiltyId(fieldInfo.accessibilityId)
+                    .setAccessibiltyId(fieldInfo.accessibilityId)
             }
     }
 }

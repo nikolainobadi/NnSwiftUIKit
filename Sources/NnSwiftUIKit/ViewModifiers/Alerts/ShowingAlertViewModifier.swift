@@ -31,7 +31,7 @@ struct ShowingAlertViewModifier: ViewModifier {
                 Button(cancelInfo.prompt, role: .cancel) {
                     finished?()
                 }
-                .nnSetAccessibiltyId(cancelInfo.accessibilityId)
+                .setAccessibiltyId(cancelInfo.accessibilityId)
             } message: {
                 Text(message)
             }
@@ -47,7 +47,7 @@ public extension View {
     ///   - isPresented: A binding controlling whether the alert is presented.
     ///   - finished: An optional closure executed when the alert is dismissed.
     /// - Returns: A modified view that shows an alert with the specified title and message.
-    func nnShowingAlert(_ title: String, message: String, cancelInfo: AccessibleItemInfo, isPresented: Binding<Bool>, finished: (() -> Void)? = nil) -> some View {
-        modifier(ShowingAlertViewModifier(presented: isPresented, title: title, message: message, cancelInfo: cancelInfo, finished: finished))
+    func showingAlert(_ title: String, message: String, cancelInfo: AccessibleItemInfo? = nil, isPresented: Binding<Bool>, finished: (() -> Void)? = nil) -> some View {
+        modifier(ShowingAlertViewModifier(presented: isPresented, title: title, message: message, cancelInfo: cancelInfo ?? .init(prompt: "Okay"), finished: finished))
     }
 }

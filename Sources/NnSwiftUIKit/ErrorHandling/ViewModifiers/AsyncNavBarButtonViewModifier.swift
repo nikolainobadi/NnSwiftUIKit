@@ -33,7 +33,7 @@ struct AsyncNavBarButtonViewModifier: ViewModifier {
         content
             .toolbar {
                 ToolbarItem(placement: placement) {
-                    NnAsyncTryButton(action: action) {
+                    AsyncTryButton(action: action) {
                         switch buttonContent {
                         case .image(let imageType):
                             Image(imageType: imageType)
@@ -45,8 +45,8 @@ struct AsyncNavBarButtonViewModifier: ViewModifier {
                                 .foregroundColor(textColor)
                         }
                     }
-                    .nnSetAccessibiltyId(accessibilityId)
-                    .nnOnlyShow(when: isActive)
+                    .setAccessibiltyId(accessibilityId)
+                    .onlyShow(when: isActive)
                 }
             }
     }
@@ -63,7 +63,7 @@ public extension View {
     ///   - accessibilityId: The accessibility identifier for the button.
     ///   - action: The async try action to perform when the button is tapped.
     /// - Returns: A modified view with the navigation bar button.
-    func nnWithAsyncNavBarButton(placement: ToolbarItemPlacement? = nil, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () async throws -> Void) -> some View {
+    func withAsyncNavBarButton(placement: ToolbarItemPlacement? = nil, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncNavBarButtonViewModifier(placement: placement ?? .automatic, buttonContent: buttonContent, accessibilityId: accessibilityId, font: font, textColor: textColor, isActive: isActive, action: action))
     }
 }

@@ -26,7 +26,7 @@ struct AsyncTryTapGestureViewModifier: ViewModifier {
         Group {
             if let asRowItem = asRowItem {
                 content
-                    .nnAsRowItem(withChevron: asRowItem == .withChevron)
+                    .asRowItem(withChevron: asRowItem == .withChevron)
             } else {
                 content
             }
@@ -53,7 +53,7 @@ public extension View {
     ///   - asRowItem: Specifies if the view should be displayed as a row item with an optional chevron.
     ///   - action: The asynchronous action to perform on tap.
     /// - Returns: A modified view that handles asynchronous tap gestures.
-    func nnAsyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
+    func asyncTapGesture(asRowItem: NnAsyncTapRowItem? = nil, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTryTapGestureViewModifier(asRowItem: asRowItem, action: action))
     }
 }

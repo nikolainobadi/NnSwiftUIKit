@@ -28,8 +28,8 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .confirmationDialog("", isPresented: $showingConfirmation) {
-                NnAsyncTryButton(buttonInfo.prompt, role: role, action: action)
-                    .nnSetAccessibiltyId(buttonInfo.accessibilityId)
+                AsyncTryButton(buttonInfo.prompt, role: role, action: action)
+                    .setAccessibiltyId(buttonInfo.accessibilityId)
             } message: {
                 Text(message)
             }
@@ -45,7 +45,7 @@ public extension View {
     ///   - message: The confirmation message to display.
     ///   - action: The asynchronous action to perform upon confirmation.
     /// - Returns: A modified view with an asynchronous confirmation dialog.
-    func nnAsyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItemInfo, message: String, action: @escaping () async throws -> Void) -> some View {
+    func asyncConfirmation(showingConfirmation: Binding<Bool>, role: ButtonRole? = nil, buttonInfo: AccessibleItemInfo, message: String, action: @escaping () async throws -> Void) -> some View {
         modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, role: role, buttonInfo: buttonInfo, message: message, action: action))
     }
 }

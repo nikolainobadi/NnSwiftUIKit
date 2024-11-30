@@ -35,11 +35,11 @@ struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
         content
             .alert(message, isPresented: $isPresented) {
                 alertView()
-                NnAsyncTryButton(buttonInfo.prompt, role: .destructive, action: action)
-                    .nnSetAccessibiltyId(buttonInfo.accessibilityId)
+                AsyncTryButton(buttonInfo.prompt, role: .destructive, action: action)
+                    .setAccessibiltyId(buttonInfo.accessibilityId)
                 
                 Button(cancelInfo.prompt, role: .cancel, action: cancelAction)
-                    .nnSetAccessibiltyId(cancelInfo.accessibilityId)
+                    .setAccessibiltyId(cancelInfo.accessibilityId)
             }
     }
 }
@@ -55,7 +55,7 @@ public extension View {
     ///   - cancelAction: The action to perform when the cancel button is tapped.
     ///   - alertView: The custom view content to be displayed within the alert.
     /// - Returns: A modified view that displays a custom asynchronous alert.
-    func nnAsyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
+    func asyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
         modifier(
             AsyncAlertViewModifier(
                 isPresented: isPresented,

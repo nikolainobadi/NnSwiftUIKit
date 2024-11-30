@@ -33,7 +33,7 @@ public extension View {
     ///   - data: The data used for the navigation destination.
     ///   - isActive: A Boolean value indicating whether the navigation link is active, defaulting to true.
     /// - Returns: A modified view that displays a navigation link when `isActive` is true.
-    func nnAsNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
+    func asNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
         modifier(ConditionalNavigationLinkViewModifier(data: data, isActive: isActive))
     }
 }

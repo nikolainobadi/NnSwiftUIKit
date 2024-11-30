@@ -28,7 +28,7 @@ public extension View {
     ///   - gradient: The linear gradient to use as the background.
     ///   - opacity: The opacity level for the gradient, defaulting to 1.
     /// - Returns: A modified view with a gradient background.
-    func nnLinearGradientBackground(_ gradient: LinearGradient, opacity: CGFloat = 1) -> some View {
-        modifier(GradientBackgroundViewModifier(gradient: gradient, opacity: opacity))
+    func linearGradientBackground(_ gradient: LinearGradient, opacity: CGFloat? = nil) -> some View {
+        modifier(GradientBackgroundViewModifier(gradient: gradient, opacity: opacity ?? 1))
     }
 }

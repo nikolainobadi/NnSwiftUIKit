@@ -44,7 +44,7 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
     /// Modifies the content view to add a dismiss button to the navigation bar.
     func body(content: Content) -> some View {
         content
-            .nnWithNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
+            .withNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
                 if let action = action {
                     action()
                 } else {

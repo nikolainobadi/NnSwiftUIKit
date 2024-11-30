@@ -50,7 +50,7 @@ public extension View {
     ///   - hideLoadingIndicator: A Boolean indicating whether to hide the loading indicator during the task.
     ///   - asyncAction: The asynchronous action to perform on appear.
     /// - Returns: A modified view that performs an asynchronous task when it appears.
-    func nnAsyncTask(delay: Double = 0, hideLoadingIndicator: Bool = false, asyncAction: @escaping () async throws -> Void) -> some View {
+    func asyncTask(delay: Double = 0, hideLoadingIndicator: Bool = false, asyncAction: @escaping () async throws -> Void) -> some View {
         modifier(AsyncTaskOnAppearViewModifier(delay: delay, hideLoadingIndicator: hideLoadingIndicator, asyncAction: asyncAction))
     }
 }

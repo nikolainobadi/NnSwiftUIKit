@@ -89,7 +89,7 @@ private extension ShowcaseParentViewModifier {
 
 @available(iOS 16.4, *)
 public extension View {
-    func nnCanShowcaseViews(showHighlights: Bool, onFinished: @escaping () -> Void) -> some View {
+    func canShowcaseViews(showHighlights: Bool, onFinished: @escaping () -> Void) -> some View {
         modifier(ShowcaseParentViewModifier(showHighlights: showHighlights, onFinished: onFinished))
     }
 }
@@ -119,7 +119,7 @@ struct HighlightedView: View {
     var body: some View {
         Rectangle()
             .fill(.black.opacity(0.5))
-            .nnReverse {
+            .reverse {
                 Rectangle()
                     .matchedGeometryEffect(id: "HIGHLIGHTSHAPE", in: animation)
                     .frame(width: highlightRect.width + 5, height: highlightRect.height + 5)

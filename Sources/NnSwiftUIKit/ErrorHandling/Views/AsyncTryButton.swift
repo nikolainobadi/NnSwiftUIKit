@@ -1,5 +1,5 @@
 //
-//  NnAsyncTryButton.swift
+//  AsyncTryButton.swift
 //  
 //
 //  Created by Nikolai Nobadi on 1/11/24.
@@ -8,10 +8,7 @@
 import SwiftUI
 
 /// A SwiftUI view that represents a button performing an asynchronous action with error handling.
-public struct NnAsyncTryButton<Label>: View where Label: View {
-    /// The label displayed on the button.
-    @ViewBuilder var label: () -> Label
-    
+public struct AsyncTryButton<Label>: View where Label: View {
     /// An environment object for managing loading states.
     @EnvironmentObject var loadingHandler: NnLoadingHandler
     
@@ -21,10 +18,13 @@ public struct NnAsyncTryButton<Label>: View where Label: View {
     /// The role of the button, determining its appearance and behavior.
     let role: ButtonRole?
     
+    /// The label displayed on the button.
+    let label: () -> Label
+    
     /// The asynchronous action that the button triggers.
     let action: () async throws -> Void
     
-    /// Initializes an NnAsyncTryButton with an action, role, and label.
+    /// Initializes an `AsyncTryButton` with an action, role, and label.
     public init(action: @escaping () async throws -> Void, role: ButtonRole? = nil, @ViewBuilder label: @escaping () -> Label) {
         self.action = action
         self.label = label
@@ -38,7 +38,7 @@ public struct NnAsyncTryButton<Label>: View where Label: View {
 
 
 // MARK: - Initializers
-public extension NnAsyncTryButton where Label == Text {
+public extension AsyncTryButton where Label == Text {
     /// Convenience initializer for a button with a text label.
     init(_ titleKey: LocalizedStringKey, role: ButtonRole? = nil, action: @escaping () async throws -> Void) {
         self.init(action: action, role: role, label: { Text(titleKey) })
@@ -51,7 +51,7 @@ public extension NnAsyncTryButton where Label == Text {
 }
 
 // MARK: - Private Methods
-private extension NnAsyncTryButton {
+private extension AsyncTryButton {
     /// Performs the action associated with the button and handles loading and errors.
     func performAction() {
         loadingHandler.startLoading()

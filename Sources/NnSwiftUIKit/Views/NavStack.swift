@@ -42,7 +42,7 @@ public struct NavStack<Content: View>: View {
     public var body: some View {
         NavigationStack(path: $path) {
             content()
-                .nnWithNavTitle(title: title)
+                .withNavTitle(title: title)
             #if canImport(UIKit)
                 .navigationBarTitleDisplayMode(displayMode)
             #endif
@@ -85,7 +85,7 @@ public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableC
     public var body: some View {
         NavigationStack(path: $path) {
             content()
-                .nnWithNavTitle(title: title)
+                .withNavTitle(title: title)
             #if canImport(UIKit)
                 .navigationBarTitleDisplayMode(displayMode)
             #endif

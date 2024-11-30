@@ -35,7 +35,7 @@ public extension View {
     ///   - alignment: The alignment of the reverse content within the mask. Default is `.topLeading`.
     ///   - content: A view builder that provides the reverse content.
     /// - Returns: A view with the reverse mask applied.
-    func nnReverse<ReverseContent: View>(alignment: Alignment = .topLeading, @ViewBuilder content: @escaping () -> ReverseContent) -> some View {
+    func reverse<ReverseContent: View>(alignment: Alignment = .topLeading, @ViewBuilder content: @escaping () -> ReverseContent) -> some View {
         modifier(ReverseMaskViewModifier(alignment: alignment, reverseConent: content))
     }
 }

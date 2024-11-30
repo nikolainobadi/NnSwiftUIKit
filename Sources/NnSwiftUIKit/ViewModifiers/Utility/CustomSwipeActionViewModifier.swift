@@ -40,7 +40,7 @@ struct CustomSwipeActionViewModifier: ViewModifier {
                         }
                     }
                     .tint(tint)
-                    .nnSetAccessibiltyId(info.accessibilityId)
+                    .setAccessibiltyId(info.accessibilityId)
                 }
         } else {
             content

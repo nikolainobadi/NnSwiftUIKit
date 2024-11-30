@@ -24,7 +24,7 @@ struct ConditionalBorderOverlayViewModifier: ViewModifier {
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(color)
-                    .nnOnlyShow(when: showOverlay)
+                    .onlyShow(when: showOverlay)
             )
     }
 }
@@ -36,7 +36,7 @@ public extension View {
     ///   - color: The color of the border, defaulting to red.
     ///   - cornerRadius: The corner radius of the border, defaulting to 10.
     /// - Returns: A modified view with a conditional border overlay.
-    func nnWithBorderOverlay(_ showOverlay: Bool, color: Color = .red, cornerRadius: CGFloat = 10) -> some View {
-        modifier(ConditionalBorderOverlayViewModifier(color: color, showOverlay: showOverlay, cornerRadius: cornerRadius))
+    func withBorderOverlay(_ showOverlay: Bool, color: Color? = nil, cornerRadius: CGFloat? = nil) -> some View {
+        modifier(ConditionalBorderOverlayViewModifier(color: color ?? .red, showOverlay: showOverlay, cornerRadius: cornerRadius ?? 10))
     }
 }

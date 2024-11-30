@@ -26,7 +26,7 @@ public extension View {
     ///   - isShowing: A Boolean value indicating whether to show the replacement view.
     ///   - conditionalView: A closure returning the replacement view.
     /// - Returns: A modified view that shows the replacement view when `isShowing` is true.
-    func nnShowingConditionalView<V: View>(isShowing: Bool, @ViewBuilder conditionalView: @escaping () -> V) -> some View {
+    func showingConditionalView<V: View>(when isShowing: Bool, @ViewBuilder conditionalView: @escaping () -> V) -> some View {
         modifier(ConditionalViewReplacementViewModifier(isShowing: isShowing, conditionalView: conditionalView))
     }
 }

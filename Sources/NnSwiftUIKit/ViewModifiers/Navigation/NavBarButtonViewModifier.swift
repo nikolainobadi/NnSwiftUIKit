@@ -47,8 +47,8 @@ struct NavBarButtonViewModifier: ViewModifier {
                                 .foregroundColor(textColor)
                         }
                     }
-                    .nnSetAccessibiltyId(accessibilityId)
-                    .nnOnlyShow(when: isActive)
+                    .setAccessibiltyId(accessibilityId)
+                    .onlyShow(when: isActive)
                 }
             }
     }
@@ -65,7 +65,7 @@ public extension View {
     ///   - accessibilityId: The accessibility identifier for the button.
     ///   - action: The action to perform when the button is tapped.
     /// - Returns: A modified view with the navigation bar button.
-    func nnWithNavBarButton(placement: ToolbarItemPlacement? = nil, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () -> Void) -> some View {
+    func withNavBarButton(placement: ToolbarItemPlacement? = nil, buttonContent: NavBarButtonContent, font: Font = .title2, textColor: Color = .primary, isActive: Bool = true, accessibilityId: String? = nil, action: @escaping () -> Void) -> some View {
         modifier(NavBarButtonViewModifier(placement: placement ?? .automatic, buttonContent: buttonContent, accessibilityId: accessibilityId, font: font, textColor: textColor, isActive: isActive, action: action))
     }
 }
