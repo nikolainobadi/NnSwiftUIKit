@@ -26,11 +26,16 @@ struct CustomFontViewModifier: ViewModifier {
         content
             .font(font)
             .foregroundColor(textColor)
-            .minimumScaleFactor(autoSize ? 0.5 : 1)
+            .minimumScaleFactor(autoSize ? minimumScaleFactor : 1)
     }
 }
 
 public extension View {
+    func withFont(_ style: Font.TextStyle = .body, isDetail: Bool = false, textColor: Color = .primary, autoSizeLineLimit lineLimit: Int? = nil, minimumScaleFactor: CGFloat = 0.5, detailFont: String? = nil, nonDetailFont: String? = nil) -> some View {
+        self.lineLimit(lineLimit)
+            .setCustomFont(style, fontName: isDetail ? (detailFont ?? "HelveticaNeue") : (nonDetailFont ?? "HelveticaNeue-Bold"), textColor: textColor, autoSize: lineLimit != nil, minimumScaleFactor: minimumScaleFactor)
+    }
+    
     /// Applies a custom font with optional text color, auto-sizing, and minimum scale factor.
     /// - Parameters:
     ///   - style: The text style for the font.
