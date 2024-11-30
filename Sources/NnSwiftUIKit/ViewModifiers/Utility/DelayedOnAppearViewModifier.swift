@@ -31,7 +31,7 @@ public extension View {
     ///   - seconds: The delay in seconds before performing the action.
     ///   - action: The action to perform after the delay.
     /// - Returns: A modified view that performs an action after a delay upon appearing.
-    func nnDelayedOnAppear(seconds: Double, perform action: @escaping () -> Void) -> some View {
+    func delayedOnAppear(seconds: Double, perform action: @escaping () -> Void) -> some View {
         modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
     }
 }

@@ -45,7 +45,7 @@ struct AsyncNavBarButtonViewModifier: ViewModifier {
                                 .foregroundColor(textColor)
                         }
                     }
-                    .setAccessibiltyId(accessibilityId)
+                    .setOptionalAccessibiltyId(accessibilityId)
                     .onlyShow(when: isActive)
                 }
             }

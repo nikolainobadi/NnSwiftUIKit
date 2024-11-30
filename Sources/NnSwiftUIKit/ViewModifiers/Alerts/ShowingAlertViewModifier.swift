@@ -31,7 +31,7 @@ struct ShowingAlertViewModifier: ViewModifier {
                 Button(cancelInfo.prompt, role: .cancel) {
                     finished?()
                 }
-                .setAccessibiltyId(cancelInfo.accessibilityId)
+                .setOptionalAccessibiltyId(cancelInfo.accessibilityId)
             } message: {
                 Text(message)
             }

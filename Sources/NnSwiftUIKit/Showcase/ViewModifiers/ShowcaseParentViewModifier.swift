@@ -50,7 +50,7 @@ struct ShowcaseParentViewModifier: ViewModifier {
                                 safeArea: proxy.safeAreaInsets,
                                 onTapGesture: showNextView
                             )
-                            .nnDelayedOnAppear(seconds: 0.1) {
+                            .delayedOnAppear(seconds: 0.1) {
                                 showTitle = true
                             }
                         }

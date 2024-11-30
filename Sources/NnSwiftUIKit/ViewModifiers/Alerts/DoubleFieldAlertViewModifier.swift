@@ -46,9 +46,9 @@ struct DoubleFieldAlertViewModifier: ViewModifier {
         content
             .asyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
                 EmptyOnDisappearField(firstFieldInfo.prompt, text: $firstFieldText)
-                    .setAccessibiltyId(firstFieldInfo.accessibilityId)
+                    .setOptionalAccessibiltyId(firstFieldInfo.accessibilityId)
                 EmptyOnDisappearField(secondFieldInfo.prompt, text: $secondFieldText)
-                    .setAccessibiltyId(secondFieldInfo.accessibilityId)
+                    .setOptionalAccessibiltyId(secondFieldInfo.accessibilityId)
             }
     }
 }

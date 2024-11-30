@@ -8,7 +8,6 @@
 import SwiftUI
 
 /// A custom navigation stack for iOS 16+, with support for setting a title and custom display mode.
-@available(iOS 16.0, *)
 public struct NavStack<Content: View>: View {
     /// The navigation path binding that controls the navigation stack.
     @Binding var path: NavigationPath
@@ -51,7 +50,6 @@ public struct NavStack<Content: View>: View {
 }
 
 /// A custom navigation stack with support for custom data paths for iOS 16+.
-@available(iOS 16.0, *)
 public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableCollection, Data: RandomAccessCollection, Data: RangeReplaceableCollection, Data.Element: Hashable {
     /// The custom data path binding that controls the navigation stack.
     @Binding var path: Data

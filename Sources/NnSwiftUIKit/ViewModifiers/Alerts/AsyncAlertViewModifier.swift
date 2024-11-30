@@ -36,10 +36,10 @@ struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
             .alert(message, isPresented: $isPresented) {
                 alertView()
                 AsyncTryButton(buttonInfo.prompt, role: .destructive, action: action)
-                    .setAccessibiltyId(buttonInfo.accessibilityId)
+                    .setOptionalAccessibiltyId(buttonInfo.accessibilityId)
                 
                 Button(cancelInfo.prompt, role: .cancel, action: cancelAction)
-                    .setAccessibiltyId(cancelInfo.accessibilityId)
+                    .setOptionalAccessibiltyId(cancelInfo.accessibilityId)
             }
     }
 }

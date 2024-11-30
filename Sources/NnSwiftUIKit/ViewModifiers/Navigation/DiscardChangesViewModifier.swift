@@ -55,7 +55,7 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
     /// Modifies the content view to add a navigation bar dismiss button with a confirmation dialog.
     func body(content: Content) -> some View {
         content
-            .nnWithNavBarDismissButton(placement: placement, dismissType: dismissType, accessibilityId: accessibilityId) {
+            .withNavBarDismissButton(placement: placement, dismissType: dismissType, accessibilityId: accessibilityId) {
                 if itemToModify != originalItem {
                     showingConfirmation = true
                 } else {
@@ -66,7 +66,7 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
                 Button(dismissButtonInfo.prompt, role: .destructive) {
                     dismiss()
                 }
-                .setAccessibiltyId(dismissButtonInfo.accessibilityId)
+                .setOptionalAccessibiltyId(dismissButtonInfo.accessibilityId)
             } message: {
                 Text(message)
             }

@@ -27,7 +27,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
     /// Modifies the content view to perform an asynchronous action on appear.
     func body(content: Content) -> some View {
         content
-            .nnDelayedOnAppear(seconds: delay) {
+            .delayedOnAppear(seconds: delay) {
                 Task {
                     loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
                     

@@ -20,7 +20,7 @@ struct CustomDiscardChangesViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .nnWithNavBarDismissButton(isActive: didMakeChanges, dismissType: .cancel) {
+            .withNavBarDismissButton(isActive: didMakeChanges, dismissType: .cancel) {
                 if didMakeChanges {
                     showingConfirmation = true
                 } else {

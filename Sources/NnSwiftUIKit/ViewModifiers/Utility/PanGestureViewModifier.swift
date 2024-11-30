@@ -42,7 +42,7 @@ public extension View {
     /// Triggers actions based on the direction of a vertical pan gesture.
     /// - Parameter handleSwipeDirection: A closure handling the detected swipe direction.
     /// - Returns: A modified view that detects and responds to vertical pan gestures.
-    func nnHandlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipeDirection) -> Void) -> some View {
+    func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipeDirection) -> Void) -> some View {
         modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
     }
 }

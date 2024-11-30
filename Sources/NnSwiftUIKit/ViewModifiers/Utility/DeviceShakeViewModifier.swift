@@ -36,7 +36,7 @@ public extension View {
     ///   - isActive: A Boolean indicating if the shake detection is active.
     ///   - action: The action to perform when the device is shaken.
     /// - Returns: A modified view that detects and handles device shake events.
-    func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
+    func onDeviceShake(isActive: Bool, action: @escaping () -> Void) -> some View {
         modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
     }
 }

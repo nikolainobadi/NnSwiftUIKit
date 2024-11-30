@@ -29,7 +29,7 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
         content
             .confirmationDialog("", isPresented: $showingConfirmation) {
                 AsyncTryButton(buttonInfo.prompt, role: role, action: action)
-                    .setAccessibiltyId(buttonInfo.accessibilityId)
+                    .setOptionalAccessibiltyId(buttonInfo.accessibilityId)
             } message: {
                 Text(message)
             }
