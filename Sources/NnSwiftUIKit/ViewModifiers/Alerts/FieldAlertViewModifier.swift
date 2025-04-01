@@ -42,6 +42,9 @@ struct FieldAlertViewModifier: ViewModifier {
             .asyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save) {
                 EmptyOnDisappearField(fieldInfo.prompt, text: $fieldText)
                     .setOptionalAccessibiltyId(fieldInfo.accessibilityId)
+                    .onDisappear {
+                        fieldText = ""
+                    }
             }
     }
 }
