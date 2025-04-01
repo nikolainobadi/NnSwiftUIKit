@@ -33,6 +33,7 @@ struct FieldAlertViewModifier: ViewModifier {
     /// Saves the input from the text field and performs the action.
     private func save() async throws {
         try await action(fieldText)
+        fieldText = ""
     }
     
     /// Modifies the content view to add an alert with a text field.
@@ -55,7 +56,7 @@ public extension View {
     ///   - cancelInfo: Accessibility information for the cancel button.
     ///   - action: The asynchronous action to perform using the input from the text field.
     /// - Returns: A modified view with an alert containing a single text field.
-    func nnFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String) async throws -> Void) -> some View {
+    func singleFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String) async throws -> Void) -> some View {
         modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
     }
 }
