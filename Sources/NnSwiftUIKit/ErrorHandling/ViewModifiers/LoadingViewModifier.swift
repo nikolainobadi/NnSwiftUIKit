@@ -9,10 +9,8 @@ import SwiftUI
 
 /// A view modifier that displays a loading overlay over a SwiftUI view when the `isLoading` state is true.
 struct LoadingViewModifier: ViewModifier {
-    /// An environment object that manages the loading state.
     @StateObject var loadingHandler = NnLoadingHandler()
     
-    /// Modifies the content view to include a loading overlay.
     func body(content: Content) -> some View {
         ZStack {
             content

@@ -9,10 +9,7 @@ import SwiftUI
 
 /// A view modifier that performs a delayed action after the view appears in a SwiftUI view.
 struct DelayedOnAppearViewModifier: ViewModifier {
-    /// The delay before the action is performed, in seconds.
     let seconds: Double
-    
-    /// The action to perform after the delay.
     let action: () -> Void
     
     func body(content: Content) -> some View {
@@ -25,6 +22,7 @@ struct DelayedOnAppearViewModifier: ViewModifier {
             }
     }
 }
+
 public extension View {
     /// Performs an action after a specified delay when the view appears.
     /// - Parameters:

@@ -9,19 +9,11 @@ import SwiftUI
 
 /// A SwiftUI view that represents a button performing an asynchronous action with error handling.
 public struct AsyncTryButton<Label>: View where Label: View {
-    /// An environment object for managing loading states.
     @EnvironmentObject var loadingHandler: NnLoadingHandler
-    
-    /// An environment object for managing error states.
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
-    /// The role of the button, determining its appearance and behavior.
     let role: ButtonRole?
-    
-    /// The label displayed on the button.
     let label: () -> Label
-    
-    /// The asynchronous action that the button triggers.
     let action: () async throws -> Void
     
     /// Initializes an `AsyncTryButton` with an action, role, and label.
@@ -60,7 +52,7 @@ private extension AsyncTryButton {
             do {
                 try await action()
             } catch {
-                errorHandler.handle(error: error)
+                await errorHandler.handle(error: error)
             }
             
             loadingHandler.stopLoading()

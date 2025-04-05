@@ -9,19 +9,11 @@ import SwiftUI
 
 /// A view modifier that applies a custom font to a SwiftUI view with optional text color, auto-sizing, and minimum scale factor.
 struct CustomFontViewModifier: ViewModifier {
-    /// The font to be applied to the view.
     let font: Font
-    
-    /// The color of the text.
     let textColor: Color
-    
-    /// A boolean value indicating whether the text should auto-size to fit its container.
     let autoSize: Bool
-    
-    /// The minimum scale factor for the text when auto-sizing is enabled.
     let minimumScaleFactor: CGFloat
     
-    /// Modifies the content view to apply the custom font, text color, and other settings.
     func body(content: Content) -> some View {
         content
             .font(font)

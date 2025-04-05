@@ -10,13 +10,9 @@ import SwiftUI
 
 /// A view modifier that triggers an action when the device is shaken in a SwiftUI view.
 struct DeviceShakeViewModifier: ViewModifier {
-    /// A boolean value indicating whether the shake action is active.
     let isActive: Bool
-    
-    /// The action to perform when the device is shaken.
     let action: () -> Void
     
-    /// Modifies the content view to trigger an action when the device is shaken.
     func body(content: Content) -> some View {
         if isActive {
             content
