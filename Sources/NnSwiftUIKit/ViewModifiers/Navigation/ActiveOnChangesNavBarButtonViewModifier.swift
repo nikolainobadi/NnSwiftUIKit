@@ -28,7 +28,7 @@ struct ActiveOnChangesNavBarButtonViewModifier<Item: Equatable>: ViewModifier {
 
 @available(iOS 17.0, *)
 public extension View {
-    func activeOnChangeNavBarButton<Item: Equatable>(item: Item, font: Font = .title2, textColor: Color = .primary, accessibilityId: String? = nil, placement: ToolbarItemPlacement, buttonContent: NavBarButtonContent, action: @escaping () async throws -> Void) -> some View {
+    func activeOnChangeNavBarButton<Item: Equatable>(item: Item, font: Font = .title2, textColor: Color = .primary, accessibilityId: String? = nil, placement: ToolbarItemPlacement = .topBarTrailing, buttonContent: NavBarButtonContent, action: @escaping () async throws -> Void) -> some View {
         modifier(ActiveOnChangesNavBarButtonViewModifier(item: item, font: font, textColor: textColor, accessibilityId: accessibilityId, placement: placement, buttonContent: buttonContent, action: action))
     }
 }
