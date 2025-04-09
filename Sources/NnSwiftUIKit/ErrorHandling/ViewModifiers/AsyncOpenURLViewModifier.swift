@@ -24,7 +24,7 @@ struct AsyncOpenURLViewModifier: ViewModifier {
                     do {
                         try await asyncAction(url)
                     } catch {
-                        await errorHandler.handle(error: error)
+                        errorHandler.handle(error: error)
                     }
                     
                     loadingHandler.stopLoading(isDisabled: hideLoadingIndicator)

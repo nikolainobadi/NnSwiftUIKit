@@ -25,7 +25,7 @@ struct AsyncTryOnSubmitViewModifier: ViewModifier {
                     do {
                         try await action()
                     } catch {
-                        await errorHandler.handle(error: error)
+                        errorHandler.handle(error: error)
                     }
                     
                     loadingHandler.stopLoading()

@@ -25,7 +25,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
                     do {
                         try await asyncAction()
                     } catch {
-                        await errorHandler.handle(error: error)
+                        errorHandler.handle(error: error)
                     }
                     
                     loadingHandler.stopLoading(isDisabled: hideLoadingIndicator)

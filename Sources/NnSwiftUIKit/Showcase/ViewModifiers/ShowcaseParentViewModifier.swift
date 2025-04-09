@@ -9,7 +9,6 @@
 import SwiftUI
 
 /// A view modifier that manages and displays a series of showcased views in sequence.
-@available(iOS 16.4, *)
 struct ShowcaseParentViewModifier: ViewModifier {
     /// A namespace for matched geometry effects.
     @Namespace private var animation
@@ -36,7 +35,8 @@ struct ShowcaseParentViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onPreferenceChange(HighlightAnchorKey.self) { value in
-                highlightOrder = Array(value.keys).sorted()
+                // TODO: -
+//                highlightOrder = Array(value.keys).sorted()
             }
             .overlayPreferenceValue(HighlightAnchorKey.self) { preferences in
                 if shouldShowcaseSubviews {
@@ -60,7 +60,6 @@ struct ShowcaseParentViewModifier: ViewModifier {
     }
 }
 
-@available(iOS 16.4, *)
 private extension ShowcaseParentViewModifier {
     /// Determines whether the showcase subviews should be displayed.
     var shouldShowcaseSubviews: Bool {
@@ -87,7 +86,6 @@ private extension ShowcaseParentViewModifier {
     }
 }
 
-@available(iOS 16.4, *)
 public extension View {
     func canShowcaseViews(showHighlights: Bool, onFinished: @escaping () -> Void) -> some View {
         modifier(ShowcaseParentViewModifier(showHighlights: showHighlights, onFinished: onFinished))
@@ -96,7 +94,6 @@ public extension View {
 
 // MARK: - Dependencies
 /// A view representing a highlighted area with an optional title.
-@available(iOS 16.4, *)
 struct HighlightedView: View {
     /// A binding that controls whether the title is shown.
     @Binding var showingTitle: Bool

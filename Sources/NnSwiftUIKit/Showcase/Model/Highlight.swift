@@ -31,7 +31,7 @@ struct Highlight: Identifiable, Equatable {
 /// A preference key for storing highlights associated with a view.
 struct HighlightAnchorKey: PreferenceKey {
     /// The default value for the preference key, an empty dictionary.
-    static var defaultValue: [Int: Highlight] = [:]
+    nonisolated(unsafe) static var defaultValue: [Int: Highlight] = [:] // TODO: - 
     
     /// Reduces the value by merging the next value with the existing one.
     static func reduce(value: inout [Int: Highlight], nextValue: () -> [Int: Highlight]) {

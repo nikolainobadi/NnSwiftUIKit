@@ -8,6 +8,7 @@
 import Foundation
 
 /// A class that manages the loading state in a SwiftUI view.
+@MainActor
 public final class NnLoadingHandler: ObservableObject {
     @Published var isLoading: Bool = false
 }
@@ -22,16 +23,13 @@ public extension NnLoadingHandler {
     }
 }
 
-// MARK: - Private Methods
 
+// MARK: - Private Methods
 private extension NnLoadingHandler {
     /// Configures the loading state based on the provided parameters.
     func configureLoading(isLoading: Bool, isDisabled: Bool) {
-        guard !isDisabled else { return }
-        
-        Task { @MainActor in
+        if !isDisabled {
             self.isLoading = isLoading
         }
     }
 }
-

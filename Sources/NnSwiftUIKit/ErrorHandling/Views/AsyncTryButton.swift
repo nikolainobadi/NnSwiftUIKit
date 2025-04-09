@@ -8,19 +8,19 @@
 import SwiftUI
 
 /// A SwiftUI view that represents a button performing an asynchronous action with error handling.
-public struct AsyncTryButton<Label>: View where Label: View {
-    @EnvironmentObject var loadingHandler: NnLoadingHandler
-    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
+public struct AsyncTryButton<Label: View>: View {
+    @EnvironmentObject var context: NnErrorHandlingContext
     
     let role: ButtonRole?
     let label: () -> Label
+    let hideLoadingIndicator: Bool
     let action: () async throws -> Void
     
-    /// Initializes an `AsyncTryButton` with an action, role, and label.
-    public init(action: @escaping () async throws -> Void, role: ButtonRole? = nil, @ViewBuilder label: @escaping () -> Label) {
+    public init(action: @escaping () async throws -> Void, role: ButtonRole? = nil, hideLoadingIndicator: Bool = false, @ViewBuilder label: @escaping () -> Label) {
         self.action = action
         self.label = label
         self.role = role
+        self.hideLoadingIndicator = hideLoadingIndicator
     }
     
     public var body: some View {
@@ -32,13 +32,13 @@ public struct AsyncTryButton<Label>: View where Label: View {
 // MARK: - Initializers
 public extension AsyncTryButton where Label == Text {
     /// Convenience initializer for a button with a text label.
-    init(_ titleKey: LocalizedStringKey, role: ButtonRole? = nil, action: @escaping () async throws -> Void) {
-        self.init(action: action, role: role, label: { Text(titleKey) })
+    init(_ titleKey: LocalizedStringKey, role: ButtonRole? = nil, hideLoadingIndicator: Bool = false, action: @escaping () async throws -> Void) {
+        self.init(action: action, role: role, hideLoadingIndicator: hideLoadingIndicator, label: { Text(titleKey) })
     }
     
     /// Convenience initializer for a button with a string label.
-    init<S>(_ title: S, role: ButtonRole? = nil, action: @escaping () async throws -> Void) where S: StringProtocol {
-        self.init(action: action, role: role, label: { Text(title) })
+    init<S>(_ title: S, role: ButtonRole? = nil, hideLoadingIndicator: Bool = false, action: @escaping () async throws -> Void) where S: StringProtocol {
+        self.init(action: action, role: role, hideLoadingIndicator: hideLoadingIndicator, label: { Text(title) })
     }
 }
 
@@ -46,16 +46,6 @@ public extension AsyncTryButton where Label == Text {
 private extension AsyncTryButton {
     /// Performs the action associated with the button and handles loading and errors.
     func performAction() {
-        loadingHandler.startLoading()
-        
-        Task {
-            do {
-                try await action()
-            } catch {
-                await errorHandler.handle(error: error)
-            }
-            
-            loadingHandler.stopLoading()
-        }
+        context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: action)
     }
 }

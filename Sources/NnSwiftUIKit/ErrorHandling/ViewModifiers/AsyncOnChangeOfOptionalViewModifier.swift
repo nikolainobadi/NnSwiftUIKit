@@ -13,12 +13,13 @@ struct AsyncOnChangeOfOptionalViewModifier<Item: Equatable>: ViewModifier {
     @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
     
     let item: Item?
+    let initial: Bool
     let hideLoadingIndicator: Bool
     let action: (Item) async throws -> Void
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: item) { value in
+            .onChange(of: item, initial: initial) { (_, value) in
                 guard let value = value else { return }
                 
                 Task {
@@ -27,7 +28,7 @@ struct AsyncOnChangeOfOptionalViewModifier<Item: Equatable>: ViewModifier {
                     do {
                         try await action(value)
                     } catch {
-                        await errorHandler.handle(error: error)
+                        errorHandler.handle(error: error)
                     }
                     
                     loadingHandler.stopLoading(isDisabled: hideLoadingIndicator)
@@ -43,7 +44,7 @@ public extension View {
     ///   - hideLoadingIndicator: A Boolean indicating whether to hide the loading indicator during the action.
     ///   - action: The asynchronous action to perform when the item changes.
     /// - Returns: A modified view that handles asynchronous actions on item changes.
-    func asyncOnChange<Item: Equatable>(of item: Item?, hideLoadingIndicator: Bool = false, action: @escaping (Item) async throws -> Void) -> some View {
-        modifier(AsyncOnChangeOfOptionalViewModifier(item: item, hideLoadingIndicator: hideLoadingIndicator, action: action))
+    func asyncOnChange<Item: Equatable>(item: Item?, initial: Bool = false, hideLoadingIndicator: Bool = false, action: @escaping (Item) async throws -> Void) -> some View {
+        modifier(AsyncOnChangeOfOptionalViewModifier(item: item, initial: initial, hideLoadingIndicator: hideLoadingIndicator, action: action))
     }
 }
