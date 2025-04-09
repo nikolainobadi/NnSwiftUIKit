@@ -19,4 +19,3 @@ public struct AccessibleItemInfo {
         self.accessibilityId = accessibilityId
     }
 }
-

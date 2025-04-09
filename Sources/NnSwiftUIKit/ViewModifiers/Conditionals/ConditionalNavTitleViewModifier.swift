@@ -12,12 +12,11 @@ struct ConditionalNavTitleViewModifier: ViewModifier {
     let title: String?
     
     func body(content: Content) -> some View {
-        if let title = title {
-            content
-                .navigationTitle(title)
-        } else {
-            content
-        }
+        content
+            .showingViewWithOptional(title) { title in
+                content
+                    .navigationTitle(title)
+            }
     }
 }
 

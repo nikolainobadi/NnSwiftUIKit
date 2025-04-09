@@ -9,8 +9,8 @@ import SwiftUI
 
 /// A view modifier that applies a linear gradient background to a SwiftUI view with customizable opacity.
 struct GradientBackgroundViewModifier: ViewModifier {
-    let gradient: LinearGradient
     let opacity: CGFloat
+    let gradient: LinearGradient
     
     func body(content: Content) -> some View {
         content
@@ -25,6 +25,6 @@ public extension View {
     ///   - opacity: The opacity level for the gradient, defaulting to 1.
     /// - Returns: A modified view with a gradient background.
     func linearGradientBackground(_ gradient: LinearGradient, opacity: CGFloat? = nil) -> some View {
-        modifier(GradientBackgroundViewModifier(gradient: gradient, opacity: opacity ?? 1))
+        modifier(GradientBackgroundViewModifier(opacity: opacity ?? 1, gradient: gradient))
     }
 }

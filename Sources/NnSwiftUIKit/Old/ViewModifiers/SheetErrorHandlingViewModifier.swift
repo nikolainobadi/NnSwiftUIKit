@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A view modifier that presents a sheet with error handling functionality.
+// TODO: - this may no longer be needed
 struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
     @Binding var isPresented: Bool
     
@@ -17,8 +17,7 @@ struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
         content
             .sheet(isPresented: $isPresented) {
                 sheet()
-                    .withNnLoadingView()
-                    .withNnErrorHandling()
+                    .withNnErrorHandling(accentColor: .white)
             }
     }
 }

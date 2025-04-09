@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A view modifier that presents a sheet for a specific item with error handling functionality.
+// TODO: - this may no longer be needed
 struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: ViewModifier {
     @Binding var item: Item?
     
@@ -21,8 +21,7 @@ struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: View
             content
                 .sheet(item: $item) { itemToShow in
                     sheet(itemToShow)
-                        .withNnLoadingView()
-                        .withNnErrorHandling()
+                        .withNnErrorHandling(accentColor: .white)
                 }
         }
     }

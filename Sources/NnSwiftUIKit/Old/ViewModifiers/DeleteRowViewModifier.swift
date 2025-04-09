@@ -23,6 +23,7 @@ struct DeleteRowViewModifier: ViewModifier {
                     .swipeActions {
                         Button(action: { showingConfirmation = true }) {
                             Label("Delete", systemImage: "trash")
+                            // TODO: - apply accessibility
                         }
                         .tint(.red)
                     }

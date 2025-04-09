@@ -9,8 +9,7 @@ import SwiftUI
 
 /// A view modifier that handles asynchronous actions triggered by opening a URL.
 struct AsyncOpenURLViewModifier: ViewModifier {
-    @EnvironmentObject var loadingHandler: NnLoadingHandler
-    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
+    @EnvironmentObject var context: NnErrorHandlingContext
     
     let hideLoadingIndicator: Bool
     let asyncAction: (URL) async throws -> Void
@@ -18,16 +17,8 @@ struct AsyncOpenURLViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onOpenURL { url in
-                Task {
-                    loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
-                    
-                    do {
-                        try await asyncAction(url)
-                    } catch {
-                        errorHandler.handle(error: error)
-                    }
-                    
-                    loadingHandler.stopLoading(isDisabled: hideLoadingIndicator)
+                context.performAction(hideLoadingIndicator: hideLoadingIndicator) {
+                    try await asyncAction(url)
                 }
             }
     }

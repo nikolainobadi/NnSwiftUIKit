@@ -9,6 +9,7 @@
 import UIKit
 
 /// Extension for UIApplication to provide additional utility methods.
+@MainActor
 public extension UIApplication {
     /// Retrieves the top-most view controller in the current window hierarchy.
     /// - Returns: The top-most `UIViewController` if available.

@@ -24,7 +24,7 @@ struct RowItemViewModifier: ViewModifier {
                     .foregroundColor(tint)
             }
         }
-        .contentShape(Rectangle())
+        .contentShape(.rect)
     }
 }
 

@@ -16,18 +16,21 @@ struct FieldAlertViewModifier: ViewModifier {
     let fieldInfo: AccessibleItemInfo
     let buttonInfo: AccessibleItemInfo?
     let cancelInfo: AccessibleItemInfo?
+    let hideLoadingIndicator: Bool
     let action: (String) async throws -> Void
     
     private func save() async throws {
         try await action(fieldText)
+    }
+    
+    private func clearField() {
         fieldText = ""
     }
     
-    /// Modifies the content view to add an alert with a text field.
     func body(content: Content) -> some View {
         content
-            .asyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save, cancelAction: { fieldText = "" }) {
-                EmptyOnDisappearField(fieldInfo.prompt, text: $fieldText)
+            .asyncAlert(message, isPresented: $isPresented, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: save, cancelAction: clearField) {
+                TextField(fieldInfo.prompt, text: $fieldText)
                     .setOptionalAccessibiltyId(fieldInfo.accessibilityId)
             }
     }
@@ -43,7 +46,7 @@ public extension View {
     ///   - cancelInfo: Accessibility information for the cancel button.
     ///   - action: The asynchronous action to perform using the input from the text field.
     /// - Returns: A modified view with an alert containing a single text field.
-    func singleFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping (String) async throws -> Void) -> some View {
-        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
+    func singleFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, hideLoadingIndicator: Bool = false, action: @escaping (String) async throws -> Void) -> some View {
+        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, hideLoadingIndicator: hideLoadingIndicator, action: action))
     }
 }

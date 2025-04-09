@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 17.0, macOS 14.0, *)
 struct ItemChangedViewModifer<Item: Equatable>: ViewModifier {
     @Binding var itemDidChange: Bool
     @State private var originalItem: Item
@@ -28,7 +27,6 @@ struct ItemChangedViewModifer<Item: Equatable>: ViewModifier {
     }
 }
 
-@available(iOS 17.0, macOS 14.0, *)
 public extension View {
     /// Tracks changes to a specific item and updates a binding when the item changes.
     /// - Parameters:

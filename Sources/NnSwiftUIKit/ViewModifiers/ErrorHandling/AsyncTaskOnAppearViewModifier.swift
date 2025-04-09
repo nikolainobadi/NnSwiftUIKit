@@ -9,8 +9,7 @@ import SwiftUI
 
 /// A view modifier that performs an asynchronous task when the view appears, with error handling and optional loading indicator.
 struct AsyncTaskOnAppearViewModifier: ViewModifier {
-    @EnvironmentObject var loadingHandler: NnLoadingHandler
-    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
+    @EnvironmentObject var context: NnErrorHandlingContext
     
     let delay: Double
     let hideLoadingIndicator: Bool
@@ -19,17 +18,7 @@ struct AsyncTaskOnAppearViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .delayedOnAppear(seconds: delay) {
-                Task {
-                    loadingHandler.startLoading(isDisabled: hideLoadingIndicator)
-                    
-                    do {
-                        try await asyncAction()
-                    } catch {
-                        errorHandler.handle(error: error)
-                    }
-                    
-                    loadingHandler.stopLoading(isDisabled: hideLoadingIndicator)
-                }
+                context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: asyncAction)
             }
     }
 }

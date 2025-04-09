@@ -9,27 +9,17 @@ import SwiftUI
 
 /// A view modifier that adds asynchronous error-handling functionality to the onSubmit action in SwiftUI.
 struct AsyncTryOnSubmitViewModifier: ViewModifier {
-    @EnvironmentObject var loadingHandler: NnLoadingHandler
-    @EnvironmentObject var errorHandler: NnSwiftUIErrorHandler
+    @EnvironmentObject var context: NnErrorHandlingContext
     
     let submitLabel: SubmitLabel
+    let hideLoadingIndicator: Bool
     let action: () async throws -> Void
     
     func body(content: Content) -> some View {
         content
             .submitLabel(submitLabel)
             .onSubmit {
-                Task {
-                    loadingHandler.startLoading()
-                    
-                    do {
-                        try await action()
-                    } catch {
-                        errorHandler.handle(error: error)
-                    }
-                    
-                    loadingHandler.stopLoading()
-                }
+                context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: action)
             }
     }
 }
@@ -40,7 +30,7 @@ public extension View {
     ///   - submitLabel: The label to display for the submit button.
     ///   - action: The asynchronous action to perform when the submit button is pressed.
     /// - Returns: A modified view with error-handling for submit actions.
-    func asyncOnSubmit(submitLabel: SubmitLabel = .done, action: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncTryOnSubmitViewModifier(submitLabel: submitLabel, action: action))
+    func asyncOnSubmit(submitLabel: SubmitLabel = .done, hideLoadingIndicator: Bool = false, action: @escaping () async throws -> Void) -> some View {
+        modifier(AsyncTryOnSubmitViewModifier(submitLabel: submitLabel, hideLoadingIndicator: hideLoadingIndicator, action: action))
     }
 }

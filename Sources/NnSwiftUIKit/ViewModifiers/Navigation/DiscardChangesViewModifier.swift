@@ -23,7 +23,6 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
     let buttonTextColor: Color
     let dismissButtonInfo: AccessibleItemInfo
     
-    /// Initializes a `DiscardChangesViewModifier` with the specified parameters.
     init(_ title: String?, itemToModify: Item, message: String?, placement: ToolbarItemPlacement?, dismissType: NavBarDismissType?, buttonTextColor: Color, accessibilityId: String?, dismissButtonInfo: AccessibleItemInfo?) {
         self.title = title ?? "Changes Detected"
         self.message = message ?? "You've made changes to this item. Would you like to discard the changes?"

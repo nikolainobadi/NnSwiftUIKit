@@ -14,6 +14,7 @@ struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
     let message: String
     let buttonInfo: AccessibleItemInfo
     let cancelInfo: AccessibleItemInfo
+    let hideLoadingIndicator: Bool
     let action: () async throws -> Void
     let cancelAction: () -> Void
     let alertView: () -> AlertView
@@ -22,7 +23,7 @@ struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
         content
             .alert(message, isPresented: $isPresented) {
                 alertView()
-                AsyncTryButton(buttonInfo.prompt, role: .destructive, action: action)
+                AsyncTryButton(buttonInfo.prompt, role: .destructive, hideLoadingIndicator: hideLoadingIndicator, action: action)
                     .setOptionalAccessibiltyId(buttonInfo.accessibilityId)
                 
                 Button(cancelInfo.prompt, role: .cancel, action: cancelAction)
@@ -42,13 +43,14 @@ public extension View {
     ///   - cancelAction: The action to perform when the cancel button is tapped.
     ///   - alertView: The custom view content to be displayed within the alert.
     /// - Returns: A modified view that displays a custom asynchronous alert.
-    func asyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
+    func asyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, hideLoadingIndicator: Bool = false, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
         modifier(
             AsyncAlertViewModifier(
                 isPresented: isPresented,
                 message: message,
                 buttonInfo: buttonInfo ?? .init(prompt: "Save", accessibilityId: nil),
                 cancelInfo: cancelInfo ?? .init(prompt: "Cancel", accessibilityId: nil),
+                hideLoadingIndicator: hideLoadingIndicator,
                 action: action,
                 cancelAction: cancelAction,
                 alertView: alertView
