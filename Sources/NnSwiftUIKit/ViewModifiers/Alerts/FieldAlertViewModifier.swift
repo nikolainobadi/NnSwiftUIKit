@@ -13,10 +13,10 @@ struct FieldAlertViewModifier: ViewModifier {
     @State private var fieldText = ""
 
     let message: String
+    let hideLoadingIndicator: Bool
     let fieldInfo: AccessibleItemInfo
     let buttonInfo: AccessibleItemInfo?
     let cancelInfo: AccessibleItemInfo?
-    let hideLoadingIndicator: Bool
     let action: (String) async throws -> Void
     
     private func save() async throws {
@@ -47,6 +47,6 @@ public extension View {
     ///   - action: The asynchronous action to perform using the input from the text field.
     /// - Returns: A modified view with an alert containing a single text field.
     func singleFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, hideLoadingIndicator: Bool = false, action: @escaping (String) async throws -> Void) -> some View {
-        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, hideLoadingIndicator: hideLoadingIndicator, action: action))
+        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, hideLoadingIndicator: hideLoadingIndicator, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
     }
 }

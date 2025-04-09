@@ -9,27 +9,36 @@ import SwiftUI
 
 /// A view modifier that performs a delayed action after the view appears in a SwiftUI view.
 struct DelayedOnAppearViewModifier: ViewModifier {
+    @EnvironmentObject var context: NnErrorHandlingContext
+    
     let seconds: Double
-    let action: () -> Void
+    let runActionAsTask: Bool
+    let hideLoadingIndicator: Bool
+    let action: () async throws -> Void
+    
+    private func performAction() async {
+        try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000)) // Convert seconds to nanoseconds
+        context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: action)
+    }
     
     func body(content: Content) -> some View {
         content
             .onAppear {
                 Task {
-                    try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000)) // Convert seconds to nanoseconds
-                    action()
+                    await performAction()
                 }
+            }
+            .showingConditionalView(when: runActionAsTask) {
+                content
+                    .task {
+                        await performAction()
+                    }
             }
     }
 }
 
 public extension View {
-    /// Performs an action after a specified delay when the view appears.
-    /// - Parameters:
-    ///   - seconds: The delay in seconds before performing the action.
-    ///   - action: The action to perform after the delay.
-    /// - Returns: A modified view that performs an action after a delay upon appearing.
-    func delayedOnAppear(seconds: Double, perform action: @escaping () -> Void) -> some View {
-        modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
+    func delayedOnAppear(seconds: Double, runActionAsTask: Bool = false, hideLoadingIndicator: Bool = true, perform action: @escaping () async throws -> Void) -> some View {
+        modifier(DelayedOnAppearViewModifier(seconds: seconds, runActionAsTask: runActionAsTask, hideLoadingIndicator: hideLoadingIndicator, action: action))
     }
 }

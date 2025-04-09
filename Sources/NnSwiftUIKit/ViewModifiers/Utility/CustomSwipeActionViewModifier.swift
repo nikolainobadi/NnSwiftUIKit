@@ -14,14 +14,14 @@ struct CustomSwipeActionViewModifier: ViewModifier {
     let edge: HorizontalEdge
     let tint: Color
     let isActive: Bool
-    let action: () -> Void
+    let action: () async throws -> Void
     
     func body(content: Content) -> some View {
         content
             .showingConditionalView(when: isActive) {
                 content
                     .swipeActions(edge: edge) {
-                        Button(action: action) {
+                        AsyncTryButton(action: action) {
                             if let systemImage = systemImage {
                                 Label(info.prompt, systemImage: systemImage)
                             } else {
@@ -45,7 +45,7 @@ public extension View {
     ///   - isActive: A Boolean indicating whether the swipe action is active.
     ///   - action: The action to perform when the swipe action is triggered.
     /// - Returns: A modified view with the specified swipe action.
-    func withSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
+    func withSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () async throws -> Void) -> some View {
         modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
     }
 }

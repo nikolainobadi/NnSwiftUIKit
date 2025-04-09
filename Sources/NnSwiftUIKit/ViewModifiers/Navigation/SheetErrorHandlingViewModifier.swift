@@ -7,17 +7,21 @@
 
 import SwiftUI
 
-// TODO: - this may no longer be needed
 struct SheetErrorHandlingViewModifier<Sheet: View>: ViewModifier {
     @Binding var isPresented: Bool
     
+    let isActive: Bool
+    let accentColor: Color
     let sheet: () -> Sheet
     
     func body(content: Content) -> some View {
         content
-            .sheet(isPresented: $isPresented) {
-                sheet()
-                    .withNnErrorHandling(accentColor: .white)
+            .showingConditionalView(when: isActive) {
+                content
+                    .sheet(isPresented: $isPresented) {
+                        sheet()
+                            .withNnErrorHandling(accentColor: accentColor)
+                    }
             }
     }
 }
@@ -28,7 +32,7 @@ public extension View {
     ///   - isPresented: A binding controlling the presentation of the sheet.
     ///   - sheet: A closure returning the content of the sheet.
     /// - Returns: A modified view with an error-handling sheet.
-    func sheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
-        modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, sheet: sheet))
+    func sheetWithErrorHandling<Sheet: View>(isPresented: Binding<Bool>, isActive: Bool = true, accentColor: Color = .white, @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
+        modifier(SheetErrorHandlingViewModifier(isPresented: isPresented, isActive: isActive, accentColor: accentColor, sheet: sheet))
     }
 }

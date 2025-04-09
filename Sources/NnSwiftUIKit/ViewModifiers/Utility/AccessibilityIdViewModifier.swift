@@ -12,12 +12,11 @@ struct AccessibilityIdViewModifier: ViewModifier {
     let accessibilityId: String?
     
     func body(content: Content) -> some View {
-        if let accessibilityId = accessibilityId {
-            content
-                .accessibilityIdentifier(accessibilityId)
-        } else {
-            content
-        }
+        content
+            .showingViewWithOptional(accessibilityId) { id in
+                content
+                    .accessibilityIdentifier(id)
+            }
     }
 }
 
