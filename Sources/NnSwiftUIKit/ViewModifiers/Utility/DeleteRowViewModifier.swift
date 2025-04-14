@@ -46,7 +46,7 @@ public extension View {
                 swipeButtonTint: swipeButtonTint,
                 swipeButtonRole: swipeButtonRole,
                 alertButtonInfo: alertButtonInfo ?? .init(prompt: "Delete"),
-                swipeButtonInfo: swipeButtonInfo ?? .init(text: "Deleate", systemImage: "trash"),
+                swipeButtonInfo: swipeButtonInfo ?? .init(text: "Delete", systemImage: "trash"),
                 delete: delete
             )
         )
