@@ -27,9 +27,9 @@ struct DeleteRowViewModifier: ViewModifier {
                     .swipeActions {
                         Button(action: { showingConfirmation = true }) {
                             Label(swipeButtonInfo.text, systemImage: swipeButtonInfo.systemImage)
-                                .setOptionalAccessibiltyId(swipeButtonInfo.accessibilityId)
                         }
                         .tint(swipeButtonTint)
+                        .setOptionalAccessibiltyId(swipeButtonInfo.accessibilityId)
                     }
                     .asyncConfirmation(showingConfirmation: $showingConfirmation, isActive: isActive, message: message, role: swipeButtonRole, buttonInfo: alertButtonInfo, action: delete)
             }
