@@ -31,6 +31,7 @@ struct CustomDiscardChangesViewModifier: ViewModifier {
                 Button(dismissButtonInfo.prompt, role: .destructive) {
                     dismiss()
                 }
+                .setOptionalAccessibiltyId(dismissButtonInfo.accessibilityId)
             } message: {
                 Text(message)
             }

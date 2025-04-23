@@ -12,7 +12,6 @@ struct DelayedOnAppearViewModifier: ViewModifier {
     @EnvironmentObject var context: NnErrorHandlingContext
     
     let seconds: Double
-    let runActionAsTask: Bool
     let hideLoadingIndicator: Bool
     let action: () async throws -> Void
     
@@ -28,17 +27,11 @@ struct DelayedOnAppearViewModifier: ViewModifier {
                     await performAction()
                 }
             }
-            .showingConditionalView(when: runActionAsTask) {
-                content
-                    .task {
-                        await performAction()
-                    }
-            }
     }
 }
 
 public extension View {
-    func delayedOnAppear(seconds: Double, runActionAsTask: Bool = false, hideLoadingIndicator: Bool = true, perform action: @escaping () async throws -> Void) -> some View {
-        modifier(DelayedOnAppearViewModifier(seconds: seconds, runActionAsTask: runActionAsTask, hideLoadingIndicator: hideLoadingIndicator, action: action))
+    func delayedOnAppear(seconds: Double, hideLoadingIndicator: Bool = true, perform action: @escaping () async throws -> Void) -> some View {
+        modifier(DelayedOnAppearViewModifier(seconds: seconds, hideLoadingIndicator: hideLoadingIndicator, action: action))
     }
 }
