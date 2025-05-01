@@ -12,10 +12,12 @@ struct ConditionalViewReplacementViewModifier<Conditional: View>: ViewModifier {
     let conditionalView: () -> Conditional
     
     func body(content: Content) -> some View {
-        if isShowing {
-            conditionalView()
-        } else {
-            content
+        Group {
+            if isShowing {
+                conditionalView()
+            } else {
+                content
+            }
         }
     }
 }
