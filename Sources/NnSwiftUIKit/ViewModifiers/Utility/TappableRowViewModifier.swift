@@ -20,9 +20,16 @@ struct TappableRowViewModifier: ViewModifier {
     let action: () async throws -> Void
     
     func body(content: Content) -> some View {
-        content
-            .asRowItem(withChevron: withChevron, maxWidth: maxWidth, alignment: alignment, tint: tint)
-            .modifier(TapModifier(isActive: tapIsActive, hideLoadingIndicator: hideLoadingIndicator, action: action))
+        if tapIsActive {
+            content
+                .asRowItem(withChevron: withChevron, maxWidth: maxWidth, alignment: alignment, tint: tint)
+                .onTapGesture {
+                    context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: action)
+                }
+        } else {
+            content
+                .asRowItem(withChevron: withChevron, maxWidth: maxWidth, alignment: alignment, tint: tint)
+        }
     }
 }
 
@@ -39,25 +46,5 @@ public extension View {
     ///   - onTapGesture: The action to perform when the row is tapped.
     func tappable(tapIsActive: Bool = true, withChevron: Bool = false, maxWidth: CGFloat = .infinity, tint: Color = .primary, alignment: Alignment = .leading, hideLoadingIndicator: Bool = false, onTapGesture: @escaping () async throws -> Void) -> some View {
         modifier(TappableRowViewModifier(tint: tint, tapIsActive: tapIsActive, withChevron: withChevron, maxWidth: maxWidth, alignment: alignment, hideLoadingIndicator: hideLoadingIndicator, action: onTapGesture))
-    }
-}
-
-
-// MARK: - Helpers
-private struct TapModifier: ViewModifier {
-    @EnvironmentObject var context: NnErrorHandlingContext
-    
-    let isActive: Bool
-    let hideLoadingIndicator: Bool
-    let action: () async throws -> Void
-
-    func body(content: Content) -> some View {
-        content
-            .showingConditionalView(when: isActive) {
-                content
-                    .onTapGesture {
-                        context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: action)
-                    }
-            }
     }
 }

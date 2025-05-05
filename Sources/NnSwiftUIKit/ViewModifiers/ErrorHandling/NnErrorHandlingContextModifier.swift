@@ -17,19 +17,24 @@ struct NnErrorHandlingContextModifier: ViewModifier {
         ZStack {
             content
                 .environmentObject(context)
-                .showingAlert(context.alertTitle, message: context.alertMessage, isPresented: $context.showingAlert)
+                .alert(context.alertTitle, isPresented: $context.showingAlert) {
+                    Button("Okay", role: .cancel) { }
+                } message: {
+                    Text(context.alertMessage)
+                }
 
-            ZStack {
-                Color.primary
-                    .opacity(0.5)
-                    .ignoresSafeArea()
-
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .accentColor(accentColor)
-                    .scaleEffect(3)
+            if context.isLoading {
+                ZStack {
+                    Color.primary
+                        .opacity(0.5)
+                        .ignoresSafeArea()
+                    
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .accentColor(accentColor)
+                        .scaleEffect(3)
+                }
             }
-            .onlyShow(when: context.isLoading)
         }
     }
 }

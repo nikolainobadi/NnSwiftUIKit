@@ -13,12 +13,13 @@ struct ConditionalNavigationLinkViewModifier<D: Hashable>: ViewModifier {
     let isActive: Bool
     
     func body(content: Content) -> some View {
-        content
-            .showingConditionalView(when: isActive) {
-                NavigationLink(value: data) {
-                    content
-                }
+        if isActive {
+            NavigationLink(value: data) {
+                content
             }
+        } else {
+            content
+        }
     }
 }
 

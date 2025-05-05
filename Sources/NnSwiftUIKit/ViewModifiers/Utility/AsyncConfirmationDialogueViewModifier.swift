@@ -18,16 +18,17 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     let action: () async throws -> Void
     
     func body(content: Content) -> some View {
-        content
-            .showingConditionalView(when: isActive) {
-                content
-                    .confirmationDialog("", isPresented: $showingConfirmation) {
-                        AsyncTryButton(buttonInfo.prompt, role: role, action: action)
-                            .setOptionalAccessibiltyId(buttonInfo.accessibilityId)
-                    } message: {
-                        Text(message)
-                    }
-            }
+        if isActive {
+            content
+                .confirmationDialog("", isPresented: $showingConfirmation) {
+                    AsyncTryButton(buttonInfo.prompt, role: role, action: action)
+                        .setOptionalAccessibiltyId(buttonInfo.accessibilityId)
+                } message: {
+                    Text(message)
+                }
+        } else {
+            content
+        }
     }
 }
 

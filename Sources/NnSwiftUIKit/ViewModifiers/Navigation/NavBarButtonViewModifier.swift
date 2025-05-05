@@ -21,20 +21,21 @@ struct NavBarButtonViewModifier: ViewModifier {
         content
             .toolbar {
                 ToolbarItem(placement: placement) {
-                    AsyncTryButton(action: action) {
-                        switch buttonContent {
-                        case .image(let imageType):
-                            Image(imageType: imageType)
-                                .font(font)
-                                .foregroundColor(textColor)
-                        case .text(let buttonText):
-                            Text(buttonText)
-                                .font(font)
-                                .foregroundColor(textColor)
+                    if isActive {
+                        AsyncTryButton(action: action) {
+                            switch buttonContent {
+                            case .image(let imageType):
+                                Image(imageType: imageType)
+                                    .font(font)
+                                    .foregroundColor(textColor)
+                            case .text(let buttonText):
+                                Text(buttonText)
+                                    .font(font)
+                                    .foregroundColor(textColor)
+                            }
                         }
+                        .setOptionalAccessibiltyId(accessibilityId)
                     }
-                    .setOptionalAccessibiltyId(accessibilityId)
-                    .onlyShow(when: isActive)
                 }
             }
     }

@@ -15,7 +15,7 @@ public extension Date {
     ///   - day: The day component of the date.
     ///   - year: The year component of the date. If not provided, defaults to the current year.
     /// - Returns: A `Date` object representing the specified date.
-    static func createDate(day: Int? = nil, month: Int? = nil, year: Int? = nil) -> Date {
+    static func createDate(month: Int? = nil, day: Int? = nil, year: Int? = nil) -> Date {
         var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
         components.day = day ?? components.day
         components.month = month ?? components.month

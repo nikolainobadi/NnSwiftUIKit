@@ -21,18 +21,24 @@ struct DeleteRowViewModifier: ViewModifier {
     let delete: () async throws -> Void
     
     func body(content: Content) -> some View {
-        content
-            .showingConditionalView(when: isActive) {
-                content
-                    .swipeActions {
-                        Button(action: { showingConfirmation = true }) {
-                            Label(swipeButtonInfo.text, systemImage: swipeButtonInfo.systemImage)
-                        }
-                        .tint(swipeButtonTint)
-                        .setOptionalAccessibiltyId(swipeButtonInfo.accessibilityId)
+        if isActive {
+            content
+                .swipeActions {
+                    Button(action: { showingConfirmation = true }) {
+                        Label(swipeButtonInfo.text, systemImage: swipeButtonInfo.systemImage)
                     }
-                    .asyncConfirmation(showingConfirmation: $showingConfirmation, isActive: isActive, message: message, role: swipeButtonRole, buttonInfo: alertButtonInfo, action: delete)
-            }
+                    .tint(swipeButtonTint)
+                    .setOptionalAccessibiltyId(swipeButtonInfo.accessibilityId)
+                }
+                .confirmationDialog("", isPresented: $showingConfirmation) {
+                    AsyncTryButton(alertButtonInfo.prompt, role: swipeButtonRole, action: delete)
+                        .setOptionalAccessibiltyId(alertButtonInfo.accessibilityId)
+                } message: {
+                    Text(message)
+                }
+        } else {
+            content
+        }
     }
 }
 

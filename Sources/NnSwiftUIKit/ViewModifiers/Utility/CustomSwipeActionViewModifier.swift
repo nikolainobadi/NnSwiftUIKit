@@ -17,21 +17,22 @@ struct CustomSwipeActionViewModifier: ViewModifier {
     let action: () async throws -> Void
     
     func body(content: Content) -> some View {
-        content
-            .showingConditionalView(when: isActive) {
-                content
-                    .swipeActions(edge: edge) {
-                        AsyncTryButton(action: action) {
-                            if let systemImage = systemImage {
-                                Label(info.prompt, systemImage: systemImage)
-                            } else {
-                                Text(info.prompt)
-                            }
+        if isActive {
+            content
+                .swipeActions(edge: edge) {
+                    AsyncTryButton(action: action) {
+                        if let systemImage = systemImage {
+                            Label(info.prompt, systemImage: systemImage)
+                        } else {
+                            Text(info.prompt)
                         }
-                        .tint(tint)
-                        .setOptionalAccessibiltyId(info.accessibilityId)
                     }
-            }
+                    .tint(tint)
+                    .setOptionalAccessibiltyId(info.accessibilityId)
+                }
+        } else {
+            content
+        }
     }
 }
 

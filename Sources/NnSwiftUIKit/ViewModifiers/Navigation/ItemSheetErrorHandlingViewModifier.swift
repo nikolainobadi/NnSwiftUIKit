@@ -15,14 +15,15 @@ struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: View
     let sheet: (Item) -> Sheet
     
     func body(content: Content) -> some View {
-        content
-            .showingConditionalView(when: isActive) {
-                content
-                    .sheet(item: $item) { itemToShow in
-                        sheet(itemToShow)
-                            .withNnErrorHandling(accentColor: accentColor)
-                    }
-            }
+        if isActive {
+            content
+                .sheet(item: $item) { itemToShow in
+                    sheet(itemToShow)
+                        .withNnErrorHandling(accentColor: accentColor)
+                }
+        } else {
+            content
+        }
     }
 }
 

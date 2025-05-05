@@ -9,20 +9,15 @@ import SwiftUI
 
 /// A custom navigation stack for iOS 16+, with support for setting a title and custom display mode.
 public struct NavStack<Content: View>: View {
-    /// The navigation path binding that controls the navigation stack.
     @Binding var path: NavigationPath
     
-    /// The optional title for the navigation bar.
     let title: String?
     
-    /// The content view to be displayed within the navigation stack.
     let content: () -> Content
     
     #if canImport(UIKit)
-    /// The display mode for the navigation bar title.
     let displayMode: NavigationBarItem.TitleDisplayMode
     
-    /// Initializes a `NavStack` with a binding path, title, display mode, and content.
     public init(path: Binding<NavigationPath>? = nil, title: String?, displayMode: NavigationBarItem.TitleDisplayMode = .automatic, @ViewBuilder content: @escaping () -> Content) {
         self._path = path ?? .constant(.init())
         self.title = title
