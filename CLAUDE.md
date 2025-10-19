@@ -51,12 +51,52 @@ The error handling architecture is built around three interconnected components:
 - This injects `NnErrorHandlingContext` into the environment and overlays loading/alert UI
 - Use `AsyncTryButton` anywhere in the hierarchy—it automatically accesses the context
 
+### Font Customization System
+The font system provides flexible, protocol-based font sizing with environment-level configuration:
+
+1. **FontSizeProvider Protocol** (`Sources/NnSwiftUIKit/Environment/FontSizeProvider.swift`)
+   - Protocol defining font size calculation logic based on screen dimensions
+   - `makeFont(_:fontName:screenSize:)` creates fonts with proper sizing
+   - `makeFontSize(_:screenSize:)` calculates appropriate size for text styles
+   - `DefaultFontSizeProvider` uses percentage-based calculations relative to screen height
+
+2. **FontConfiguration** (`Sources/NnSwiftUIKit/Environment/FontConfiguration.swift`)
+   - Configurable defaults for text color and font names
+   - Properties: `textColor`, `detailFontName`, `nonDetailFontName`
+   - Can be set via environment to apply app-wide defaults
+   - Individual modifiers can override on per-use basis
+
+3. **CustomFontModifier** (`Sources/NnSwiftUIKit/ViewModifiers/Designs/CustomFontViewModifier.swift`)
+   - Unified modifier supporting both dynamic (style-based) and explicit (size-based) fonts
+   - Reads `FontSizeProvider` and `FontConfiguration` from environment
+   - Supports optional line limits with automatic text scaling via `minimumScaleFactor`
+   - All parameters optional - falls back to environment defaults when not specified
+
+**Integration Pattern:**
+```swift
+// Set app-wide defaults
+ContentView()
+    .fontConfiguration(FontConfiguration(
+        textColor: .blue,
+        detailFontName: "CustomDetail",
+        nonDetailFontName: "CustomBold"
+    ))
+    .fontSizeProvider(MyCustomProvider())
+
+// Use defaults or override per-use
+Text("Hello").withFont(.headline)  // Uses environment defaults
+Text("World").withFont(.body, textColor: .red)  // Override color only
+```
+
 ### Directory Structure
 
 ```
 Sources/NnSwiftUIKit/
 ├── Accessibility/           # AccessibleItemInfo, AccessibleLabelInfo
-├── Environment/             # Custom environment keys (e.g., IsPreviewKey)
+├── Environment/             # Custom environment keys and protocols
+│   ├── FontSizeProvider     # Protocol for custom font sizing logic
+│   ├── FontConfiguration    # Default font appearance configuration
+│   └── Other keys           # IsPreviewKey, RowItemTint, NavBarTextColor, etc.
 ├── ErrorHandling/           # Core error/loading system (see above)
 ├── Extensions/
 │   ├── Core/               # Array, Date, String extensions
