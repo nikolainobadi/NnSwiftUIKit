@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 1/21/24.
 //
 
+#if os(iOS)
 import SwiftUI
 
 /// A view modifier that performs an asynchronous action when an optional value changes, with error handling and optional loading indicator.
@@ -39,3 +40,4 @@ public extension View {
         modifier(AsyncOnChangeOfOptionalViewModifier(item: item, initial: initial, hideLoadingIndicator: hideLoadingIndicator, action: action))
     }
 }
+#endif

@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 10/29/24.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct ItemChangedViewModifer<Item: Equatable>: ViewModifier {
@@ -37,3 +38,4 @@ public extension View {
         modifier(ItemChangedViewModifer(item: item, itemDidChange: itemDidChange))
     }
 }
+#endif

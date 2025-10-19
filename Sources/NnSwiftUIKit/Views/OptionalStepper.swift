@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 5/15/25.
 //
 
+#if os(iOS)
 import SwiftUI
 
 public struct OptionalStepper: View {
@@ -35,4 +36,4 @@ public struct OptionalStepper: View {
         }
     }
 }
-
+#endif

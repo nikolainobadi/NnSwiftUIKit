@@ -5,6 +5,7 @@
 //  Created by Nikolai Nobadi on 4/4/25.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct ActiveOnChangesNavBarButtonViewModifier<Item: Equatable>: ViewModifier {
@@ -30,3 +31,4 @@ public extension View {
         modifier(ActiveOnChangesNavBarButtonViewModifier(item: item, font: font, textColor: textColor, accessibilityId: accessibilityId, placement: placement, buttonContent: buttonContent, action: action))
     }
 }
+#endif
