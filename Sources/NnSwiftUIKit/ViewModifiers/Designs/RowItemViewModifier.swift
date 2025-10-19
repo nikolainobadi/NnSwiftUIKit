@@ -46,9 +46,9 @@ public extension View {
     ) -> some View {
         modifier(
             RowItemViewModifier(
-                withChevron: withChevron,
                 tint: tint,
                 maxWidth: maxWidth,
+                withChevron: withChevron,
                 alignment: alignment
             )
         )
