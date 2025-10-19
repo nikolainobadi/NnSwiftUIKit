@@ -10,19 +10,28 @@ import SwiftUI
 
 struct ActiveOnChangesNavBarButtonViewModifier<Item: Equatable>: ViewModifier {
     @State private var itemDidChange = false
-    
+    @Environment(\.navBarTextColor) private var environmentTextColor
+
     let item: Item
     let font: Font
-    let textColor: Color
+    let textColor: Color?
     let accessibilityId: String?
     let placement: ToolbarItemPlacement
     let buttonContent: NavBarButtonContent
     let action: () async throws -> Void
-    
+
     func body(content: Content) -> some View {
         content
             .trackingItemChanges(item: item, itemDidChange: $itemDidChange)
-            .withNavBarButton(placement: placement, buttonContent: buttonContent, font: font, textColor: textColor, isActive: itemDidChange, accessibilityId: accessibilityId, action: action)
+            .withNavBarButton(
+                placement: placement,
+                buttonContent: buttonContent,
+                font: font,
+                textColor: textColor ?? environmentTextColor,
+                isActive: itemDidChange,
+                accessibilityId: accessibilityId,
+                action: action
+            )
     }
 }
 
@@ -40,16 +49,16 @@ public extension View {
     /// - Parameters:
     ///   - item: The item whose changes will activate the button.
     ///   - font: The font used for the button label. Defaults to `.title2`.
-    ///   - textColor: The color of the button text or icon. Defaults to `.primary`.
+    ///   - textColor: The color of the button text or icon. If `nil`, uses the environment's `navBarTextColor` value. Defaults to `nil`.
     ///   - accessibilityId: An optional accessibility identifier for UI testing. Defaults to `nil`.
     ///   - placement: The toolbar placement of the navigation bar button. Defaults to `.topBarTrailing`.
-    ///   - buttonContent: The content describing the button’s label or icon.
+    ///   - buttonContent: The content describing the button's label or icon.
     ///   - action: The asynchronous action executed when the button is tapped.
     /// - Returns: A modified view containing a navigation bar button that activates when the item changes.
     func activeOnChangeNavBarButton<Item: Equatable>(
         item: Item,
         font: Font = .title2,
-        textColor: Color = .primary,
+        textColor: Color? = nil,
         accessibilityId: String? = nil,
         placement: ToolbarItemPlacement = .topBarTrailing,
         buttonContent: NavBarButtonContent,

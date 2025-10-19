@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct NavBarButtonViewModifier: ViewModifier {
+    @Environment(\.navBarTextColor) private var environmentTextColor
+
     let placement: ToolbarItemPlacement
     let buttonContent: NavBarButtonContent
     let accessibilityId: String?
     let font: Font
-    let textColor: Color
+    let textColor: Color?
     let isActive: Bool
     let action: () async throws -> Void
-    
+
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -26,11 +28,11 @@ struct NavBarButtonViewModifier: ViewModifier {
                             case .image(let imageType):
                                 Image(imageType: imageType)
                                     .font(font)
-                                    .foregroundColor(textColor)
+                                    .foregroundColor(textColor ?? environmentTextColor)
                             case .text(let buttonText):
                                 Text(buttonText)
                                     .font(font)
-                                    .foregroundColor(textColor)
+                                    .foregroundColor(textColor ?? environmentTextColor)
                             }
                         }
                         .setOptionalAccessibiltyId(accessibilityId)
@@ -46,7 +48,7 @@ public extension View {
     ///   - placement: The placement of the button within the navigation bar.
     ///   - buttonContent: The content of the button, either text or image.
     ///   - font: The font of the button text or image, defaulting to title2.
-    ///   - textColor: The color of the button text or image, defaulting to primary.
+    ///   - textColor: The color of the button text or image. If `nil`, uses the environment's `navBarTextColor` value. Defaults to `nil`.
     ///   - isActive: A Boolean indicating whether the button is active, defaulting to true.
     ///   - accessibilityId: The accessibility identifier for the button.
     ///   - action: The action to perform when the button is tapped.
@@ -55,7 +57,7 @@ public extension View {
         placement: ToolbarItemPlacement? = nil,
         buttonContent: NavBarButtonContent,
         font: Font = .title2,
-        textColor: Color = .primary,
+        textColor: Color? = nil,
         isActive: Bool = true,
         accessibilityId: String? = nil,
         action: @escaping () async throws -> Void
