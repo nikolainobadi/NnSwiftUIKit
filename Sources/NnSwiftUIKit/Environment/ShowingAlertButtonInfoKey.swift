@@ -38,23 +38,4 @@ public extension View {
     func showingAlertButtonInfo(_ info: AccessibleItemInfo) -> some View {
         environment(\.showingAlertButtonInfo, info)
     }
-
-    /// Sets the default text for showing alert buttons throughout the view hierarchy.
-    ///
-    /// This is a convenience method that creates an `AccessibleItemInfo` with just a prompt.
-    /// For more control (including accessibility identifiers), use `showingAlertButtonInfo(_:)` instead.
-    ///
-    /// - Parameter prompt: The text to display on showing alert buttons.
-    ///
-    /// - Returns: A view with the showing alert button prompt set in its environment.
-    ///
-    /// Example:
-    /// ```swift
-    /// ContentView()
-    ///     .showingAlertButtonPrompt("Dismiss")
-    ///     .showingAlert("Title", message: "Message", isPresented: $isPresented)
-    /// ```
-    func showingAlertButtonPrompt(_ prompt: String) -> some View {
-        environment(\.showingAlertButtonInfo, .init(prompt: prompt))
-    }
 }
