@@ -29,7 +29,17 @@ public extension View {
     ///   - submitLabel: The label to display for the submit button.
     ///   - action: The asynchronous action to perform when the submit button is pressed.
     /// - Returns: A modified view with error-handling for submit actions.
-    func asyncOnSubmit(submitLabel: SubmitLabel = .done, hideLoadingIndicator: Bool = false, action: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncTryOnSubmitViewModifier(submitLabel: submitLabel, hideLoadingIndicator: hideLoadingIndicator, action: action))
+    func asyncOnSubmit(
+        submitLabel: SubmitLabel = .done,
+        hideLoadingIndicator: Bool = false,
+        action: @escaping () async throws -> Void
+    ) -> some View {
+        modifier(
+            AsyncTryOnSubmitViewModifier(
+                submitLabel: submitLabel,
+                hideLoadingIndicator: hideLoadingIndicator,
+                action: action
+            )
+        )
     }
 }

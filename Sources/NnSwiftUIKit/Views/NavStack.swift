@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A custom navigation stack for iOS 16+, with support for setting a title and custom display mode.
 public struct NavStack<Content: View>: View {
     @Binding var path: NavigationPath
     

@@ -48,7 +48,12 @@ public extension View {
     ///   - dismissButtonInfo: Information about the dismiss button in the confirmation dialog,
     ///     including an accessibility prompt. Defaults to `.init(prompt: "Discard Changes")`.
     /// - Returns: A view modified to include a custom navigation bar dismiss button with a confirmation dialog.
-    func nnWithCustomDiscardChangesNavButton(_ title: String? = nil, message: String? = nil, didMakeChanges: Bool, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
+    func nnWithCustomDiscardChangesNavButton(
+        _ title: String? = nil,
+        message: String? = nil,
+        didMakeChanges: Bool,
+        dismissButtonInfo: AccessibleItemInfo? = nil
+    ) -> some View {
         modifier(
             CustomDiscardChangesViewModifier(
                 title: title ?? "Changes Detected",

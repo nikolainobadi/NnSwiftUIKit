@@ -35,8 +35,20 @@ public extension View {
     ///   - hideLoadingIndicator: A Boolean indicating whether to hide the loading indicator during the action.
     ///   - action: The asynchronous action to perform when the item changes.
     /// - Returns: A modified view that handles asynchronous actions on item changes.
-    func asyncOnChange<Item: Equatable & Sendable>(item: Item?, initial: Bool = false, hideLoadingIndicator: Bool = false, action: @escaping (Item) async throws -> Void) -> some View {
-        modifier(AsyncOnChangeOfOptionalViewModifier(item: item, initial: initial, hideLoadingIndicator: hideLoadingIndicator, action: action))
+    func asyncOnChange<Item: Equatable & Sendable>(
+        item: Item?,
+        initial: Bool = false,
+        hideLoadingIndicator: Bool = false,
+        action: @escaping (Item) async throws -> Void
+    ) -> some View {
+        modifier(
+            AsyncOnChangeOfOptionalViewModifier(
+                item: item,
+                initial: initial,
+                hideLoadingIndicator: hideLoadingIndicator,
+                action: action
+            )
+        )
     }
 }
 #endif

@@ -65,8 +65,28 @@ public extension View {
     ///   - accessibilityId: The accessibility identifier for the dismiss button.
     ///   - dismissButtonInfo: Accessibility information for the dismiss button.
     /// - Returns: A modified view with a dismiss button that prompts a confirmation dialog if there are changes.
-    func withDiscardChangesNavBarDismissButton<Item: Equatable>(_ title: String? = nil, message: String? = nil, itemToModify: Item, placement: ToolbarItemPlacement? = nil, dismissType: NavBarDismissType? = nil, buttonTextColor: Color = .primary, accessibilityId: String? = nil, dismissButtonInfo: AccessibleItemInfo? = nil) -> some View {
-        modifier(DiscardChangesViewModifier(title, itemToModify: itemToModify, message: message, placement: placement, dismissType: dismissType, buttonTextColor: buttonTextColor, accessibilityId: accessibilityId, dismissButtonInfo: dismissButtonInfo))
+    func withDiscardChangesNavBarDismissButton<Item: Equatable>(
+        _ title: String? = nil,
+        message: String? = nil,
+        itemToModify: Item,
+        placement: ToolbarItemPlacement? = nil,
+        dismissType: NavBarDismissType? = nil,
+        buttonTextColor: Color = .primary,
+        accessibilityId: String? = nil,
+        dismissButtonInfo: AccessibleItemInfo? = nil
+    ) -> some View {
+        modifier(
+            DiscardChangesViewModifier(
+                title,
+                itemToModify: itemToModify,
+                message: message,
+                placement: placement,
+                dismissType: dismissType,
+                buttonTextColor: buttonTextColor,
+                accessibilityId: accessibilityId,
+                dismissButtonInfo: dismissButtonInfo
+            )
+        )
     }
 }
 #endif
