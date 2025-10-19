@@ -17,6 +17,9 @@ Included in the Reference folder is a commented out file (NnSwiftUIKit+ViewExten
   - [Error Handling & Loading States](#error-handling--loading-states)
   - [Custom Alerts](#custom-alerts)
   - [Custom View Modifiers](#custom-view-modifiers)
+  - [Navigation & Toolbar](#navigation--toolbar)
+  - [List & Row Utilities](#list--row-utilities)
+  - [Async Task Helpers](#async-task-helpers)
 - [License](#license)
 
 ## Features
@@ -210,6 +213,135 @@ MyView()
             print("Device shaken!")
         }
     )
+```
+
+### Navigation & Toolbar
+Add navigation bar buttons and handle dismissal with change detection:
+
+```swift
+// Add a navigation bar button
+MyView()
+    .withNavBarButton(
+        placement: .trailing,
+        buttonContent: .text("Save"),
+        textColor: .blue,
+        action: {
+            try await saveChanges()
+        }
+    )
+
+// Add a dismiss button with discard changes confirmation
+struct EditView: View {
+    @State private var item = Item()
+    let originalItem: Item
+
+    var body: some View {
+        Form {
+            // ... editing fields
+        }
+        .withDiscardChangesNavBarDismissButton(
+            "Discard Changes?",
+            message: "You have unsaved changes. Are you sure you want to discard them?",
+            itemToModify: item,
+            placement: .leading,
+            dismissType: .cancel
+        )
+    }
+}
+
+// Using button content with images
+MyView()
+    .withNavBarButton(
+        placement: .topBarTrailing,
+        buttonContent: .image(.system("plus")),
+        action: {
+            try await addNewItem()
+        }
+    )
+```
+
+### List & Row Utilities
+Create interactive list rows with tappable actions and swipe-to-delete:
+
+```swift
+// Basic row item with chevron
+Text("Settings")
+    .asRowItem(
+        withChevron: true,
+        maxWidth: .infinity,
+        alignment: .leading,
+        tint: .blue
+    )
+
+// Tappable row with async action
+Text("Account Details")
+    .tappable(
+        tapIsActive: true,
+        withChevron: true,
+        tint: .blue,
+        onTapGesture: {
+            try await loadAccountDetails()
+        }
+    )
+
+// Swipe to delete with confirmation
+ForEach(items) { item in
+    ItemRow(item: item)
+        .withSwipeDelete(
+            message: "Delete this item?",
+            swipeButtonTint: .red,
+            swipeButtonRole: .destructive,
+            delete: {
+                try await deleteItem(item)
+            }
+        )
+}
+
+// Skip confirmation for immediate delete
+ItemRow(item: item)
+    .withSwipeDelete(
+        skipConfirmation: true,
+        delete: {
+            try await deleteItem(item)
+        }
+    )
+```
+
+### Async Task Helpers
+Execute async tasks on view lifecycle events:
+
+```swift
+// Run async task when view appears
+MyView()
+    .throwingTask {
+        try await loadInitialData()
+    }
+
+// Run task only once (persists across view reappears)
+MyView()
+    .throwingTask(onlyPerformOnce: true) {
+        try await performOneTimeSetup()
+    }
+
+// Hide loading indicator during task
+MyView()
+    .throwingTask(hideLoadingIndicator: true) {
+        try await refreshData()
+    }
+
+// Async action on value change
+MyView()
+    .asyncOnChange(of: selectedCategory) {
+        try await loadItemsForCategory(selectedCategory)
+    }
+
+// Async form submission
+Form {
+    // ... form fields
+}
+.asyncTryOnSubmit {
+    try await submitForm()
+}
 ```
 
 ## License
