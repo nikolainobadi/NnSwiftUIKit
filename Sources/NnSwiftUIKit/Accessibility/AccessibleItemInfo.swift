@@ -6,7 +6,7 @@
 //
 
 /// A struct representing accessibility information for an item.
-public struct AccessibleItemInfo {
+public struct AccessibleItemInfo: Sendable {
     public let prompt: String
     public let accessibilityId: String?
     
