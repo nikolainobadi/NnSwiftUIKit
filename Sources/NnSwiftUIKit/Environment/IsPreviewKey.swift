@@ -9,7 +9,6 @@ import SwiftUI
 
 /// A key that indicates whether the current environment is in preview mode.
 public struct IsPreviewKey: EnvironmentKey {
-    /// The default value indicating whether preview mode is active. Default is false.
     public static let defaultValue: Bool = false
 }
 
@@ -20,4 +19,3 @@ public extension EnvironmentValues {
         set { self[IsPreviewKey.self] = newValue }
     }
 }
-

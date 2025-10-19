@@ -7,22 +7,16 @@
 
 import SwiftUI
 
-/// A view modifier that configures a SwiftUI view as a row item, optionally with a chevron and customizable alignment and tint.
 struct RowItemViewModifier: ViewModifier {
-    /// A boolean value indicating whether to display a chevron on the right side.
     let withChevron: Bool
-    
-    /// The tint color for the chevron.
     let tint: Color
-    
-    /// The alignment of the content within the row item.
+    let maxWidth: CGFloat
     let alignment: Alignment
     
-    /// Modifies the content view to configure it as a row item.
     func body(content: Content) -> some View {
         HStack {
             content
-                .frame(maxWidth: .infinity, alignment: alignment)
+                .frame(maxWidth: maxWidth, alignment: alignment)
             
             if withChevron {
                 Spacer()
@@ -30,18 +24,31 @@ struct RowItemViewModifier: ViewModifier {
                     .foregroundColor(tint)
             }
         }
-        .contentShape(Rectangle())
+        .contentShape(.rect)
     }
 }
 
 public extension View {
-    /// Configures the view as a row item with optional chevron and customizable alignment and tint.
+    /// Applies a horizontal layout to the view, optionally adding a chevron and setting alignment, tint, and max width.
+    ///
     /// - Parameters:
-    ///   - withChevron: A Boolean indicating whether to display a chevron on the right side.
-    ///   - alignment: The alignment of the content within the row item, defaulting to leading.
-    ///   - tint: The tint color for the chevron, defaulting to primary color.
-    /// - Returns: A modified view configured as a row item.
-    func nnAsRowItem(withChevron: Bool = false, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
-        modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, alignment: alignment))
+    ///   - withChevron: A Boolean value indicating whether to display a chevron on the trailing side. Defaults to `false`.
+    ///   - maxWidth: The maximum width the view can occupy. Defaults to `.infinity`.
+    ///   - alignment: The horizontal alignment for the content. Defaults to `.leading`.
+    ///   - tint: The color used for the chevron, if displayed. Defaults to `.primary`.
+    func asRowItem(
+        withChevron: Bool = false,
+        maxWidth: CGFloat = .infinity,
+        alignment: Alignment = .leading,
+        tint: Color = .primary
+    ) -> some View {
+        modifier(
+            RowItemViewModifier(
+                withChevron: withChevron,
+                tint: tint,
+                maxWidth: maxWidth,
+                alignment: alignment
+            )
+        )
     }
 }

@@ -7,15 +7,10 @@
 
 import SwiftUI
 
-/// A view modifier that conditionally adds a navigation link to a SwiftUI view for iOS 16+.
 struct ConditionalNavigationLinkViewModifier<D: Hashable>: ViewModifier {
-    /// The data used for the navigation link.
     let data: D
-    
-    /// A boolean value indicating whether the navigation link is active.
     let isActive: Bool
     
-    /// Modifies the content view to conditionally add a navigation link based on the `isActive` value.
     func body(content: Content) -> some View {
         if isActive {
             NavigationLink(value: data) {
@@ -28,12 +23,22 @@ struct ConditionalNavigationLinkViewModifier<D: Hashable>: ViewModifier {
 }
 
 public extension View {
-    /// Conditionally adds a navigation link to the view for navigation, available in iOS 16+.
+    /// Conditionally wraps the view in a `NavigationLink` when `isActive` is true.
+    ///
+    /// This modifier dynamically changes the view hierarchy based on the `isActive` value.
+    /// Because SwiftUI reconstructs views when their modifier chain changes, applying this
+    /// to views that manage state (e.g., views with `@State`, `@ObservedObject`, or bindings)
+    /// can cause those views to lose their state or reset unexpectedly when the condition toggles.
+    ///
+    /// It is best to use this modifier **only on stateless or display-only views** that do not
+    /// maintain their own source of truth. For stateful navigation scenarios, prefer maintaining
+    /// a stable `NavigationLink` and controlling its activation through a binding.
+    ///
     /// - Parameters:
-    ///   - data: The data used for the navigation destination.
-    ///   - isActive: A Boolean value indicating whether the navigation link is active, defaulting to true.
-    /// - Returns: A modified view that displays a navigation link when `isActive` is true.
-    func nnAsNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
+    ///   - data: The data used to identify the navigation destination.
+    ///   - isActive: A Boolean indicating whether the navigation link should be active. Defaults to `true`.
+    /// - Returns: A modified view that becomes a `NavigationLink` when `isActive` is true.
+    func asNavLink<D: Hashable>(_ data: D, isActive: Bool = true) -> some View {
         modifier(ConditionalNavigationLinkViewModifier(data: data, isActive: isActive))
     }
 }

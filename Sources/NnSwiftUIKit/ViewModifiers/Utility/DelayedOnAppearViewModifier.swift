@@ -7,31 +7,54 @@
 
 import SwiftUI
 
-/// A view modifier that performs a delayed action after the view appears in a SwiftUI view.
 struct DelayedOnAppearViewModifier: ViewModifier {
-    /// The delay before the action is performed, in seconds.
-    let seconds: Double
+    @EnvironmentObject private var context: NnErrorHandlingContext
     
-    /// The action to perform after the delay.
-    let action: () -> Void
+    let seconds: Double
+    let hideLoadingIndicator: Bool
+    let action: () async throws -> Void
+    
+    private func performAction() async {
+        try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000)) // Convert seconds to nanoseconds
+        context.performAction(hideLoadingIndicator: hideLoadingIndicator, action: action)
+    }
     
     func body(content: Content) -> some View {
         content
             .onAppear {
                 Task {
-                    try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000)) // Convert seconds to nanoseconds
-                    action()
+                    await performAction()
                 }
             }
     }
 }
+
 public extension View {
-    /// Performs an action after a specified delay when the view appears.
+    /// Executes an asynchronous action after a delay when the view appears.
+    ///
+    /// This modifier runs a provided async action after a specified delay
+    /// once the view enters the screen. It’s useful for deferring initialization
+    /// tasks, animations, or data loading that shouldn’t occur immediately on appearance.
+    ///
+    /// The async action is automatically wrapped with `NnErrorHandlingContext.performAction`,
+    /// allowing for consistent error and loading state management across your app.
+    ///
     /// - Parameters:
-    ///   - seconds: The delay in seconds before performing the action.
-    ///   - action: The action to perform after the delay.
-    /// - Returns: A modified view that performs an action after a delay upon appearing.
-    func nnDelayedOnAppear(seconds: Double, perform action: @escaping () -> Void) -> some View {
-        modifier(DelayedOnAppearViewModifier(seconds: seconds, action: action))
+    ///   - seconds: The number of seconds to wait before performing the action.
+    ///   - hideLoadingIndicator: A Boolean indicating whether the loading indicator should be hidden during execution. Defaults to `true`.
+    ///   - action: The asynchronous action to execute after the delay.
+    /// - Returns: A modified view that performs the async action after the specified delay when it appears.
+    func delayedOnAppear(
+        seconds: Double,
+        hideLoadingIndicator: Bool = true,
+        perform action: @escaping () async throws -> Void
+    ) -> some View {
+        modifier(
+            DelayedOnAppearViewModifier(
+                seconds: seconds,
+                hideLoadingIndicator: hideLoadingIndicator,
+                action: action
+            )
+        )
     }
 }

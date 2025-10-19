@@ -7,32 +7,19 @@
 
 import SwiftUI
 
-/// A view modifier that adds a custom swipe action to a SwiftUI view with customizable appearance and behavior.
 struct CustomSwipeActionViewModifier: ViewModifier {
-    /// Information related to the swipe action's accessibility.
     let info: AccessibleItemInfo
-    
-    /// The system image to be used for the swipe action button.
     let systemImage: String?
-    
-    /// The edge on which the swipe action is applied (leading or trailing).
     let edge: HorizontalEdge
-    
-    /// The tint color for the swipe action button.
     let tint: Color
-    
-    /// A boolean value indicating whether the swipe action is active.
     let isActive: Bool
+    let action: () async throws -> Void
     
-    /// The action to perform when the swipe action is triggered.
-    let action: () -> Void
-    
-    /// Modifies the content view to add a custom swipe action with the specified settings.
     func body(content: Content) -> some View {
         if isActive {
             content
                 .swipeActions(edge: edge) {
-                    Button(action: action) {
+                    AsyncTryButton(action: action) {
                         if let systemImage = systemImage {
                             Label(info.prompt, systemImage: systemImage)
                         } else {
@@ -40,7 +27,7 @@ struct CustomSwipeActionViewModifier: ViewModifier {
                         }
                     }
                     .tint(tint)
-                    .nnSetAccessibiltyId(info.accessibilityId)
+                    .setOptionalAccessibiltyId(info.accessibilityId)
                 }
         } else {
             content
@@ -49,16 +36,46 @@ struct CustomSwipeActionViewModifier: ViewModifier {
 }
 
 public extension View {
-    /// Adds a custom swipe action to the view with configurable appearance and behavior.
+    /// Adds a custom asynchronous swipe action to the view with configurable appearance and behavior.
+    ///
+    /// This modifier conditionally attaches a `.swipeActions` modifier based on `isActive`.
+    /// Because SwiftUI rebuilds views when modifier chains differ, toggling `isActive`
+    /// can lead to view reinitialization, state resets, or unexpected behavior in child views
+    /// that manage their own state or bindings.
+    ///
+    /// It is recommended to use this modifier **only on stateless or display-only views**
+    /// that **do not manage their own source of truth**. For stateful views,
+    /// prefer always keeping a `.swipeActions` modifier applied and controlling
+    /// its visibility or enabled state within the action content itself.
+    ///
+    /// The swipe action uses an `AsyncTryButton` to perform async operations safely,
+    /// handling thrown errors and integrating accessibility identifiers from `AccessibleItemInfo`.
+    ///
     /// - Parameters:
-    ///   - info: Accessibility information for the swipe action.
-    ///   - systemImage: The system image to use for the swipe action button.
-    ///   - tint: The tint color for the swipe action button.
-    ///   - edge: The edge on which the swipe action is applied, defaulting to trailing.
-    ///   - isActive: A Boolean indicating whether the swipe action is active.
-    ///   - action: The action to perform when the swipe action is triggered.
-    /// - Returns: A modified view with the specified swipe action.
-    func nnWithSwipeAction(info: AccessibleItemInfo, systemImage: String? = nil, tint: Color, edge: HorizontalEdge? = nil, isActive: Bool = true, action: @escaping () -> Void) -> some View {
-        modifier(CustomSwipeActionViewModifier(info: info, systemImage: systemImage, edge: edge ?? .trailing, tint: tint, isActive: isActive, action: action))
+    ///   - info: Accessibility and prompt information for the swipe action.
+    ///   - systemImage: An optional system image name to display alongside the label.
+    ///   - tint: The color used to tint the swipe action button.
+    ///   - edge: The edge on which the swipe action appears. Defaults to `.trailing`.
+    ///   - isActive: A Boolean controlling whether the swipe action is applied. Defaults to `true`.
+    ///   - action: The asynchronous action executed when the swipe action button is tapped.
+    /// - Returns: A modified view with an async-enabled swipe action when active.
+    func withSwipeAction(
+        info: AccessibleItemInfo,
+        systemImage: String? = nil,
+        tint: Color,
+        edge: HorizontalEdge? = nil,
+        isActive: Bool = true,
+        action: @escaping () async throws -> Void
+    ) -> some View {
+        modifier(
+            CustomSwipeActionViewModifier(
+                info: info,
+                systemImage: systemImage,
+                edge: edge ?? .trailing,
+                tint: tint,
+                isActive: isActive,
+                action: action
+            )
+        )
     }
 }

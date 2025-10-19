@@ -6,7 +6,7 @@
 //
 
 public extension Array where Element: Identifiable {
-    mutating func nnToggleItem(_ item: Element) {
+    mutating func toggleItem(_ item: Element) {
         if let index = self.firstIndex(where: { $0.id == item.id }) {
             self.remove(at: index)
         } else {
@@ -14,7 +14,7 @@ public extension Array where Element: Identifiable {
         }
     }
     
-    mutating func nnAddOrUpdate(_ item: Element) {
+    mutating func addOrUpdate(_ item: Element) {
         if let index = self.firstIndex(where: { $0.id == item.id }) {
             self[index] = item
         } else {

@@ -8,9 +8,7 @@
 #if canImport(UIKit)
 import SwiftUI
 
-/// A view modifier that triggers actions based on the direction of a vertical pan gesture in a SwiftUI view.
 struct PanGestureViewModifier: ViewModifier {
-    /// A closure that handles the swipe direction detected from the pan gesture.
     let handleSwipeDirection: (PanGestureSwipeDirection) -> Void
     
     /// Handles the pan gesture and determines the swipe direction.
@@ -42,7 +40,7 @@ public extension View {
     /// Triggers actions based on the direction of a vertical pan gesture.
     /// - Parameter handleSwipeDirection: A closure handling the detected swipe direction.
     /// - Returns: A modified view that detects and responds to vertical pan gestures.
-    func nnHandlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipeDirection) -> Void) -> some View {
+    func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipeDirection) -> Void) -> some View {
         modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
     }
 }

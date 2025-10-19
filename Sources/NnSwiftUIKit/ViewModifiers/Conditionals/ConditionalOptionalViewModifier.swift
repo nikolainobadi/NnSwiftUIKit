@@ -21,12 +21,21 @@ struct ConditionalOptionalViewModifier<Item, ConditionalView: View>: ViewModifie
 }
 
 public extension View {
-    /// Conditionally replaces the view with another view if an optional item is provided.
+    /// Conditionally replaces the current view with another view when an optional value is non-nil.
+    ///
+    /// This modifier alters the view hierarchy depending on whether the optional contains a value.
+    /// Because SwiftUI rebuilds views when modifier chains differ, toggling between `nil` and
+    /// non-`nil` can lead to state loss or unintended resets in any child view that manages its own state.
+    ///
+    /// It is recommended to use this modifier **only on stateless or display-only views** that
+    /// **do not own their own source of truth**. For stateful content, prefer always keeping
+    /// a consistent hierarchy and conditionally updating content inside the same view instead.
+    ///
     /// - Parameters:
-    ///   - optional: The optional item to check for replacement.
-    ///   - conditionalView: A closure returning the view to display if the item is present.
-    /// - Returns: A modified view that displays a conditional view when the item is non-nil.
-    func nnShowingViewWithOptional<I, V: View>(_ optional: I?, @ViewBuilder conditionalView: @escaping (I) -> V) -> some View {
+    ///   - optional: The optional value to check for conditional replacement.
+    ///   - conditionalView: A closure that returns the replacement view when the optional has a value.
+    /// - Returns: A modified view that displays `conditionalView` when `optional` is non-nil, or the original view otherwise.
+    func showingViewWithOptional<I, V: View>(_ optional: I?, @ViewBuilder conditionalView: @escaping (I) -> V) -> some View {
         modifier(ConditionalOptionalViewModifier(optional: optional, conditionalView: conditionalView))
     }
 }

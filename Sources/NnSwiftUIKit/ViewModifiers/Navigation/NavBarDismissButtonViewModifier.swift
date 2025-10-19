@@ -6,30 +6,16 @@
 //
 import SwiftUI
 
-/// A view modifier that adds a dismiss button to the navigation bar with customizable appearance and behavior.
 struct NavBarDismissButtonViewModifier: ViewModifier {
-    /// The dismiss action provided by the SwiftUI environment.
     @Environment(\.dismiss) private var dismiss
     
-    /// A boolean value indicating whether the dismiss button is active.
     let isActive: Bool
-    
-    /// The placement of the dismiss button in the navigation bar.
     let placement: ToolbarItemPlacement?
-    
-    /// The color of the dismiss button text or image.
     let textColor: Color
-    
-    /// The type of dismiss button (e.g., "xmark", "cancel", "done").
     let dismissType: NavBarDismissType
-    
-    /// The accessibility identifier for the dismiss button.
     let accessibilityId: String?
-    
-    /// An optional action to be performed when the dismiss button is tapped.
     let action: (() -> Void)?
     
-    /// The content of the dismiss button (either text or image).
     private var buttonContent: NavBarButtonContent {
         switch dismissType {
         case .xmark:
@@ -41,10 +27,9 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
         }
     }
     
-    /// Modifies the content view to add a dismiss button to the navigation bar.
     func body(content: Content) -> some View {
         content
-            .nnWithNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
+            .withNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
                 if let action = action {
                     action()
                 } else {
@@ -64,8 +49,24 @@ public extension View {
     ///   - accessibilityId: The accessibility identifier for the dismiss button.
     ///   - dismiss: An optional action to perform when the dismiss button is tapped.
     /// - Returns: A modified view with a dismiss button in the navigation bar.
-    func nnWithNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, accessibilityId: String? = nil, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, accessibilityId: accessibilityId, action: dismiss))
+    func withNavBarDismissButton(
+        isActive: Bool = true,
+        placement: ToolbarItemPlacement? = nil,
+        textColor: Color = .white,
+        dismissType: NavBarDismissType = .xmark,
+        accessibilityId: String? = nil,
+        dismiss: (() -> Void)? = nil
+    ) -> some View {
+        modifier(
+            NavBarDismissButtonViewModifier(
+                isActive: isActive,
+                placement: placement,
+                textColor: textColor,
+                dismissType: dismissType,
+                accessibilityId: accessibilityId,
+                action: dismiss
+            )
+        )
     }
 }
 

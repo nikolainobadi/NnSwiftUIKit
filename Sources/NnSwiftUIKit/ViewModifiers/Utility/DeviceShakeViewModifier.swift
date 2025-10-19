@@ -8,15 +8,10 @@
 #if canImport(UIKit)
 import SwiftUI
 
-/// A view modifier that triggers an action when the device is shaken in a SwiftUI view.
 struct DeviceShakeViewModifier: ViewModifier {
-    /// A boolean value indicating whether the shake action is active.
     let isActive: Bool
-    
-    /// The action to perform when the device is shaken.
     let action: () -> Void
     
-    /// Modifies the content view to trigger an action when the device is shaken.
     func body(content: Content) -> some View {
         if isActive {
             content
@@ -31,12 +26,24 @@ struct DeviceShakeViewModifier: ViewModifier {
 }
 
 public extension View {
-    /// Triggers an action when the device is shaken.
+    /// Adds a shake gesture listener that performs an action when the device is shaken.
+    ///
+    /// This modifier conditionally attaches an `.onReceive` listener to observe the
+    /// `UIDevice.deviceDidShakeNotification`. Because SwiftUI rebuilds views when modifier
+    /// chains differ, toggling `isActive` can cause view reinitialization or loss of state
+    /// for any view that manages its own source of truth.
+    ///
+    /// It is recommended to use this modifier **only on stateless or display-only views**
+    /// that **do not manage their own state**, or to keep the modifier always applied and
+    /// internally control behavior using the `isActive` flag within the action.
+    ///
+    /// When active, the modifier listens for system shake events and executes the provided action.
+    ///
     /// - Parameters:
-    ///   - isActive: A Boolean indicating if the shake detection is active.
-    ///   - action: The action to perform when the device is shaken.
-    /// - Returns: A modified view that detects and handles device shake events.
-    func nnOnShake(isActive: Bool, action: @escaping () -> Void) -> some View {
+    ///   - isActive: A Boolean controlling whether shake detection is active.
+    ///   - action: The closure executed when the device shake is detected.
+    /// - Returns: A modified view that responds to device shake events when active.
+    func onDeviceShake(isActive: Bool, action: @escaping () -> Void) -> some View {
         modifier(DeviceShakeViewModifier(isActive: isActive, action: action))
     }
 }
