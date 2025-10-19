@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that configures a SwiftUI view as a row item, optionally with a chevron and customizable alignment and tint.
 struct RowItemViewModifier: ViewModifier {
     let withChevron: Bool
     let tint: Color
@@ -37,7 +36,19 @@ public extension View {
     ///   - maxWidth: The maximum width the view can occupy. Defaults to `.infinity`.
     ///   - alignment: The horizontal alignment for the content. Defaults to `.leading`.
     ///   - tint: The color used for the chevron, if displayed. Defaults to `.primary`.
-    func asRowItem(withChevron: Bool = false, maxWidth: CGFloat = .infinity, alignment: Alignment = .leading, tint: Color = .primary) -> some View {
-        modifier(RowItemViewModifier(withChevron: withChevron, tint: tint, maxWidth: maxWidth, alignment: alignment))
+    func asRowItem(
+        withChevron: Bool = false,
+        maxWidth: CGFloat = .infinity,
+        alignment: Alignment = .leading,
+        tint: Color = .primary
+    ) -> some View {
+        modifier(
+            RowItemViewModifier(
+                withChevron: withChevron,
+                tint: tint,
+                maxWidth: maxWidth,
+                alignment: alignment
+            )
+        )
     }
 }

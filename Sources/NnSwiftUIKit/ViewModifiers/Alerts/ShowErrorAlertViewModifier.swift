@@ -12,7 +12,11 @@ struct ShowErrorAlertViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .showingAlert(error?.message ?? "Error", message: error?.localizedDescription ?? "An unknown error has occured", isPresented: .constant(error != nil))
+            .showingAlert(
+                error?.message ?? "Error",
+                message: error?.localizedDescription ?? "An unknown error has occured",
+                isPresented: .constant(error != nil)
+            )
     }
 }
 

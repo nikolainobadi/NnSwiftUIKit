@@ -8,7 +8,6 @@
 #if canImport(UIKit)
 import SwiftUI
 
-/// A view modifier that triggers actions based on the direction of a vertical pan gesture in a SwiftUI view.
 struct PanGestureViewModifier: ViewModifier {
     let handleSwipeDirection: (PanGestureSwipeDirection) -> Void
     

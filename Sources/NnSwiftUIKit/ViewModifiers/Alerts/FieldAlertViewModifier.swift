@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that displays an asynchronous alert with a single text field in a SwiftUI view.
 struct FieldAlertViewModifier: ViewModifier {
     @Binding var isPresented: Bool
     @State private var fieldText = ""
@@ -46,7 +45,25 @@ public extension View {
     ///   - cancelInfo: Accessibility information for the cancel button.
     ///   - action: The asynchronous action to perform using the input from the text field.
     /// - Returns: A modified view with an alert containing a single text field.
-    func singleFieldAlert(_ message: String, isPresented: Binding<Bool>, fieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, hideLoadingIndicator: Bool = false, action: @escaping (String) async throws -> Void) -> some View {
-        modifier(FieldAlertViewModifier(isPresented: isPresented, message: message, hideLoadingIndicator: hideLoadingIndicator, fieldInfo: fieldInfo, buttonInfo: buttonInfo, cancelInfo: cancelInfo, action: action))
+    func singleFieldAlert(
+        _ message: String,
+        isPresented: Binding<Bool>,
+        fieldInfo: AccessibleItemInfo,
+        buttonInfo: AccessibleItemInfo? = nil,
+        cancelInfo: AccessibleItemInfo? = nil,
+        hideLoadingIndicator: Bool = false,
+        action: @escaping (String) async throws -> Void
+    ) -> some View {
+        modifier(
+            FieldAlertViewModifier(
+                isPresented: isPresented,
+                message: message,
+                hideLoadingIndicator: hideLoadingIndicator,
+                fieldInfo: fieldInfo,
+                buttonInfo: buttonInfo,
+                cancelInfo: cancelInfo,
+                action: action
+            )
+        )
     }
 }

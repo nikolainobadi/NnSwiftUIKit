@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ThrowingTaskViewModifier: ViewModifier {
     @State private var didPerformTask = false
-    @EnvironmentObject var context: NnErrorHandlingContext
+    @EnvironmentObject private var context: NnErrorHandlingContext
     
     let onlyPerformOnce: Bool
     let hideLoadingIndicator: Bool

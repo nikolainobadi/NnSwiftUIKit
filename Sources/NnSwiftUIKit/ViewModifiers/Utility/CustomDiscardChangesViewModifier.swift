@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-/// A custom view modifier that displays a navigation bar dismiss button and a confirmation dialog
-/// when changes are detected. Designed to prevent accidental dismissal when unsaved changes exist.
 struct CustomDiscardChangesViewModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
     @State private var showingConfirmation = false

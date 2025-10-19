@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-/// A view modifier that provides error and loading state handling via NnErrorHandlingContext.
 struct NnErrorHandlingContextModifier: ViewModifier {
     @StateObject private var context = NnErrorHandlingContext()
     
     let accentColor: Color
+    let alertButtonText: String
 
     func body(content: Content) -> some View {
         ZStack {
             content
                 .environmentObject(context)
                 .alert(context.alertTitle, isPresented: $context.showingAlert) {
-                    Button("Okay", role: .cancel) { }
+                    Button(alertButtonText, role: .cancel) { }
                 } message: {
                     Text(context.alertMessage)
                 }
@@ -40,9 +40,20 @@ struct NnErrorHandlingContextModifier: ViewModifier {
 }
 
 public extension View {
-    /// Adds error handling functionality to the view, using `NnSwiftUIErrorHandler` for error management.
-    /// - Returns: A modified view with error handling support.
-    func withNnErrorHandling(accentColor: Color = .white) -> some View {
-        modifier(NnErrorHandlingContextModifier(accentColor: accentColor))
+    /// Adds built-in error and loading state handling to the view using an internal `NnErrorHandlingContext`.
+    ///
+    /// This modifier simplifies presentation of common app states:
+    /// - Displays an alert when an error is reported through the shared context.
+    /// - Shows a dimmed background with a loading spinner when an async process is in progress.
+    ///
+    /// Apply this to top-level views (e.g., screen containers) to enable global handling.
+    ///
+    /// - Parameters:
+    ///   - accentColor: The tint color used for the `ProgressView` spinner. Defaults to `.white`.
+    ///   - alertButtonText: The text for the alert dismissal button. Defaults to `"Okay"`.
+    ///
+    /// - Returns: A new view enhanced with error and loading state management.
+    func withNnErrorHandling(accentColor: Color = .white, alertButtonText: String = "Okay") -> some View {
+        modifier(NnErrorHandlingContextModifier(accentColor: accentColor, alertButtonText: alertButtonText))
     }
 }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that applies a custom font to a SwiftUI view with optional text color, auto-sizing, and minimum scale factor.
 struct CustomFontViewModifier: ViewModifier {
     let font: Font
     let textColor: Color
@@ -23,9 +22,24 @@ struct CustomFontViewModifier: ViewModifier {
 }
 
 public extension View {
-    func withFont(_ style: Font.TextStyle = .body, isDetail: Bool = false, textColor: Color = .primary, autoSizeLineLimit lineLimit: Int? = nil, minimumScaleFactor: CGFloat = 0.5, detailFont: String? = nil, nonDetailFont: String? = nil) -> some View {
-        self.lineLimit(lineLimit)
-            .setCustomFont(style, fontName: isDetail ? (detailFont ?? "HelveticaNeue") : (nonDetailFont ?? "HelveticaNeue-Bold"), textColor: textColor, autoSize: lineLimit != nil, minimumScaleFactor: minimumScaleFactor)
+    func withFont(
+        _ style: Font.TextStyle = .body,
+        isDetail: Bool = false,
+        textColor: Color = .primary,
+        autoSizeLineLimit lineLimit: Int? = nil,
+        minimumScaleFactor: CGFloat = 0.5,
+        detailFont: String? = nil,
+        nonDetailFont: String? = nil
+    ) -> some View {
+        self
+            .lineLimit(lineLimit)
+            .setCustomFont(
+                style,
+                fontName: isDetail ? (detailFont ?? "HelveticaNeue") : (nonDetailFont ?? "HelveticaNeue-Bold"),
+                textColor: textColor,
+                autoSize: lineLimit != nil,
+                minimumScaleFactor: minimumScaleFactor
+            )
     }
     
     /// Applies a custom font with optional text color, auto-sizing, and minimum scale factor.

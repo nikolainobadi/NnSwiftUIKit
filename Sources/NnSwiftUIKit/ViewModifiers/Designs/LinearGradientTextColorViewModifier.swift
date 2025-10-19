@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that applies a linear gradient to the text color of a SwiftUI view.
 struct LinearGradientTextColorViewModifier: ViewModifier {
     let gradient: LinearGradient
     

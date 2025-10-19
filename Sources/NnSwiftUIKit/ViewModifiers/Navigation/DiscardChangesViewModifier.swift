@@ -8,7 +8,6 @@
 #if canImport(UIKit)
 import SwiftUI
 
-/// A view modifier that adds a navigation bar dismiss button with a confirmation dialog for discarding changes in a SwiftUI view.
 struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
     @State private var originalItem: Item
     @State private var showingConfirmation = false

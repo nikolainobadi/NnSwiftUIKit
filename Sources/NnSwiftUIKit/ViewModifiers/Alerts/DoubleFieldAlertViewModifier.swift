@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that displays an asynchronous alert with two text fields in a SwiftUI view.
 struct DoubleFieldAlertViewModifier: ViewModifier {
     @Binding var isPresented: Bool
     @State private var firstFieldText = ""
@@ -53,7 +52,16 @@ public extension View {
     ///   - cancelInfo: Accessibility information for the cancel button.
     ///   - action: The asynchronous action to perform using the text from both fields.
     /// - Returns: A modified view with an alert containing two text fields.
-    func doubleFieldAlert(_ message: String, isPresented: Binding<Bool>, firstFieldInfo: AccessibleItemInfo, secondFieldInfo: AccessibleItemInfo, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, hideLoadingIndicator: Bool = false, action: @escaping (String, String) async throws -> Void) -> some View {
+    func doubleFieldAlert(
+        _ message: String,
+        isPresented: Binding<Bool>,
+        firstFieldInfo: AccessibleItemInfo,
+        secondFieldInfo: AccessibleItemInfo,
+        buttonInfo: AccessibleItemInfo? = nil,
+        cancelInfo: AccessibleItemInfo? = nil,
+        hideLoadingIndicator: Bool = false,
+        action: @escaping (String, String) async throws -> Void
+    ) -> some View {
         modifier(
             DoubleFieldAlertViewModifier(
                 isPresented: isPresented,

@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-/// A view modifier that performs a delayed action after the view appears in a SwiftUI view.
 struct DelayedOnAppearViewModifier: ViewModifier {
-    @EnvironmentObject var context: NnErrorHandlingContext
+    @EnvironmentObject private var context: NnErrorHandlingContext
     
     let seconds: Double
     let hideLoadingIndicator: Bool

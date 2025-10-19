@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that applies a linear gradient background to a SwiftUI view with customizable opacity.
 struct GradientBackgroundViewModifier: ViewModifier {
     let opacity: CGFloat
     let gradient: LinearGradient

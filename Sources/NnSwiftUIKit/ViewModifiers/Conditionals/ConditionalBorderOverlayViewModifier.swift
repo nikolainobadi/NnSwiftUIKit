@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that adds a border overlay to a SwiftUI view, conditionally based on a boolean value.
 struct ConditionalBorderOverlayViewModifier: ViewModifier {
     let color: Color
     let showOverlay: Bool

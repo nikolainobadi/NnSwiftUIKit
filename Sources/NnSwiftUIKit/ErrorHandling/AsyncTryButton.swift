@@ -9,7 +9,7 @@ import SwiftUI
 
 /// A SwiftUI view that represents a button performing an asynchronous action with error handling.
 public struct AsyncTryButton<Label: View>: View {
-    @EnvironmentObject var context: NnErrorHandlingContext
+    @EnvironmentObject private var context: NnErrorHandlingContext
     
     let role: ButtonRole?
     let label: () -> Label

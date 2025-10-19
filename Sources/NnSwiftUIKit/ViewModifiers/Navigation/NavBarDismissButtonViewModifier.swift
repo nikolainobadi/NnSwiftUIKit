@@ -6,7 +6,6 @@
 //
 import SwiftUI
 
-/// A view modifier that adds a dismiss button to the navigation bar with customizable appearance and behavior.
 struct NavBarDismissButtonViewModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
     
@@ -50,8 +49,24 @@ public extension View {
     ///   - accessibilityId: The accessibility identifier for the dismiss button.
     ///   - dismiss: An optional action to perform when the dismiss button is tapped.
     /// - Returns: A modified view with a dismiss button in the navigation bar.
-    func withNavBarDismissButton(isActive: Bool = true, placement: ToolbarItemPlacement? = nil, textColor: Color = .white, dismissType: NavBarDismissType = .xmark, accessibilityId: String? = nil, dismiss: (() -> Void)? = nil) -> some View {
-        modifier(NavBarDismissButtonViewModifier(isActive: isActive, placement: placement, textColor: textColor, dismissType: dismissType, accessibilityId: accessibilityId, action: dismiss))
+    func withNavBarDismissButton(
+        isActive: Bool = true,
+        placement: ToolbarItemPlacement? = nil,
+        textColor: Color = .white,
+        dismissType: NavBarDismissType = .xmark,
+        accessibilityId: String? = nil,
+        dismiss: (() -> Void)? = nil
+    ) -> some View {
+        modifier(
+            NavBarDismissButtonViewModifier(
+                isActive: isActive,
+                placement: placement,
+                textColor: textColor,
+                dismissType: dismissType,
+                accessibilityId: accessibilityId,
+                action: dismiss
+            )
+        )
     }
 }
 

@@ -8,9 +8,8 @@
 #if os(iOS)
 import SwiftUI
 
-/// A view modifier that performs an asynchronous action when an optional value changes, with error handling and optional loading indicator.
 struct AsyncOnChangeOfOptionalViewModifier<Item: Equatable & Sendable>: ViewModifier {
-    @EnvironmentObject var context: NnErrorHandlingContext
+    @EnvironmentObject private var context: NnErrorHandlingContext
     
     let item: Item?
     let initial: Bool

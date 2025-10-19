@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that displays a custom asynchronous alert in a SwiftUI view.
 struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
     @Binding var isPresented: Bool
     
@@ -43,7 +42,16 @@ public extension View {
     ///   - cancelAction: The action to perform when the cancel button is tapped.
     ///   - alertView: The custom view content to be displayed within the alert.
     /// - Returns: A modified view that displays a custom asynchronous alert.
-    func asyncAlert<AlertView: View>(_ message: String, isPresented: Binding<Bool>, buttonInfo: AccessibleItemInfo? = nil, cancelInfo: AccessibleItemInfo? = nil, hideLoadingIndicator: Bool = false, action: @escaping () async throws -> Void, cancelAction: @escaping () -> Void = { }, @ViewBuilder alertView: @escaping () -> AlertView) -> some View {
+    func asyncAlert<AlertView: View>(
+        _ message: String,
+        isPresented: Binding<Bool>,
+        buttonInfo: AccessibleItemInfo? = nil,
+        cancelInfo: AccessibleItemInfo? = nil,
+        hideLoadingIndicator: Bool = false,
+        action: @escaping () async throws -> Void,
+        cancelAction: @escaping () -> Void = { },
+        @ViewBuilder alertView: @escaping () -> AlertView
+    ) -> some View {
         modifier(
             AsyncAlertViewModifier(
                 isPresented: isPresented,

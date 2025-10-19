@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that displays an asynchronous confirmation dialog in SwiftUI with error handling.
 struct AsyncConfirmationDialogueViewModifier: ViewModifier {
     @Binding var showingConfirmation: Bool
     
@@ -33,7 +32,44 @@ struct AsyncConfirmationDialogueViewModifier: ViewModifier {
 }
 
 public extension View {
-    func asyncConfirmation(showingConfirmation: Binding<Bool>, isActive: Bool = true,  message: String, role: ButtonRole? = nil, buttonInfo: AccessibleItemInfo, action: @escaping () async throws -> Void) -> some View {
-        modifier(AsyncConfirmationDialogueViewModifier(showingConfirmation: showingConfirmation, isActive: isActive, message: message, role: role, buttonInfo: buttonInfo, action: action))
+    /// Presents an asynchronous confirmation dialog that executes an async action when confirmed.
+    ///
+    /// This modifier conditionally attaches a `.confirmationDialog` presentation to the view based on `isActive`.
+    /// Because SwiftUI rebuilds views when modifier chains differ, toggling `isActive` can lead to view reinitialization,
+    /// state loss, or unexpected resets in the hierarchy — particularly when the base view or its children manage state.
+    ///
+    /// It is recommended to use this modifier **only on stateless or display-only views**
+    /// that **do not manage their own source of truth**. For stateful views, prefer maintaining a stable
+    /// `.confirmationDialog` and controlling its visibility solely through the provided `showingConfirmation` binding.
+    ///
+    /// The confirmation dialog includes an `AsyncTryButton`, which safely handles asynchronous operations
+    /// with built-in error management and optional accessibility identifiers.
+    ///
+    /// - Parameters:
+    ///   - showingConfirmation: A binding controlling whether the confirmation dialog is presented.
+    ///   - isActive: A Boolean controlling whether the modifier is applied. Defaults to `true`.
+    ///   - message: The confirmation message displayed in the dialog.
+    ///   - role: An optional `ButtonRole` defining the button’s visual emphasis (e.g., `.destructive` or `.cancel`).
+    ///   - buttonInfo: Metadata describing the confirmation button’s label and accessibility identifier.
+    ///   - action: The asynchronous action to perform when the confirmation button is tapped.
+    /// - Returns: A modified view that displays an async-enabled confirmation dialog when active.
+    func asyncConfirmation(
+        showingConfirmation: Binding<Bool>,
+        isActive: Bool = true,
+        message: String,
+        role: ButtonRole? = nil,
+        buttonInfo: AccessibleItemInfo,
+        action: @escaping () async throws -> Void
+    ) -> some View {
+        modifier(
+            AsyncConfirmationDialogueViewModifier(
+                showingConfirmation: showingConfirmation,
+                isActive: isActive,
+                message: message,
+                role: role,
+                buttonInfo: buttonInfo,
+                action: action
+            )
+        )
     }
 }

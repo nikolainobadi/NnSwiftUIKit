@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-/// A view modifier that adds asynchronous error-handling functionality to the onSubmit action in SwiftUI.
 struct AsyncTryOnSubmitViewModifier: ViewModifier {
-    @EnvironmentObject var context: NnErrorHandlingContext
+    @EnvironmentObject private var context: NnErrorHandlingContext
     
     let submitLabel: SubmitLabel
     let hideLoadingIndicator: Bool

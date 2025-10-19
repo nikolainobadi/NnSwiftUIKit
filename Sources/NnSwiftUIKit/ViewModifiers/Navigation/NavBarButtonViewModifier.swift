@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// A view modifier that adds a navigation bar button to a SwiftUI view with customizable appearance and behavior.
 struct NavBarButtonViewModifier: ViewModifier {
     let placement: ToolbarItemPlacement
     let buttonContent: NavBarButtonContent
