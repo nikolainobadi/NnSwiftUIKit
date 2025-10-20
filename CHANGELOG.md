@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2025-10-20
+### Added
+- Font customization system with FontSizeProvider protocol for dynamic font sizing
+- FontConfiguration environment key for customizable font appearance defaults
+- Environment keys for default colors: NavBarTextColor, RowItemTint, ShowingAlertButtonInfo
+- UnfoldAnimation view modifier for animated content reveals
+- ThrowingTask view modifier for async error handling
+- OptionalStepper component for optional numeric value adjustments
+- ActiveOnChanges navigation bar button modifier for state-driven navigation
+- BindedNavigationDestination modifier for binding-based navigation
+- ShowErrorAlert view modifier for displaying error messages
+- AsyncConfirmationDialogue, AsyncOpenURL, and AsyncTryOnSubmit utility modifiers
+- AccessibleLabelInfo helper for accessibility support
+
+### Changed
+- Refactored CustomFontModifier to use environment-based font configuration system
+- Reorganized view modifiers into more logical directory structure
+- Improved parameter formatting and inline documentation across all view modifiers
+- Updated RowItem modifier parameter order for better consistency
+- Replaced deprecated foregroundColor with foregroundStyle in navigation and row modifiers
+- Moved alert-related modifiers to dedicated Alerts directory
+- Moved async utility modifiers from ErrorHandling to Utility directory
+- Updated DiscardChanges modifier with improved implementation
+- Enhanced DeleteRow modifier with better accessibility support
+
+### Removed
+- EmptyOnDisappearField component (functionality integrated into field alert modifiers)
+- NnSwiftUIKit+ViewExtensions.swift reference file
+- Legacy error handling view modifiers replaced by new architecture
+- Old NnAsyncTryButton and NnTryButton views (replaced by AsyncTryButton)
+- Standalone error handler classes (NnLoadingHandler, NnSwiftUIErrorHandler)
+
+### Fixed
+- Accessibility identifier handling in DeleteRow modifier
+- Memory leak in ShowcaseParent modifier when showcase finishes
+
 ## [2.0.1] - 2024-11-29
 ### Added
 - Async navigation bar button modifier for error handling in navigation buttons
