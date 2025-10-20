@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct NavBarButtonViewModifier: ViewModifier {
+    @Environment(\.navBarTextColor) private var environmentTextColor
+
     let placement: ToolbarItemPlacement
     let buttonContent: NavBarButtonContent
     let accessibilityId: String?
-    let font: Font
-    let textColor: Color
+    let fontStyle: Font.TextStyle
+    let textColor: Color?
     let isActive: Bool
     let action: () async throws -> Void
-    
+
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -25,12 +27,10 @@ struct NavBarButtonViewModifier: ViewModifier {
                             switch buttonContent {
                             case .image(let imageType):
                                 Image(imageType: imageType)
-                                    .font(font)
-                                    .foregroundColor(textColor)
+                                    .withFont(fontStyle, textColor: textColor ?? environmentTextColor)
                             case .text(let buttonText):
                                 Text(buttonText)
-                                    .font(font)
-                                    .foregroundColor(textColor)
+                                    .withFont(fontStyle, textColor: textColor ?? environmentTextColor)
                             }
                         }
                         .setOptionalAccessibiltyId(accessibilityId)
@@ -45,8 +45,8 @@ public extension View {
     /// - Parameters:
     ///   - placement: The placement of the button within the navigation bar.
     ///   - buttonContent: The content of the button, either text or image.
-    ///   - font: The font of the button text or image, defaulting to title2.
-    ///   - textColor: The color of the button text or image, defaulting to primary.
+    ///   - fontStyle: The font style of the button text or image, defaulting to body.
+    ///   - textColor: The color of the button text or image. If `nil`, uses the environment's `navBarTextColor` value. Defaults to `nil`.
     ///   - isActive: A Boolean indicating whether the button is active, defaulting to true.
     ///   - accessibilityId: The accessibility identifier for the button.
     ///   - action: The action to perform when the button is tapped.
@@ -54,8 +54,8 @@ public extension View {
     func withNavBarButton(
         placement: ToolbarItemPlacement? = nil,
         buttonContent: NavBarButtonContent,
-        font: Font = .title2,
-        textColor: Color = .primary,
+        fontStyle: Font.TextStyle = .body,
+        textColor: Color? = nil,
         isActive: Bool = true,
         accessibilityId: String? = nil,
         action: @escaping () async throws -> Void
@@ -65,7 +65,7 @@ public extension View {
                 placement: placement ?? .automatic,
                 buttonContent: buttonContent,
                 accessibilityId: accessibilityId,
-                font: font,
+                fontStyle: fontStyle,
                 textColor: textColor,
                 isActive: isActive,
                 action: action

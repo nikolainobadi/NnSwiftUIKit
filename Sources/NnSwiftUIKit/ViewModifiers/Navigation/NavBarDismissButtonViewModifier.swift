@@ -8,14 +8,15 @@ import SwiftUI
 
 struct NavBarDismissButtonViewModifier: ViewModifier {
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.navBarTextColor) private var environmentTextColor
+
     let isActive: Bool
     let placement: ToolbarItemPlacement?
-    let textColor: Color
+    let textColor: Color?
     let dismissType: NavBarDismissType
     let accessibilityId: String?
     let action: (() -> Void)?
-    
+
     private var buttonContent: NavBarButtonContent {
         switch dismissType {
         case .xmark:
@@ -26,10 +27,10 @@ struct NavBarDismissButtonViewModifier: ViewModifier {
             return .text("Done")
         }
     }
-    
+
     func body(content: Content) -> some View {
         content
-            .withNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor, isActive: isActive, accessibilityId: accessibilityId) {
+            .withNavBarButton(placement: placement ?? dismissType.defaultPlacement, buttonContent: buttonContent, textColor: textColor ?? environmentTextColor, isActive: isActive, accessibilityId: accessibilityId) {
                 if let action = action {
                     action()
                 } else {
@@ -44,7 +45,7 @@ public extension View {
     /// - Parameters:
     ///   - isActive: A Boolean indicating whether the dismiss button is active, defaulting to true.
     ///   - placement: The placement of the dismiss button in the navigation bar.
-    ///   - textColor: The color of the dismiss button text or image, defaulting to white.
+    ///   - textColor: The color of the dismiss button text or image. If `nil`, uses the environment's `navBarTextColor` value. Defaults to `nil`.
     ///   - dismissType: The type of dismiss button (e.g., "xmark", "cancel", "done").
     ///   - accessibilityId: The accessibility identifier for the dismiss button.
     ///   - dismiss: An optional action to perform when the dismiss button is tapped.
@@ -52,7 +53,7 @@ public extension View {
     func withNavBarDismissButton(
         isActive: Bool = true,
         placement: ToolbarItemPlacement? = nil,
-        textColor: Color = .white,
+        textColor: Color? = nil,
         dismissType: NavBarDismissType = .xmark,
         accessibilityId: String? = nil,
         dismiss: (() -> Void)? = nil

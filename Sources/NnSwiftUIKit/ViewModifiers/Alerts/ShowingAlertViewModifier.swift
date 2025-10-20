@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct ShowingAlertViewModifier: ViewModifier {
+    @Environment(\.showingAlertButtonInfo) private var environmentButtonInfo
     @Binding var presented: Bool
-    
+
     let title: String
     let message: String
-    let cancelInfo: AccessibleItemInfo
+    let cancelInfo: AccessibleItemInfo?
     let finished: (() -> Void)?
-    
+
     func body(content: Content) -> some View {
+        let effectiveButtonInfo = cancelInfo ?? environmentButtonInfo
+
         content
             .alert(title, isPresented: $presented) {
-                Button(cancelInfo.prompt, role: .cancel) {
+                Button(effectiveButtonInfo.prompt, role: .cancel) {
                     finished?()
                 }
-                .setOptionalAccessibiltyId(cancelInfo.accessibilityId)
+                .setOptionalAccessibiltyId(effectiveButtonInfo.accessibilityId)
             } message: {
                 Text(message)
             }
@@ -33,7 +36,7 @@ public extension View {
     /// - Parameters:
     ///   - title: The title of the alert.
     ///   - message: The message to display in the alert.
-    ///   - cancelInfo: Information about the alert’s cancel button.
+    ///   - cancelInfo: Information about the alert's button. If `nil`, uses the environment value set via `.showingAlertButtonInfo(_:)` or `.showingAlertButtonPrompt(_:)`.
     ///   - isPresented: A binding controlling whether the alert is presented.
     ///   - finished: An optional closure executed when the alert is dismissed.
     /// - Returns: A modified view that shows an alert with the specified title and message.
@@ -49,7 +52,7 @@ public extension View {
                 presented: isPresented,
                 title: title,
                 message: message,
-                cancelInfo: cancelInfo ?? .init(prompt: "Okay"),
+                cancelInfo: cancelInfo,
                 finished: finished
             )
         )

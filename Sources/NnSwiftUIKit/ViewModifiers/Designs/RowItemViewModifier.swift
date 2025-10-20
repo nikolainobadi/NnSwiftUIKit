@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct RowItemViewModifier: ViewModifier {
-    let withChevron: Bool
-    let tint: Color
+    @Environment(\.rowItemTint) private var environmentTint
+
+    let tint: Color?
     let maxWidth: CGFloat
+    let withChevron: Bool
     let alignment: Alignment
-    
+
     func body(content: Content) -> some View {
         HStack {
             content
                 .frame(maxWidth: maxWidth, alignment: alignment)
-            
+
             if withChevron {
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .foregroundColor(tint)
+                    .foregroundStyle(tint ?? environmentTint)
             }
         }
         .contentShape(.rect)
@@ -35,18 +37,18 @@ public extension View {
     ///   - withChevron: A Boolean value indicating whether to display a chevron on the trailing side. Defaults to `false`.
     ///   - maxWidth: The maximum width the view can occupy. Defaults to `.infinity`.
     ///   - alignment: The horizontal alignment for the content. Defaults to `.leading`.
-    ///   - tint: The color used for the chevron, if displayed. Defaults to `.primary`.
+    ///   - tint: The color used for the chevron, if displayed. If `nil`, uses the environment's `rowItemTint` value. Defaults to `nil`.
     func asRowItem(
         withChevron: Bool = false,
         maxWidth: CGFloat = .infinity,
         alignment: Alignment = .leading,
-        tint: Color = .primary
+        tint: Color? = nil
     ) -> some View {
         modifier(
             RowItemViewModifier(
-                withChevron: withChevron,
                 tint: tint,
                 maxWidth: maxWidth,
+                withChevron: withChevron,
                 alignment: alignment
             )
         )
