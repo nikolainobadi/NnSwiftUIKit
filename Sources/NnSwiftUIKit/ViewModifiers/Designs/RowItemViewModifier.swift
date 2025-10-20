@@ -23,7 +23,7 @@ struct RowItemViewModifier: ViewModifier {
             if withChevron {
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .foregroundColor(tint ?? environmentTint)
+                    .foregroundStyle(tint ?? environmentTint)
             }
         }
         .contentShape(.rect)

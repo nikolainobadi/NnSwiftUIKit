@@ -13,7 +13,7 @@ struct ActiveOnChangesNavBarButtonViewModifier<Item: Equatable>: ViewModifier {
     @Environment(\.navBarTextColor) private var environmentTextColor
 
     let item: Item
-    let font: Font
+    let fontStyle: Font.TextStyle
     let textColor: Color?
     let accessibilityId: String?
     let placement: ToolbarItemPlacement
@@ -26,7 +26,7 @@ struct ActiveOnChangesNavBarButtonViewModifier<Item: Equatable>: ViewModifier {
             .withNavBarButton(
                 placement: placement,
                 buttonContent: buttonContent,
-                font: font,
+                fontStyle: fontStyle,
                 textColor: textColor ?? environmentTextColor,
                 isActive: itemDidChange,
                 accessibilityId: accessibilityId,
@@ -48,7 +48,7 @@ public extension View {
     ///
     /// - Parameters:
     ///   - item: The item whose changes will activate the button.
-    ///   - font: The font used for the button label. Defaults to `.title2`.
+    ///   - fontStyle: The font style used for the button label. Defaults to `.body`.
     ///   - textColor: The color of the button text or icon. If `nil`, uses the environment's `navBarTextColor` value. Defaults to `nil`.
     ///   - accessibilityId: An optional accessibility identifier for UI testing. Defaults to `nil`.
     ///   - placement: The toolbar placement of the navigation bar button. Defaults to `.topBarTrailing`.
@@ -57,7 +57,7 @@ public extension View {
     /// - Returns: A modified view containing a navigation bar button that activates when the item changes.
     func activeOnChangeNavBarButton<Item: Equatable>(
         item: Item,
-        font: Font = .title2,
+        fontStyle: Font.TextStyle = .body,
         textColor: Color? = nil,
         accessibilityId: String? = nil,
         placement: ToolbarItemPlacement = .topBarTrailing,
@@ -67,7 +67,7 @@ public extension View {
         modifier(
             ActiveOnChangesNavBarButtonViewModifier(
                 item: item,
-                font: font,
+                fontStyle: fontStyle,
                 textColor: textColor,
                 accessibilityId: accessibilityId,
                 placement: placement,
