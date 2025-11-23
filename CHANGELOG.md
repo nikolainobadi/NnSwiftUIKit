@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2025-11-23
+### Added
+- ToggleCheckboxStyle for custom checkbox-styled toggles with configurable tint and images
+
 ## [3.0.0] - 2025-10-20
 ### Added
 - Font customization system with FontSizeProvider protocol for dynamic font sizing
