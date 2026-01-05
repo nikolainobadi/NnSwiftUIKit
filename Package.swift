@@ -6,7 +6,9 @@ import PackageDescription
 let package = Package(
     name: "NnSwiftUIKit",
     platforms: [
-        .iOS(.v17), .macOS(.v13)
+        .iOS(.v17),
+        .macOS(.v13),
+        .watchOS(.v10)
     ],
     products: [
         .library(
@@ -15,7 +17,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "NnSwiftUIKit"
+            name: "NnSwiftUIKit",
         ),
     ]
 )

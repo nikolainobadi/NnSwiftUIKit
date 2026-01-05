@@ -5,22 +5,31 @@
 //  Created by Nikolai Nobadi on 1/10/24.
 //
 
+#if !os(WatchOS)
 import SwiftUI
 
 public extension View {
     var screenWidth: CGFloat {
-        #if canImport(UIKit)
-        return UIScreen.main.bounds.size.width
-        #elseif canImport(AppKit)
-        return NSScreen.main?.frame.size.width ?? 0
+        #if os(iOS)
+        UIScreen.main.bounds.size.width
+        #elseif os(macOS)
+        NSScreen.main?.frame.size.width ?? 0
+        #elseif os(watchOS)
+        WKInterfaceDevice.current().screenBounds.size.width
+        #else
+        0
         #endif
     }
-    
+
     var screenHeight: CGFloat {
-        #if canImport(UIKit)
-        return UIScreen.main.bounds.size.height
-        #elseif canImport(AppKit)
-        return NSScreen.main?.frame.size.height ?? 0
+        #if os(iOS)
+        UIScreen.main.bounds.size.height
+        #elseif os(macOS)
+        NSScreen.main?.frame.size.height ?? 0
+        #elseif os(watchOS)
+        WKInterfaceDevice.current().screenBounds.size.height
+        #else
+        0
         #endif
     }
     
@@ -34,3 +43,4 @@ public extension View {
         return screenHeight * (percent * 0.01)
     }
 }
+#endif

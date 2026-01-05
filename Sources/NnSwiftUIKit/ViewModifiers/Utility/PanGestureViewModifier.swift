@@ -5,7 +5,7 @@
 //  Created by Nikolai Nobadi on 8/10/24.
 //
 
-#if canImport(UIKit)
+#if os(iOS)
 import SwiftUI
 
 struct PanGestureViewModifier: ViewModifier {

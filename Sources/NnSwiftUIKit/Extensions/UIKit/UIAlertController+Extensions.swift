@@ -5,7 +5,7 @@
 //  Created by Nikolai Nobadi on 1/10/24.
 //
 
-#if canImport(UIKit)
+#if os(iOS)
 import UIKit
 
 /// Extension for UIAlertController to provide additional utility methods.
