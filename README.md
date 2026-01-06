@@ -92,7 +92,7 @@ struct YourApp: App {
 }
 ```
 
-Now use `AsyncTryButton` anywhere in your view hierarchy to perform async throwing actions. Errors are automatically caught and displayed, and a loading indicator appears during execution:
+Now use `AsyncTryButton` anywhere in your view hierarchy to perform async throwing actions. Errors are automatically caught and displayed, a loading indicator appears during execution, and you can optionally trigger haptics when the button is tapped:
 
 ```swift
 AsyncTryButton(action: {
@@ -108,6 +108,14 @@ AsyncTryButton(
     hideLoadingIndicator: true  // Suppress loading spinner
 ) {
     Text("Delete")
+}
+
+// Trigger haptics before the async action begins
+AsyncTryButton(
+    action: { try await archiveItem() },
+    hapticFeedback: .impact(style: .medium)
+) {
+    Text("Archive")
 }
 ```
 
