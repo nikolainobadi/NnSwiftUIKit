@@ -48,6 +48,35 @@ public struct DefaultFontSizeProvider: FontSizeProvider {
     }
 
     public func makeFontSize(_ style: Font.TextStyle, screenSize: CGSize) -> CGFloat {
+        #if os(watchOS)
+        switch style {
+        case .largeTitle:
+            return 28
+        case .title:
+            return 24
+        case .title2:
+            return 22
+        case .title3:
+            return 20
+        case .headline:
+            return 18
+        case .subheadline:
+            return 16
+        case .body:
+            return 15
+        case .callout:
+            return 14
+        case .footnote:
+            return 13
+        case .caption:
+            return 12
+        case .caption2:
+            return 11
+        default:
+            return 15
+        }
+        #endif
+
         let percent: CGFloat
 
         switch style {
@@ -78,11 +107,16 @@ public struct DefaultFontSizeProvider: FontSizeProvider {
         }
 
         let base: CGFloat
+
+        #if os(macOS)
+        base = 17
+        #else
         if useLegacyScaling {
             base = screenSize.height
         } else {
             base = min(screenSize.width, screenSize.height)
         }
+        #endif
 
         return base * (percent * 0.01)
     }
