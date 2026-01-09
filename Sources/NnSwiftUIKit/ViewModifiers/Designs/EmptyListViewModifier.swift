@@ -20,7 +20,7 @@ struct EmptyListViewModifier: ViewModifier {
                     .withFont(.title)
                 
                 Text(title)
-                    .withFont(.title, autoSizeLineLimit: 1)
+                    .withFont(.title, layout: .autoSize)
                 
                 Text(message)
                     .withFont(isDetail: true)

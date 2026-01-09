@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FontConfigurationKey: EnvironmentKey {
-    static let defaultValue: FontConfiguration = .default
+    static let defaultValue: FontConfiguration = .init()
 }
 
 public extension EnvironmentValues {
