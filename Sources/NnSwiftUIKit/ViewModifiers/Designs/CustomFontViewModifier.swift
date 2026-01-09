@@ -39,6 +39,7 @@ extension CustomFontViewModifier {
     enum Source: Sendable {
         case explicit(Font)
         case dynamic(style: Font.TextStyle, isDetail: Bool, screenSize: CGSize)
+        case fontName(style: Font.TextStyle, fontName: String, screenSize: CGSize)
     }
 }
 
@@ -47,12 +48,10 @@ private extension CustomFontViewModifier {
         switch source {
         case .explicit(let font):
             return font
+        case .fontName(let style, let fontName, let screenSize):
+            return provider.makeFont(style, fontName: fontName, screenSize: screenSize)
         case .dynamic(let style, let isDetail, let screenSize):
-            return provider.makeFont(
-                style,
-                fontName: configuration.getFontName(isDetail: isDetail),
-                screenSize: screenSize
-            )
+            return provider.makeFont(style, fontName: configuration.getFontName(isDetail: isDetail), screenSize: screenSize)
         }
     }
     
@@ -66,6 +65,16 @@ public extension View {
         modifier(
             CustomFontViewModifier(
                 source: .dynamic(style: style, isDetail: isDetail, screenSize: .init(width: screenWidth, height: screenHeight)),
+                textColor: textColor,
+                textLayout: layout
+            )
+        )
+    }
+    
+    func withFont(_ style: Font.TextStyle = .body, fontName: String, textColor: Color? = nil, layout: NnTextLayout? = nil) -> some View {
+        modifier(
+            CustomFontViewModifier(
+                source: .fontName(style: style, fontName: fontName, screenSize: .init(width: screenWidth, height: screenHeight)),
                 textColor: textColor,
                 textLayout: layout
             )
