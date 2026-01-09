@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "Use SwiftUI NavigationStack directly.")
 public struct NavStack<Content: View>: View {
     @Binding var path: NavigationPath
     
@@ -44,6 +45,7 @@ public struct NavStack<Content: View>: View {
 }
 
 /// A custom navigation stack with support for custom data paths for iOS 16+.
+@available(*, deprecated, message: "Use SwiftUI NavigationStack directly.")
 public struct CustomPathNavStack<Data, Content: View>: View where Data: MutableCollection, Data: RandomAccessCollection, Data: RangeReplaceableCollection, Data.Element: Hashable {
     /// The custom data path binding that controls the navigation stack.
     @Binding var path: Data
