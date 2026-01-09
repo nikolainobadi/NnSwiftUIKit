@@ -114,7 +114,7 @@ public struct DefaultFontSizeProvider: FontSizeProvider {
         if useLegacyScaling {
             base = screenSize.height
         } else {
-            base = min(screenSize.width, screenSize.height)
+            base = max(screenSize.width, screenSize.height)
         }
         #endif
 
