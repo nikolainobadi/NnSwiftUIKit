@@ -41,34 +41,49 @@ public extension FontSizeProvider {
 /// This provider calculates font sizes as a percentage of the screen height,
 /// providing consistent scaling across different device sizes.
 public struct DefaultFontSizeProvider: FontSizeProvider {
-    public init() {}
+    public let useLegacyScaling: Bool
+
+    public init(useLegacyScaling: Bool = false) {
+        self.useLegacyScaling = useLegacyScaling
+    }
 
     public func makeFontSize(_ style: Font.TextStyle, screenSize: CGSize) -> CGFloat {
         let percent: CGFloat
 
         switch style {
         case .largeTitle:
-            percent = 7
+            percent = 6.8
         case .title:
-            percent = 6
+            percent = 5.8
         case .title2:
-            percent = 4.8
+            percent = 4.7
         case .title3:
-            percent = 4
+            percent = 4.1
         case .headline:
-            percent = 3.5
+            percent = 3.6
         case .subheadline:
-            percent = 3
+            percent = 3.1
         case .body:
-            percent = 2.5
+            percent = 2.6
+        case .callout:
+            percent = 2.35
+        case .footnote:
+            percent = 2.05
         case .caption:
-            percent = 2
+            percent = 1.85
         case .caption2:
-            percent = 1.8
+            percent = 1.65
         default:
-            return 8
+            percent = 2.6
         }
 
-        return screenSize.height * (percent * 0.01)
+        let base: CGFloat
+        if useLegacyScaling {
+            base = screenSize.height
+        } else {
+            base = min(screenSize.width, screenSize.height)
+        }
+
+        return base * (percent * 0.01)
     }
 }
