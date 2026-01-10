@@ -5,7 +5,7 @@
 //  Created by Nikolai Nobadi on 7/14/24.
 //
 
-#if canImport(UIKit)
+#if os(iOS)
 import SwiftUI
 
 struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {

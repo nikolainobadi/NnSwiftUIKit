@@ -61,6 +61,18 @@ private extension CustomFontViewModifier {
 }
 
 public extension View {
+    /// Applies a custom font using environment-configured font names with dynamic sizing based on screen dimensions.
+    ///
+    /// This modifier uses the `FontSizeProvider` to calculate appropriate font sizes and selects the font name
+    /// from `FontConfiguration` based on the `isDetail` parameter. All values fall back to environment defaults
+    /// when not explicitly specified.
+    ///
+    /// - Parameters:
+    ///   - style: The text style to use for size calculation (e.g., `.headline`, `.body`, `.caption`). Defaults to `.body`.
+    ///   - isDetail: If `true`, uses the detail font name from configuration; if `false`, uses the non-detail font name. Defaults to `false`.
+    ///   - textColor: The color to apply to the text. If `nil`, uses the environment's `FontConfiguration.textColor`. Defaults to `nil`.
+    ///   - layout: The text layout strategy (unlimited, multiline, or single-line auto-sizing). If `nil`, uses the environment's `FontConfiguration.textLayout`. Defaults to `nil`.
+    /// - Returns: A modified view with the custom font, color, and layout applied.
     func withFont(_ style: Font.TextStyle = .body, isDetail: Bool = false, textColor: Color? = nil, layout: NnTextLayout? = nil) -> some View {
         modifier(
             CustomFontViewModifier(
@@ -70,7 +82,19 @@ public extension View {
             )
         )
     }
-    
+
+    /// Applies a custom font using an explicit font name with dynamic sizing based on screen dimensions.
+    ///
+    /// This modifier uses the `FontSizeProvider` to calculate appropriate font sizes for the specified font name,
+    /// overriding the environment's configured font names. Use this when you need a specific font that differs
+    /// from the environment defaults.
+    ///
+    /// - Parameters:
+    ///   - style: The text style to use for size calculation (e.g., `.headline`, `.body`, `.caption`). Defaults to `.body`.
+    ///   - fontName: The name of the font to use (e.g., "Helvetica-Bold", "CustomFont"). This overrides the environment's font configuration.
+    ///   - textColor: The color to apply to the text. If `nil`, uses the environment's `FontConfiguration.textColor`. Defaults to `nil`.
+    ///   - layout: The text layout strategy (unlimited, multiline, or single-line auto-sizing). If `nil`, uses the environment's `FontConfiguration.textLayout`. Defaults to `nil`.
+    /// - Returns: A modified view with the custom font, color, and layout applied.
     func withFont(_ style: Font.TextStyle = .body, fontName: String, textColor: Color? = nil, layout: NnTextLayout? = nil) -> some View {
         modifier(
             CustomFontViewModifier(

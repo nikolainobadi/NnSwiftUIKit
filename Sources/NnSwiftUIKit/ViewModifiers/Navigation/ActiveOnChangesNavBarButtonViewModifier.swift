@@ -16,7 +16,7 @@ struct ActiveOnChangesNavBarButtonViewModifier<Item: Equatable>: ViewModifier {
     let fontStyle: Font.TextStyle
     let textColor: Color?
     let accessibilityId: String?
-    let placement: ToolbarItemPlacement
+    let placement: ToolbarItemPlacement?
     let buttonContent: NavBarButtonContent
     let action: () async throws -> Void
 
@@ -60,7 +60,7 @@ public extension View {
         fontStyle: Font.TextStyle = .body,
         textColor: Color? = nil,
         accessibilityId: String? = nil,
-        placement: ToolbarItemPlacement = .topBarTrailing,
+        placement: ToolbarItemPlacement? = nil,
         buttonContent: NavBarButtonContent,
         action: @escaping () async throws -> Void
     ) -> some View {
