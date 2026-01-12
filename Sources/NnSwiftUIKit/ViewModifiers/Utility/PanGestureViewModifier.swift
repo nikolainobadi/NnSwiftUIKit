@@ -53,7 +53,7 @@ public enum PanGestureSwipeDirection {
 
 
 // MARK: - Custom Gesture
-fileprivate struct CustomGesture: UIViewRepresentable {
+private struct CustomGesture: UIViewRepresentable {
     /// A unique identifier for the gesture.
     private let gestureId = UUID().uuidString
     

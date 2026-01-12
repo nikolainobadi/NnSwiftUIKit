@@ -41,34 +41,83 @@ public extension FontSizeProvider {
 /// This provider calculates font sizes as a percentage of the screen height,
 /// providing consistent scaling across different device sizes.
 public struct DefaultFontSizeProvider: FontSizeProvider {
-    public init() {}
+    public let useLegacyScaling: Bool
+
+    public init(useLegacyScaling: Bool = false) {
+        self.useLegacyScaling = useLegacyScaling
+    }
 
     public func makeFontSize(_ style: Font.TextStyle, screenSize: CGSize) -> CGFloat {
+        #if os(watchOS)
+        switch style {
+        case .largeTitle:
+            return 28
+        case .title:
+            return 24
+        case .title2:
+            return 22
+        case .title3:
+            return 20
+        case .headline:
+            return 18
+        case .subheadline:
+            return 16
+        case .body:
+            return 15
+        case .callout:
+            return 14
+        case .footnote:
+            return 13
+        case .caption:
+            return 12
+        case .caption2:
+            return 11
+        default:
+            return 15
+        }
+        #endif
+
         let percent: CGFloat
 
         switch style {
         case .largeTitle:
-            percent = 7
+            percent = 6.8
         case .title:
-            percent = 6
+            percent = 5.8
         case .title2:
-            percent = 4.8
+            percent = 4.7
         case .title3:
-            percent = 4
+            percent = 4.1
         case .headline:
-            percent = 3.5
+            percent = 3.6
         case .subheadline:
-            percent = 3
+            percent = 3.1
         case .body:
-            percent = 2.5
+            percent = 2.6
+        case .callout:
+            percent = 2.35
+        case .footnote:
+            percent = 2.05
         case .caption:
-            percent = 2
+            percent = 1.85
         case .caption2:
-            percent = 1.8
+            percent = 1.65
         default:
-            return 8
+            percent = 2.6
         }
 
-        return screenSize.height * (percent * 0.01)
+        let base: CGFloat
+
+        #if os(macOS)
+        base = 17
+        #else
+        if useLegacyScaling {
+            base = screenSize.height
+        } else {
+            base = max(screenSize.width, screenSize.height)
+        }
+        #endif
+
+        return base * (percent * 0.01)
     }
 }

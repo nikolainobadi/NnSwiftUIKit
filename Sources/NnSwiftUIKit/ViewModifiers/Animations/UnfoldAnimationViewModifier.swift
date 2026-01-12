@@ -9,15 +9,28 @@ import SwiftUI
 
 struct UnfoldAnimationViewModifier: ViewModifier {
     let isExpanded: Bool
-    let anchor: UnitPoint
+    let behavior: UnfoldLayoutBehavior
     let animation: Animation
-    
+
     func body(content: Content) -> some View {
-        content
-            .opacity(isExpanded ? 1 : 0)
-            .scaleEffect(y: isExpanded ? 1 : 0, anchor: anchor)
-            .clipped()
-            .animation(animation, value: isExpanded)
+        Group {
+            switch behavior {
+            case .occupiesSpace:
+                content
+                    .mask(
+                        Rectangle()
+                            .scaleEffect(y: isExpanded ? 1 : 0, anchor: .top)
+                    )
+                    .opacity(isExpanded ? 1 : 0)
+
+            case .removesSpace:
+                content
+                    .frame(maxHeight: isExpanded ? .infinity : 0, alignment: .top)
+                    .opacity(isExpanded ? 1 : 0)
+                    .clipped()
+            }
+        }
+        .animation(animation, value: isExpanded)
     }
 }
 
@@ -29,11 +42,28 @@ public extension View {
     ///
     /// - Parameters:
     ///   - isExpanded: A Boolean value that determines whether the view is expanded (`true`) or collapsed (`false`).
-    ///   - anchor: The point from which the view unfolds or collapses. Defaults to `.top`.
+    ///   - behavior: The layout behavior of the unfolding view. Defaults to `.removesSpace`.
     ///   - animation: The animation to use when the expansion state changes. Defaults to `.easeInOut`.
     ///
     /// - Returns: A view that unfolds or collapses based on the provided parameters.
-    func unfold(when isExpanded: Bool, anchor: UnitPoint = .top, animation: Animation = .easeInOut) -> some View {
-        modifier(UnfoldAnimationViewModifier(isExpanded: isExpanded, anchor: anchor, animation: animation))
+    func unfold(
+        when isExpanded: Bool,
+        behavior: UnfoldLayoutBehavior = .removesSpace,
+        animation: Animation = .easeInOut
+    ) -> some View {
+        modifier(
+            UnfoldAnimationViewModifier(
+                isExpanded: isExpanded,
+                behavior: behavior,
+                animation: animation
+            )
+        )
     }
+}
+
+
+// MARK: - Dependencies
+public enum UnfoldLayoutBehavior {
+    case occupiesSpace
+    case removesSpace
 }

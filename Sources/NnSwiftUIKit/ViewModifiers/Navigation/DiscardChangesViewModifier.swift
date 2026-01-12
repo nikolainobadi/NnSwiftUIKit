@@ -5,23 +5,18 @@
 //  Created by Nikolai Nobadi on 7/14/24.
 //
 
-#if canImport(UIKit)
+#if os(iOS)
 import SwiftUI
 
 struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
     @State private var originalItem: Item
-    @State private var showingConfirmation = false
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.navBarTextColor) private var environmentTextColor
 
-    let title: String
-    let message: String
+    let title: String?
+    let message: String?
     let itemToModify: Item
-    let placement: ToolbarItemPlacement
-    let dismissType: NavBarDismissType
-    let accessibilityId: String?
-    let buttonTextColor: Color?
-    let dismissButtonInfo: AccessibleItemInfo
+    let placement: ToolbarItemPlacement?
+    let dismissType: NavBarDismissType?
+    let dismissButtonInfo: AccessibleItemInfo?
 
     init(
         _ title: String?,
@@ -29,61 +24,51 @@ struct DiscardChangesViewModifier<Item: Equatable>: ViewModifier {
         message: String?,
         placement: ToolbarItemPlacement?,
         dismissType: NavBarDismissType?,
-        buttonTextColor: Color?,
-        accessibilityId: String?,
         dismissButtonInfo: AccessibleItemInfo?
     ) {
-        self.title = title ?? "Changes Detected"
-        self.message = message ?? "You've made changes to this item. Would you like to discard the changes?"
+        self.title = title
+        self.message = message
         self.itemToModify = itemToModify
-        self.placement = placement ?? .topBarLeading
-        self.dismissType = dismissType ?? .cancel
-        self.buttonTextColor = buttonTextColor
-        self.accessibilityId = accessibilityId
-        self.dismissButtonInfo = dismissButtonInfo ?? .init(prompt: "Discard Changes")
+        self.placement = placement
+        self.dismissType = dismissType
+        self.dismissButtonInfo = dismissButtonInfo
         self._originalItem = .init(wrappedValue: itemToModify)
     }
 
     func body(content: Content) -> some View {
         content
-            .withNavBarDismissButton(placement: placement, textColor: buttonTextColor ?? environmentTextColor, dismissType: dismissType, accessibilityId: accessibilityId) {
-                if itemToModify != originalItem {
-                    showingConfirmation = true
-                } else {
-                    dismiss()
-                }
-            }
-            .confirmationDialog("Changes Detected", isPresented: $showingConfirmation) {
-                Button(dismissButtonInfo.prompt, role: .destructive) {
-                    dismiss()
-                }
-                .setOptionalAccessibiltyId(dismissButtonInfo.accessibilityId)
-            } message: {
-                Text(message)
-            }
+            .withDiscardChangesNavBarDismissButton(
+                title,
+                message: message,
+                placement: placement,
+                didMakeChanges: itemToModify != originalItem,
+                dismissType: dismissType,
+                dismissButtonInfo: dismissButtonInfo
+            )
     }
 }
 
 public extension View {
-    /// Adds a navigation bar dismiss button with a confirmation dialog for discarding changes.
+    /// Adds a navigation bar dismiss button with automatic change detection and confirmation dialog.
+    ///
+    /// **iOS only.** This is a convenience wrapper that automatically tracks changes by comparing
+    /// the current item to its original state. For manual change tracking, use the overload that
+    /// accepts a `didMakeChanges: Bool` parameter instead.
+    ///
     /// - Parameters:
-    ///   - title: The title of the confirmation dialog.
-    ///   - message: The message displayed in the confirmation dialog.
-    ///   - itemToModify: The item being modified, which is compared to its original state.
-    ///   - placement: The placement of the dismiss button in the navigation bar.
-    ///   - dismissType: The type of dismiss button (e.g., "xmark", "cancel", "done").
-    ///   - buttonTextColor: The color of the button text. If `nil`, uses the environment's `navBarTextColor` value. Defaults to `nil`.
-    ///   - accessibilityId: The accessibility identifier for the dismiss button.
-    ///   - dismissButtonInfo: Accessibility information for the dismiss button.
-    /// - Returns: A modified view with a dismiss button that prompts a confirmation dialog if there are changes.
+    ///   - title: The title of the confirmation dialog. Defaults to "Changes Detected".
+    ///   - message: The message displayed in the confirmation dialog. Defaults to "You've made changes to this item. Would you like to discard the changes?".
+    ///   - itemToModify: The item being modified. Changes are detected automatically by comparing to its initial value using `Equatable`.
+    ///   - placement: The placement of the dismiss button in the navigation bar. Defaults to `.topBarLeading`.
+    ///   - dismissType: The type of dismiss button (e.g., `.cancel`, `.xmark`, `.done`). Defaults to `.cancel`.
+    ///   - dismissButtonInfo: Accessibility information for the "Discard Changes" button in the confirmation dialog. Defaults to `.init(prompt: "Discard Changes")`.
+    /// - Returns: A modified view with a dismiss button that prompts a confirmation dialog when changes are detected.
     func withDiscardChangesNavBarDismissButton<Item: Equatable>(
         _ title: String? = nil,
         message: String? = nil,
         itemToModify: Item,
         placement: ToolbarItemPlacement? = nil,
         dismissType: NavBarDismissType? = nil,
-        buttonTextColor: Color? = nil,
-        accessibilityId: String? = nil,
         dismissButtonInfo: AccessibleItemInfo? = nil
     ) -> some View {
         modifier(
@@ -93,8 +78,6 @@ public extension View {
                 message: message,
                 placement: placement,
                 dismissType: dismissType,
-                buttonTextColor: buttonTextColor,
-                accessibilityId: accessibilityId,
                 dismissButtonInfo: dismissButtonInfo
             )
         )
