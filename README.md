@@ -2,12 +2,10 @@
 # NnSwiftUIKit
 
 ![Swift](https://badgen.net/badge/swift/6.0%2B/purple)
-![Platform](https://badgen.net/badge/platform/iOS%2017+%20%7C%20macOS%2013+/blue)
+![Platform](https://badgen.net/badge/platform/iOS%2017+%20%7C%20macOS%2013+%20%7C%20watchOS%2010+/blue)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI components, view modifiers, and utilities for iOS (17+) and macOS (13+). The package focuses on error handling, async operations, custom alerts, font customization, and UI utilities designed to enhance your SwiftUI development experience.
-
-Included in the Reference folder is a commented out file (NnSwiftUIKit+ViewExtensions) that contains references to all NnSwiftUIKit view modifiers without the 'nn' prefix. In my own code, I always prefer to wrap third-party libraries in my own local code. That file is a convenient way to isolate NnSwiftUIKit to a single import.
+NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI components, view modifiers, and utilities for iOS (17+), macOS (13+), and watchOS (10+). The package focuses on error handling, async operations, custom alerts, font customization, and UI utilities designed to enhance your SwiftUI development experience.
 
 ## Table of Contents
 
@@ -25,21 +23,24 @@ Included in the Reference folder is a commented out file (NnSwiftUIKit+ViewExten
 ## Features
 - **Error Handling & Loading States**:
   - **NnErrorHandlingContext**: A centralized context managing both error presentation and loading states.
-  - **AsyncTryButton**: A button that seamlessly handles async throwing actions with automatic error handling and loading indicators.
+  - **AsyncTryButton**: A button that seamlessly handles async throwing actions with automatic error handling, loading indicators, and optional haptic feedback.
   - **NnErrorAlert**: A simple alert structure that helps you present errors consistently.
   - **NnDisplayableError Protocol**: Conform errors to this protocol to provide custom titles and messages for alerts.
   - **Integrated Loading UI**: Automatic loading spinner with dimmed background during async operations.
   - **Custom Alerts**: Easily create custom alert dialogues with `AsyncConfirmationDialogueViewModifier`, `FieldAlertViewModifier`, and more.
 
 - **Font Customization System**:
-  - **FontSizeProvider Protocol**: Define custom font sizing logic based on screen dimensions.
+  - **NnTextLayout Enum**: Unified text layout control (unlimited, multiline with auto-sizing, or single-line auto-size).
+  - **FontSizeProvider Protocol**: Define custom font sizing logic based on screen dimensions, with watchOS-specific optimizations.
   - **FontConfiguration**: Set app-wide defaults for text colors and font names via environment.
   - **Flexible Font Modifiers**: Apply fonts with style-based or explicit sizing, with per-use overrides.
-  - **Auto-sizing Support**: Automatic text scaling with configurable line limits and minimum scale factors.
+  - **Auto-sizing Support**: Automatic text scaling with configurable line limits and minimum scale factors via `NnTextLayout`.
 
 - **Custom View Modifiers**:
   - **Async and Error Handling**: Handle on-appear actions, form submissions, and URL openings asynchronously with built-in error management.
-  - **Styling Modifiers**: Modify your views with custom fonts, gradients, and conditional layouts.
+  - **Styling Modifiers**: Modify your views with custom fonts, gradients, conditional layouts, and consistent disabled button states.
+  - **List Utilities**: Empty state messages for lists, swipe-to-delete actions, and interactive row items.
+  - **Navigation Enhancements**: Custom view navigation bar buttons, discard changes confirmations, and flexible toolbar button placement.
 
 - **Utility Extensions**:
   - **String+Extensions**: String utilities like trimming extra whitespace and adding line breaks.
@@ -57,7 +58,7 @@ Included in the Reference folder is a commented out file (NnSwiftUIKit+ViewExten
 To integrate `NnSwiftUIKit` into your project, add it to your dependencies in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "3.0.0")
+.package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "4.0.0")
 ```
 
 ## Usage
@@ -92,7 +93,7 @@ struct YourApp: App {
 }
 ```
 
-Now use `AsyncTryButton` anywhere in your view hierarchy to perform async throwing actions. Errors are automatically caught and displayed, a loading indicator appears during execution, and you can optionally trigger haptics when the button is tapped:
+Now use `AsyncTryButton` anywhere in your view hierarchy to perform async throwing actions. Errors are automatically caught and displayed, a loading indicator appears during execution, and you can optionally trigger haptic feedback when the button is tapped:
 
 ```swift
 AsyncTryButton(action: {
@@ -110,12 +111,20 @@ AsyncTryButton(
     Text("Delete")
 }
 
-// Trigger haptics before the async action begins
+// Trigger haptic feedback before the async action begins
 AsyncTryButton(
     action: { try await archiveItem() },
-    hapticFeedback: .impact(style: .medium)
+    hapticFeedback: .impact(style: .medium)  // Available: .selection, .impact(style:), .notification(type:)
 ) {
     Text("Archive")
+}
+
+// Using notification-style haptics for success/error feedback
+AsyncTryButton(
+    action: { try await saveImportantData() },
+    hapticFeedback: .notification(type: .success)
+) {
+    Text("Save")
 }
 ```
 
@@ -169,11 +178,27 @@ MyView()
     )
 ```
 
-#### Custom Font Application
-Apply custom fonts with flexible sizing and appearance options:
+#### Disable Button Styling
+Apply consistent disabled state styling to buttons:
 
 ```swift
-// Basic usage with style-based sizing
+Button("Submit") {
+    submitForm()
+}
+.disableButton(isDisabled: !isFormValid, disabledOpacity: 0.5)
+
+// With custom opacity
+Button("Continue") {
+    proceed()
+}
+.disableButton(isDisabled: !canProceed, disabledOpacity: 0.3)
+```
+
+#### Custom Font Application
+Apply custom fonts with flexible sizing and appearance options using the unified `NnTextLayout` enum:
+
+```swift
+// Basic usage with style-based sizing (unlimited lines by default)
 Text("Hello")
     .withFont(.headline, textColor: .blue)
 
@@ -184,13 +209,21 @@ Text("Title")
 Text("Subtitle")
     .withFont(.caption, isDetail: true)  // Uses detail font
 
-// With auto-sizing for multiple lines
+// Multi-line text with auto-sizing using NnTextLayout
 Text("Long text that might wrap")
-    .withFont(.body, autoSizeLineLimit: 2)
+    .withFont(.body, layout: .multiline(2))  // 2 lines with auto-scaling
+
+// Single line with auto-sizing
+Text("This will shrink to fit")
+    .withFont(.headline, layout: .singleLineAutoSize)
+
+// Unlimited lines (default behavior)
+Text("This can be as many lines as needed")
+    .withFont(.body, layout: .unlimited)
 
 // Explicit font and size
 Text("Custom")
-    .setCustomFont(fontName: "Helvetica", size: 18)
+    .setCustomFont(fontName: "Helvetica", size: 18, layout: .multiline(3))
 
 // Set app-wide defaults via environment
 ContentView()
@@ -266,12 +299,35 @@ MyView()
             try await addNewItem()
         }
     )
+
+// Add custom views to navigation bar (e.g., complex button layouts, badges)
+MyView()
+    .withCustomViewNavBarButton(placement: .topBarTrailing) {
+        HStack {
+            Image(systemName: "bell")
+            if hasNotifications {
+                Circle()
+                    .fill(.red)
+                    .frame(width: 8, height: 8)
+            }
+        }
+    } action: {
+        try await openNotifications()
+    }
 ```
 
 ### List & Row Utilities
-Create interactive list rows with tappable actions and swipe-to-delete:
+Create interactive list rows with tappable actions, swipe-to-delete, and empty state handling:
 
 ```swift
+// Display empty state message when list is empty
+List {
+    ForEach(items) { item in
+        ItemRow(item: item)
+    }
+}
+.emptyListMessage("No items found", isEmpty: items.isEmpty)
+
 // Basic row item with chevron
 Text("Settings")
     .asRowItem(

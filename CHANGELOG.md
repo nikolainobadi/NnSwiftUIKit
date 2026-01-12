@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-01-11
+### Added
+- watchOS 10 platform support
+- NnTextLayout enum for unified text layout control (unlimited, multiline, singleLineAutoSize)
+- EmptyListViewModifier for displaying empty state messages in lists
+- DisableButtonViewModifier for consistent button disabled state styling
+- CustomViewNavBarButtonViewModifier for adding custom views to navigation bar
+- Haptic feedback support to AsyncTryButton (selection, impact, notification types)
+- Legacy scaling option to DefaultFontSizeProvider for backwards compatibility
+- watchOS-specific font size calculations in DefaultFontSizeProvider
+
+### Changed
+- Simplified CustomFontModifier API using NnTextLayout enum instead of separate lineLimit and minimumScaleFactor parameters
+- Updated AsyncTryButton initializers to support optional haptic feedback
+- Refactored UnfoldAnimationViewModifier to use NnTextLayout for layout behavior
+- Enhanced DefaultFontSizeProvider with platform-specific font sizing for watchOS and macOS
+- Improved DiscardChangesViewModifier implementation
+
+### Removed
+- NavStack view (deprecated in favor of SwiftUI's native NavigationStack)
+- Showcase feature system (Highlight model, ShowcaseParentViewModifier, ShowcasedViewModifier, ReverseMaskViewModifier)
+- Deprecated font modifier methods (setCustomFont variants with separate lineLimit parameters)
+
+### Fixed
+- Font size calculation accuracy in DefaultFontSizeProvider
+
 ## [3.1.0] - 2025-11-23
 ### Added
 - ToggleCheckboxStyle for custom checkbox-styled toggles with configurable tint and images
