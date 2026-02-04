@@ -146,6 +146,7 @@ public struct SliderStepperRange: Sendable {
 
 // MARK: - Preview
 #if DEBUG
+@available(iOS 18.0, macOS 15.0, watchOS 11.0, *)
 #Preview {
     @Previewable @State var funPoints = 25
 
