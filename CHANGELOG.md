@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-02-05
+### Added
+- SliderStepperView for combining a Slider and Stepper bound to an integer value with customizable range, spacing, alignment, and labels
+- SliderStepperRange configuration type for defining min/max values and step sizes
+
+### Fixed
+- Gate CustomViewNavBarButtonViewModifier to iOS only to prevent macOS compilation issues
+
 ## [4.0.1] - 2026-01-20
 ### Fixed
 - Removed unnecessary `isActive` parameter in `CustomDiscardChangesViewModifier`.
