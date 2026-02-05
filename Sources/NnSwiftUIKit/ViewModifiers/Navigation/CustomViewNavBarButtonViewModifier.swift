@@ -5,14 +5,15 @@
 //  Created by Nikolai Nobadi on 1/9/26.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct CustomViewNavBarButtonViewModifier<V: View>: ViewModifier {
     @ViewBuilder let customView: () -> V
-    
+
     let placement: ToolbarItemPlacement
     let isActive: Bool
-    
+
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -37,3 +38,4 @@ public extension View {
         modifier(CustomViewNavBarButtonViewModifier(customView: customView, placement: placement, isActive: isActive))
     }
 }
+#endif
