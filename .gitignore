@@ -30,3 +30,4 @@ xcshareddata
 *.xcscmblueprint
 node_modules/
 serviceKey/
+Plans/

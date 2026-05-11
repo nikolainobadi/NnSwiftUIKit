@@ -24,6 +24,7 @@ struct ShowingAlertViewModifier: ViewModifier {
                 Button(effectiveButtonInfo.prompt, role: .cancel) {
                     finished?()
                 }
+                .keyboardShortcut(.defaultAction)
                 .setOptionalAccessibiltyId(effectiveButtonInfo.accessibilityId)
             } message: {
                 Text(message)

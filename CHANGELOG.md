@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2.0] - 2026-05-11
+### Added
+- TabItemViewModifier and NnTabItem protocol for consistent tab configuration via `.asTabItem(_:)` (applies Label, tag, and optional accessibility identifier)
+- ReorderableTabViewModifier with `.reorderableTab(id:draggingTabId:reorderAnimation:onReorder:)` for drag-and-drop tab reordering on macOS, including live reorder during drag
+- TabEndDropZone view providing a trailing drop target with insertion-cursor indicator for dropping tabs into the last position on macOS
+- AsyncTryTapGestureViewModifier with `.asyncTapGesture(count:hideLoadingIndicator:action:)` for async, error-handled tap gestures routed through NnErrorHandlingContext
+
+### Fixed
+- Confirm/destructive buttons in AsyncAlert, ShowingAlert, and NnErrorHandlingContext alerts now use `.defaultAction` keyboard shortcut so Return triggers them
+
 ## [4.1.0] - 2026-02-05
 ### Added
 - SliderStepperView for combining a Slider and Stepper bound to an integer value with customizable range, spacing, alignment, and labels
