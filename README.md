@@ -16,6 +16,7 @@ NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI componen
   - [Custom Alerts](#custom-alerts)
   - [Custom View Modifiers](#custom-view-modifiers)
   - [Navigation & Toolbar](#navigation--toolbar)
+  - [Tab Bar Utilities](#tab-bar-utilities)
   - [List & Row Utilities](#list--row-utilities)
   - [Async Task Helpers](#async-task-helpers)
 - [License](#license)
@@ -37,10 +38,14 @@ NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI componen
   - **Auto-sizing Support**: Automatic text scaling with configurable line limits and minimum scale factors via `NnTextLayout`.
 
 - **Custom View Modifiers**:
-  - **Async and Error Handling**: Handle on-appear actions, form submissions, and URL openings asynchronously with built-in error management.
+  - **Async and Error Handling**: Handle on-appear actions, form submissions, tap gestures, and URL openings asynchronously with built-in error management.
   - **Styling Modifiers**: Modify your views with custom fonts, gradients, conditional layouts, and consistent disabled button states.
   - **List Utilities**: Empty state messages for lists, swipe-to-delete actions, and interactive row items.
   - **Navigation Enhancements**: Custom view navigation bar buttons, discard changes confirmations, and flexible toolbar button placement.
+
+- **Tab Bar Utilities**:
+  - **NnTabItem Protocol**: Conform any enum or struct to describe a tab once and apply it consistently via `.asTabItem(_:)`.
+  - **Drag-and-Drop Tab Reordering (macOS)**: Use `.reorderableTab(...)` and `TabEndDropZone` together for animated, drag-driven tab reordering with a trailing drop target.
 
 - **Utility Extensions**:
   - **String+Extensions**: String utilities like trimming extra whitespace and adding line breaks.
@@ -316,6 +321,71 @@ MyView()
     }
 ```
 
+### Tab Bar Utilities
+Describe tabs once with `NnTabItem`, then apply them to a `TabView` with `.asTabItem(_:)`:
+
+```swift
+enum AppTab: Int, NnTabItem {
+    case home, library, settings
+
+    var name: String {
+        switch self {
+        case .home: return "Home"
+        case .library: return "Library"
+        case .settings: return "Settings"
+        }
+    }
+
+    var imageName: String {
+        switch self {
+        case .home: return "house"
+        case .library: return "books.vertical"
+        case .settings: return "gearshape"
+        }
+    }
+
+    var tag: Int { rawValue }
+}
+
+struct RootView: View {
+    @State private var selected: Int = 0
+
+    var body: some View {
+        TabView(selection: $selected) {
+            HomeView().asTabItem(AppTab.home)
+            LibraryView().asTabItem(AppTab.library)
+            SettingsView().asTabItem(AppTab.settings)
+        }
+    }
+}
+```
+
+On macOS, add drag-and-drop reordering to a custom tab bar using `.reorderableTab(...)` per row plus a `TabEndDropZone` at the trailing edge:
+
+```swift
+#if os(macOS)
+struct CustomTabBar: View {
+    @Binding var tabs: [TerminalTab]
+    @State private var draggingTabId: UUID?
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(tabs) { tab in
+                TabButton(tab: tab)
+                    .reorderableTab(id: tab.id, draggingTabId: $draggingTabId) { draggedId, targetId in
+                        reorder(draggedId: draggedId, targetId: targetId)
+                    }
+            }
+
+            TabEndDropZone { draggedId in
+                moveToEnd(draggedId: draggedId)
+            }
+        }
+    }
+}
+#endif
+```
+
 ### List & Row Utilities
 Create interactive list rows with tappable actions, swipe-to-delete, and empty state handling:
 
@@ -405,6 +475,18 @@ Form {
 }
 .asyncTryOnSubmit {
     try await submitForm()
+}
+
+// Async tap gesture with error handling — useful for whole-row taps
+// where wrapping the row in a Button would conflict with nested buttons.
+HStack {
+    Text("Open Item")
+    Spacer()
+    Button("More") { /* ... */ }
+}
+.contentShape(.rect)
+.asyncTapGesture(hideLoadingIndicator: true) {
+    try await openItem()
 }
 ```
 
