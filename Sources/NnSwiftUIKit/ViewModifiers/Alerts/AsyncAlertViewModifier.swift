@@ -23,6 +23,7 @@ struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {
             .alert(message, isPresented: $isPresented) {
                 alertView()
                 AsyncTryButton(buttonInfo.prompt, role: .destructive, hideLoadingIndicator: hideLoadingIndicator, action: action)
+                    .keyboardShortcut(.defaultAction)
                     .setOptionalAccessibiltyId(buttonInfo.accessibilityId)
                 
                 Button(cancelInfo.prompt, role: .cancel, action: cancelAction)

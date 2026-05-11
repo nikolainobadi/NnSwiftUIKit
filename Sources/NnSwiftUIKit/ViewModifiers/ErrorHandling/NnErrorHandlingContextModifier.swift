@@ -19,6 +19,7 @@ struct NnErrorHandlingContextModifier: ViewModifier {
                 .environmentObject(context)
                 .alert(context.alertTitle, isPresented: $context.showingAlert) {
                     Button(alertButtonText, role: .cancel) { }
+                        .keyboardShortcut(.defaultAction)
                 } message: {
                     Text(context.alertMessage)
                 }
