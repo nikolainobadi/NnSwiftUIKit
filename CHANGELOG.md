@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2.1] - 2026-05-24
+### Fixed
+- Gate the `.keyboardShortcut(.defaultAction)` on alert buttons behind `#if !os(watchOS)` in AsyncAlert, ShowingAlert, and NnErrorHandlingContext modifiers, since `keyboardShortcut` is unavailable on watchOS and broke watchOS compilation after 4.2.0
+
 ## [4.2.0] - 2026-05-11
 ### Added
 - TabItemViewModifier and NnTabItem protocol for consistent tab configuration via `.asTabItem(_:)` (applies Label, tag, and optional accessibility identifier)
