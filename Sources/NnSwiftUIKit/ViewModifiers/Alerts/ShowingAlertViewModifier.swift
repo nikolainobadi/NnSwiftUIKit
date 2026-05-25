@@ -24,7 +24,9 @@ struct ShowingAlertViewModifier: ViewModifier {
                 Button(effectiveButtonInfo.prompt, role: .cancel) {
                     finished?()
                 }
+                #if !os(watchOS)
                 .keyboardShortcut(.defaultAction)
+                #endif
                 .setOptionalAccessibiltyId(effectiveButtonInfo.accessibilityId)
             } message: {
                 Text(message)

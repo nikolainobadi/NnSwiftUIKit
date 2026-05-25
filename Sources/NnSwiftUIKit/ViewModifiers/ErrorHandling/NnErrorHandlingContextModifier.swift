@@ -19,7 +19,9 @@ struct NnErrorHandlingContextModifier: ViewModifier {
                 .environmentObject(context)
                 .alert(context.alertTitle, isPresented: $context.showingAlert) {
                     Button(alertButtonText, role: .cancel) { }
+                        #if !os(watchOS)
                         .keyboardShortcut(.defaultAction)
+                        #endif
                 } message: {
                     Text(context.alertMessage)
                 }
