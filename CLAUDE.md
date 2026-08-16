@@ -184,3 +184,66 @@ Many components use `AccessibleItemInfo` for consistent accessibility:
 - `prompt`: User-facing text
 - `accessibilityId`: Optional identifier for UI testing
 - Helper: `.setOptionalAccessibiltyId(_:)` applies ID only if non-nil
+
+## The NnSwiftUIKit Skill
+
+The published API reference skill lives in this repo, at `Skills/NnSwiftUIKit/`. It used to live in
+`~/NobadiScripts/NnSkills/` — that path is dead, do not look for it there.
+
+It sits here so that **the API and its documentation change in the same PR.** When they lived in
+separate repos they drifted apart for months at a time: the skill went on describing an API that had
+since been renamed, and nothing anywhere reported it.
+
+### The rule
+
+**A PR that changes the public API must also touch `Skills/`.** `.github/workflows/skill-docs.yml`
+enforces it: it counts added/removed `public`/`open`/`package` declaration lines under
+`Sources/**/*.swift` and fails the PR if `Skills/` is untouched. Add the `skip-skill-check` label
+when the PR genuinely changes no documented behavior — a rename, a reformat, a file move.
+
+**The check has a real blind spot.** It only sees *declaration* lines. A behavior change inside a
+public function body is invisible to it — the 4.2.1 watchOS keyboard-shortcut guard scored `api: 0`
+and would have passed while making the skill wrong. Treat the check as a floor, not a guarantee: if
+a PR changes what a documented modifier *does*, update `Skills/` whether or not CI insists.
+
+### `plugin.json` deliberately has no `version`
+
+`Skills/NnSwiftUIKit/.claude-plugin/plugin.json` intentionally carries **no `version` field.** The
+marketplace installs this skill from a git source and keys its cache by commit sha, so a
+hand-typed version number is a second thing to remember and the exact stale-number problem this
+arrangement exists to remove. Do not reintroduce it. The pinned `ref` in the marketplace manifest is
+the real version marker, and that one is bumped automatically.
+
+## Releasing
+
+The skill is published through the **`nn-swift-skills`** marketplace
+(`nikolainobadi/nn-swift-skills`), whose entry uses a `git-subdir` source pinned to a **release
+tag** of this repo.
+
+Because it is pinned, **doc changes ship on release, not on merge.** Merging a correction to
+`Skills/` changes nothing for anyone reading the skill until the next tag. That surprises people —
+it is the intended trade (docs always match a shipped version), not a bug.
+
+`.github/workflows/skill-ref-bump.yml` handles the bump: on any tag push it rewrites the entry's
+`ref` in the marketplace manifest and opens a PR there. It can also be run manually with
+`gh workflow run skill-ref-bump.yml -f tag=<tag>`.
+
+**If that automation is ever removed, the bump becomes a manual cross-repo step**, and the failure
+mode is silent: the marketplace keeps serving the previously pinned release's documentation
+forever. Nothing errors and nothing warns — consumers simply read old docs.
+
+### The `MARKETPLACE_TOKEN` secret
+
+The bump workflow authenticates with the repo secret `MARKETPLACE_TOKEN` — a **fine-grained PAT
+named `nn-swift-skills-ref-bump`**, granting `contents:write` and `pull-requests:write` on
+`nikolainobadi/nn-swift-skills` and nothing else.
+
+- It is **shared across every package repo** publishing to `nn-swift-skills` (SwiftPickerKit,
+  NnArgumentParser, NnTestKit, this one). The grant is identical in each, so a per-repo token would
+  buy no isolation and cost another expiry to track.
+- **Expiry:** _record the expiry date here when the token is next rotated._ When it lapses, the bump
+  fails in **every** repo holding it — so a failed run reads as "rotate the shared token", not "this
+  repo's workflow is broken." Rotation means re-running `set-marketplace-token.sh` against every
+  package repo.
+- GitHub secrets are **write-only.** The value cannot be read back from a repo that already has it;
+  adding a new repo needs the saved token file.
