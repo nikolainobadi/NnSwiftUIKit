@@ -50,7 +50,7 @@ NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI componen
 - **Utility Extensions**:
   - **String+Extensions**: String utilities like trimming extra whitespace and adding line breaks.
   - **Date+Extensions**: Simplified date creation.
-  - **UIViewController+Extensions**: Retrieve the top-most view controller for presenting alerts.
+  - **UIAlertController+Extensions**: Present an alert controller on the main thread.
   - **UIApplication+Extensions**: Find the top-most view controller from the app's root.
 
 - **Gesture Handling**:
@@ -63,7 +63,7 @@ NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI componen
 To integrate `NnSwiftUIKit` into your project, add it to your dependencies in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "4.0.0")
+.package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "4.2.1")
 ```
 
 ## Usage
@@ -164,9 +164,9 @@ MyView()
 MyView()
     .asyncConfirmation(
         showingConfirmation: $isConfirmPresented,
+        message: "Are you sure you want to delete this?",
         role: .destructive,
         buttonInfo: AccessibleItemInfo(prompt: "Delete"),
-        message: "Are you sure you want to delete this?",
         action: {
             // Handle deletion
         }
@@ -184,19 +184,18 @@ MyView()
 ```
 
 #### Disable Button Styling
-Apply consistent disabled state styling to buttons:
+Apply consistent disabled state styling to buttons. The modifier disables interaction and drops opacity to 50%:
 
 ```swift
 Button("Submit") {
     submitForm()
 }
-.disableButton(isDisabled: !isFormValid, disabledOpacity: 0.5)
+.disableButton(!isFormValid)
 
-// With custom opacity
 Button("Continue") {
     proceed()
 }
-.disableButton(isDisabled: !canProceed, disabledOpacity: 0.3)
+.disableButton(!canProceed)
 ```
 
 #### Custom Font Application
@@ -214,21 +213,25 @@ Text("Title")
 Text("Subtitle")
     .withFont(.caption, isDetail: true)  // Uses detail font
 
-// Multi-line text with auto-sizing using NnTextLayout
+// Multi-line text using NnTextLayout
 Text("Long text that might wrap")
-    .withFont(.body, layout: .multiline(2))  // 2 lines with auto-scaling
+    .withFont(.body, layout: .multiLine(limit: 2))  // capped at 2 lines
 
-// Single line with auto-sizing
+// Single line that shrinks to fit
 Text("This will shrink to fit")
-    .withFont(.headline, layout: .singleLineAutoSize)
+    .withFont(.headline, layout: .singleLineAutoSize(minScale: 0.5))
+
+// .autoSize is shorthand for .singleLineAutoSize(minScale: 0.5)
+Text("This will shrink to fit")
+    .withFont(.headline, layout: .autoSize)
 
 // Unlimited lines (default behavior)
 Text("This can be as many lines as needed")
     .withFont(.body, layout: .unlimited)
 
-// Explicit font and size
+// Explicit font name, bypassing FontConfiguration's font names
 Text("Custom")
-    .setCustomFont(fontName: "Helvetica", size: 18, layout: .multiline(3))
+    .withFont(.body, fontName: "Helvetica", layout: .multiLine(limit: 3))
 
 // Set app-wide defaults via environment
 ContentView()
@@ -268,7 +271,7 @@ Add navigation bar buttons and handle dismissal with change detection:
 // Add a navigation bar button
 MyView()
     .withNavBarButton(
-        placement: .trailing,
+        placement: .topBarTrailing,
         buttonContent: .text("Save"),
         textColor: .blue,
         action: {
@@ -289,7 +292,7 @@ struct EditView: View {
             "Discard Changes?",
             message: "You have unsaved changes. Are you sure you want to discard them?",
             itemToModify: item,
-            placement: .leading,
+            placement: .topBarLeading,
             dismissType: .cancel
         )
     }
@@ -305,19 +308,22 @@ MyView()
         }
     )
 
-// Add custom views to navigation bar (e.g., complex button layouts, badges)
+// Add custom views to navigation bar (e.g., complex button layouts, badges).
+// The modifier places the view — supply your own button inside it if it should be tappable.
 MyView()
-    .withCustomViewNavBarButton(placement: .topBarTrailing) {
-        HStack {
-            Image(systemName: "bell")
-            if hasNotifications {
-                Circle()
-                    .fill(.red)
-                    .frame(width: 8, height: 8)
+    .withCustomNavBarButton(placement: .topBarTrailing) {
+        AsyncTryButton {
+            try await openNotifications()
+        } label: {
+            HStack {
+                Image(systemName: "bell")
+                if hasNotifications {
+                    Circle()
+                        .fill(.red)
+                        .frame(width: 8, height: 8)
+                }
             }
         }
-    } action: {
-        try await openNotifications()
     }
 ```
 
@@ -390,13 +396,18 @@ struct CustomTabBar: View {
 Create interactive list rows with tappable actions, swipe-to-delete, and empty state handling:
 
 ```swift
-// Display empty state message when list is empty
+// Display empty state view when list is empty
 List {
     ForEach(items) { item in
         ItemRow(item: item)
     }
 }
-.emptyListMessage("No items found", isEmpty: items.isEmpty)
+.withEmptyListView(
+    title: "No Items",
+    message: "No items found",
+    systemImage: "tray",   // optional, defaults to "tray"
+    listEmpty: items.isEmpty
+)
 
 // Basic row item with chevron
 Text("Settings")
@@ -463,17 +474,18 @@ MyView()
         try await refreshData()
     }
 
-// Async action on value change
+// Async action when an optional value becomes non-nil (iOS only).
+// The closure receives the unwrapped value; changes to nil produce no action.
 MyView()
-    .asyncOnChange(of: selectedCategory) {
-        try await loadItemsForCategory(selectedCategory)
+    .asyncOnChange(item: selectedCategory) { category in
+        try await loadItems(for: category)
     }
 
 // Async form submission
 Form {
     // ... form fields
 }
-.asyncTryOnSubmit {
+.asyncOnSubmit {
     try await submitForm()
 }
 
