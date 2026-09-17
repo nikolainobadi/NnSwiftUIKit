@@ -31,3 +31,4 @@ xcshareddata
 node_modules/
 serviceKey/
 Plans/
+.nnex/pending/
