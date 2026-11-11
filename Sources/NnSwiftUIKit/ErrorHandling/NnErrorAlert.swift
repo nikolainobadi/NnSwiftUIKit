@@ -1,10 +1,3 @@
-//
-//  NnErrorAlert.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/11/24.
-//
-
 import Foundation
 
 /// A struct representing an error alert with a title, message, and an optional dismiss action.

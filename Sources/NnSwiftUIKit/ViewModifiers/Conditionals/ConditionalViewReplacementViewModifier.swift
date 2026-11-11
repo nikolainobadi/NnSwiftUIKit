@@ -1,10 +1,3 @@
-//
-//  ConditionalViewReplacementViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 10/29/24.
-//
-
 import SwiftUI
 
 struct ConditionalViewReplacementViewModifier<Conditional: View>: ViewModifier {

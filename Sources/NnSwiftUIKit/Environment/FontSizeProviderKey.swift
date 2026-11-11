@@ -1,10 +1,3 @@
-//
-//  FontSizeProviderKey.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 10/19/25.
-//
-
 import SwiftUI
 
 struct FontSizeProviderKey: EnvironmentKey {

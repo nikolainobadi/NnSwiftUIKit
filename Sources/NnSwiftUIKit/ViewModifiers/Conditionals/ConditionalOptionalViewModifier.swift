@@ -1,10 +1,3 @@
-//
-//  ConditionalOptionalViewModifier.swift
-//  
-//
-//  Created by Nikolai Nobadi on 10/29/24.
-//
-
 import SwiftUI
 
 struct ConditionalOptionalViewModifier<Item, ConditionalView: View>: ViewModifier {

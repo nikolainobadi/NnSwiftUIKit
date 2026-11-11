@@ -1,10 +1,3 @@
-//
-//  TabItemViewModifier.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 5/10/26.
-//
-
 import SwiftUI
 
 struct TabItemViewModifier<Item: NnTabItem>: ViewModifier {

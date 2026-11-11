@@ -1,10 +1,3 @@
-//
-//  View+Extensions.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/10/24.
-//
-
 #if !os(WatchOS)
 import SwiftUI
 

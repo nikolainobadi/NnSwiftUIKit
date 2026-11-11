@@ -1,10 +1,3 @@
-//
-//  Date+Extensions.swift
-//  
-//
-//  Created by Nikolai Nobadi on 7/14/24.
-//
-
 import Foundation
 
 /// Extension for Date to provide additional utility methods.

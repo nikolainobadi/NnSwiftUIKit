@@ -1,10 +1,3 @@
-//
-//  ToggleCheckboxStyle.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 11/23/25.
-//
-
 import SwiftUI
 
 public struct ToggleCheckboxStyle: ToggleStyle {

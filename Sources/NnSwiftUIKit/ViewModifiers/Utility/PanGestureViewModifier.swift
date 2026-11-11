@@ -1,10 +1,3 @@
-//
-//  PanGestureViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 8/10/24.
-//
-
 #if os(iOS)
 import SwiftUI
 

@@ -1,10 +1,3 @@
-//
-//  AsyncTryOnSubmitViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 7/4/24.
-//
-
 import SwiftUI
 
 struct AsyncTryOnSubmitViewModifier: ViewModifier {

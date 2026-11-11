@@ -1,10 +1,3 @@
-//
-//  NnDisplayableError.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/11/24.
-//
-
 import Foundation
 
 /// A protocol that defines the properties of a displayable error.

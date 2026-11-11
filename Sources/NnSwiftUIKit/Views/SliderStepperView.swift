@@ -1,10 +1,3 @@
-//
-//  SliderStepperView.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 1/23/26.
-//
-
 import SwiftUI
 
 public struct SliderStepperView<SliderContent: View, StepperContent: View>: View {

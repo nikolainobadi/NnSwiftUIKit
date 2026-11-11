@@ -1,10 +1,3 @@
-//
-//  ItemSheetErrorHandlingViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/20/24.
-//
-
 import SwiftUI
 
 struct ItemSheetErrorHandlingViewModifier<Item: Identifiable, Sheet: View>: ViewModifier {

@@ -1,10 +1,3 @@
-//
-//  ConditionalBorderOverlayViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/10/24.
-//
-
 import SwiftUI
 
 struct ConditionalBorderOverlayViewModifier: ViewModifier {

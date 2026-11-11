@@ -1,10 +1,3 @@
-//
-//  DisableButtonViewModifier.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 1/9/26.
-//
-
 import SwiftUI
 
 struct DisableButtonViewModifier: ViewModifier {

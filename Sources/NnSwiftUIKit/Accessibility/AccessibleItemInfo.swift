@@ -1,10 +1,3 @@
-//
-//  AccessibleItemInfo.swift
-//
-//
-//  Created by Nikolai Nobadi on 8/7/24.
-//
-
 /// A struct representing accessibility information for an item.
 public struct AccessibleItemInfo: Sendable {
     public let prompt: String

@@ -1,10 +1,3 @@
-//
-//  FontConfigurationKey.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 10/19/25.
-//
-
 import SwiftUI
 
 struct FontConfigurationKey: EnvironmentKey {

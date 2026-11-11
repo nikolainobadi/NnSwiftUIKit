@@ -1,10 +1,3 @@
-//
-//  NnErrorHandlingContext.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 4/9/25.
-//
-
 import Foundation
 
 @MainActor

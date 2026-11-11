@@ -1,10 +1,3 @@
-//
-//  TabEndDropZone.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 5/10/26.
-//
-
 #if os(macOS)
 import SwiftUI
 import UniformTypeIdentifiers
