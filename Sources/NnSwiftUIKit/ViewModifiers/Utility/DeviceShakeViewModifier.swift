@@ -1,10 +1,3 @@
-//
-//  DeviceShakeViewModifier.swift
-//  
-//
-//  Created by Nikolai Nobadi on 7/3/24.
-//
-
 #if os(iOS)
 import SwiftUI
 

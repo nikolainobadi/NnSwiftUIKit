@@ -1,10 +1,3 @@
-//
-//  AsyncTryButton.swift
-//  
-//
-//  Created by Nikolai Nobadi on 1/11/24.
-//
-
 import SwiftUI
 
 /// A SwiftUI view that represents a button performing an asynchronous action with error handling.

@@ -1,10 +1,3 @@
-//
-//  ThrowingTaskViewModifier.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 5/11/25.
-//
-
 import SwiftUI
 
 struct ThrowingTaskViewModifier: ViewModifier {

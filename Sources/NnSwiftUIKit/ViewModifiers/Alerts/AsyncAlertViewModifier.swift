@@ -1,10 +1,3 @@
-//
-//  CustomAlertViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 7/4/24.
-//
-
 import SwiftUI
 
 struct AsyncAlertViewModifier<AlertView: View>: ViewModifier {

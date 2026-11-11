@@ -1,10 +1,3 @@
-//
-//  TappableRowViewModifier.swift
-//  
-//
-//  Created by Nikolai Nobadi on 1/11/24.
-//
-
 import SwiftUI
 
 struct TappableRowViewModifier: ViewModifier {

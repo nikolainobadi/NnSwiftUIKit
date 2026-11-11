@@ -1,10 +1,3 @@
-//
-//  RowItemTintKey.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 10/19/24.
-//
-
 import SwiftUI
 
 struct RowItemTintKey: EnvironmentKey {

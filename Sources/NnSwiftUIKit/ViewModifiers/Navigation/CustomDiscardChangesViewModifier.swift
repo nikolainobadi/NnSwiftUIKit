@@ -1,10 +1,3 @@
-//
-//  CustomDiscardChangesViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 11/29/24.
-//
-
 #if os(iOS)
 import SwiftUI
 

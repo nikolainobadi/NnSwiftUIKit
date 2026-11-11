@@ -1,10 +1,3 @@
-//
-//  BindedNavigationDestination.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 4/4/25.
-//
-
 import SwiftUI
 
 struct BindedNavigationDestination<Item: Identifiable & Hashable, Destination: View>: ViewModifier {

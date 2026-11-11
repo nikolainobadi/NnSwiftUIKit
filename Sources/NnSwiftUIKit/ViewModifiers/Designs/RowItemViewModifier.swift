@@ -1,10 +1,3 @@
-//
-//  RowItemViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/16/24.
-//
-
 import SwiftUI
 
 struct RowItemViewModifier: ViewModifier {

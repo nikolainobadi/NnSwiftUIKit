@@ -1,10 +1,3 @@
-//
-//  FontConfiguration.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 10/19/25.
-//
-
 import SwiftUI
 
 /// Configuration for default font appearance throughout the view hierarchy.

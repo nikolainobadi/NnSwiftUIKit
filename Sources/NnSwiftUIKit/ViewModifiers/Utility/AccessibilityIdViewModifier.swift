@@ -1,10 +1,3 @@
-//
-//  AccessibilityIdViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 6/27/24.
-//
-
 import SwiftUI
 
 struct AccessibilityIdViewModifier: ViewModifier {

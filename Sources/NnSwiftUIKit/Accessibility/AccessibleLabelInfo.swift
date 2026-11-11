@@ -1,10 +1,3 @@
-//
-//  AccessibleLabelInfo.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 4/9/25.
-//
-
 public struct AccessibleLabelInfo {
     public let text: String
     public let systemImage: String

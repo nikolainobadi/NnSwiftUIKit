@@ -1,10 +1,3 @@
-//
-//  OptionalStepper.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 5/15/25.
-//
-
 #if os(iOS)
 import SwiftUI
 

@@ -1,10 +1,3 @@
-//
-//  AsyncOnChangeOfOptionalViewModifier.swift
-//  
-//
-//  Created by Nikolai Nobadi on 1/21/24.
-//
-
 #if os(iOS)
 import SwiftUI
 

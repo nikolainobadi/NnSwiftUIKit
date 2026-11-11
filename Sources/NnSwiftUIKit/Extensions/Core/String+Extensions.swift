@@ -1,10 +1,3 @@
-//
-//  String+Extensions.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/10/24.
-//
-
 import Foundation
 
 /// Extension for String to provide additional utility methods.

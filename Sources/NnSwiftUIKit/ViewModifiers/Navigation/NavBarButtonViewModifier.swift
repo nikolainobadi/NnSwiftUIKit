@@ -1,10 +1,3 @@
-//
-//  NavBarButtonViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/10/24.
-//
-
 import SwiftUI
 
 struct NavBarButtonViewModifier: ViewModifier {

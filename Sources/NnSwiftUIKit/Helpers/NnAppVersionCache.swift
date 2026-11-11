@@ -1,10 +1,3 @@
-//
-//  NnAppVersionCache.swift
-//
-//
-//  Created by Nikolai Nobadi on 11/29/24.
-//
-
 import Foundation
 
 public enum NnAppVersionCache {

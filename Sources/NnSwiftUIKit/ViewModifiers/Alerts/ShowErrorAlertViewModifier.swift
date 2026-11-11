@@ -1,10 +1,3 @@
-//
-//  ShowErrorAlertViewModifier.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 4/27/25.
-//
-
 import SwiftUI
 
 struct ShowErrorAlertViewModifier: ViewModifier {

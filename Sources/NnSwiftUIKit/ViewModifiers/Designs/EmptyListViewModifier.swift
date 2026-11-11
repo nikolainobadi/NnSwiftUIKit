@@ -1,10 +1,3 @@
-//
-//  EmptyListViewModifier.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 1/5/26.
-//
-
 import SwiftUI
 
 struct EmptyListViewModifier: ViewModifier {

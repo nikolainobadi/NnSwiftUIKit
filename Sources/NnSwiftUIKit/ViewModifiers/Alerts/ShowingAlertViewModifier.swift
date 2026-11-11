@@ -1,10 +1,3 @@
-//
-//  ShowingAlertViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 6/29/24.
-//
-
 import SwiftUI
 
 struct ShowingAlertViewModifier: ViewModifier {

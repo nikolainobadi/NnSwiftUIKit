@@ -1,10 +1,3 @@
-//
-//  FontSizeProvider.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 10/19/25.
-//
-
 import SwiftUI
 
 /// A protocol that provides font sizing logic based on screen dimensions.

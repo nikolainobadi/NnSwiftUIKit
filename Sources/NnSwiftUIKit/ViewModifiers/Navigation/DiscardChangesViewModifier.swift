@@ -1,10 +1,3 @@
-//
-//  DiscardChangesViewModifier.swift
-//
-//
-//  Created by Nikolai Nobadi on 7/14/24.
-//
-
 #if os(iOS)
 import SwiftUI
 

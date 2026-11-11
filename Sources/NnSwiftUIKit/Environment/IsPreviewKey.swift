@@ -1,10 +1,3 @@
-//
-//  IsPreviewKey.swift
-//
-//
-//  Created by Nikolai Nobadi on 1/16/24.
-//
-
 import SwiftUI
 
 /// A key that indicates whether the current environment is in preview mode.

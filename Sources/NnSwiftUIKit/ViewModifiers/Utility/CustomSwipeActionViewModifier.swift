@@ -1,10 +1,3 @@
-//
-//  CustomSwipeActionViewModifier.swift
-//  
-//
-//  Created by Nikolai Nobadi on 7/14/24.
-//
-
 import SwiftUI
 
 struct CustomSwipeActionViewModifier: ViewModifier {

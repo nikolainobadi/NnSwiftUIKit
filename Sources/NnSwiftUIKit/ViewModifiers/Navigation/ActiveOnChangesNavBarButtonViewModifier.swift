@@ -1,10 +1,3 @@
-//
-//  ActiveOnChangesNavBarButtonViewModifier.swift
-//  NnSwiftUIKit
-//
-//  Created by Nikolai Nobadi on 4/4/25.
-//
-
 #if os(iOS)
 import SwiftUI
 
