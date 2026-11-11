@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2.3] - 2026-11-11
+
+No user-facing changes.
+
 ## [4.2.2] - 2026-08-16
 ### Changed
 - The API reference skill now lives in this repository at `Skills/NnSwiftUIKit/` and is published through the `nn-swift-skills` marketplace, so the public API and its documentation change in the same pull request. A CI check fails any pull request that changes the public API without updating `Skills/`

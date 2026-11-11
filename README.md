@@ -63,7 +63,7 @@ NnSwiftUIKit is a comprehensive Swift package offering reusable SwiftUI componen
 To integrate `NnSwiftUIKit` into your project, add it to your dependencies in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "4.2.1")
+.package(url: "https://github.com/nikolainobadi/NnSwiftUIKit.git", from: "4.2.3")
 ```
 
 ## Usage
