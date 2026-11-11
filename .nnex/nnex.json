@@ -1,0 +1,16 @@
+{
+  "targets" : [
+    {
+      "buildAndTestCommands" : [
+        "swift package clean",
+        "swift build"
+      ],
+      "name" : "NnSwiftUIKit",
+      "path" : ".",
+      "skills" : [
+        "Skills/NnSwiftUIKit"
+      ],
+      "targetType" : "library"
+    }
+  ]
+}
